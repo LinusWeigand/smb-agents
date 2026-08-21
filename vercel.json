@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "comment": "Client-side routing: every non-API path serves index.html so deep links like /pricing resolve instead of 404ing. The negative lookahead keeps /api/* on the serverless functions.",
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

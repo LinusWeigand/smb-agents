@@ -71,11 +71,12 @@ function LicenceOption({
 }
 
 export function PlanCards({
-  billing, tier, setTier,
+  billing, tier, setTier, onStartTrial,
 }: {
   billing: Billing;
   tier: Tier;
   setTier: (t: Tier) => void;
+  onStartTrial: (plan: string) => void;
 }) {
   return (
     <div className="relative z-10 flex w-full flex-1 flex-col items-center gap-4 min-[1060px]:flex-row min-[1060px]:items-stretch min-[1060px]:gap-0">
@@ -100,9 +101,11 @@ export function PlanCards({
           {TRIAL_FEATURES.map((f) => (
             <FeatureRow key={f.text} feature={f} />
           ))}
-          <a href="/sign-up" className="block">
-            <button className={CTA}>Start free trial</button>
-          </a>
+          {/* Opens the beta waitlist rather than navigating: sign-up is gated
+              while Orakis is in closed beta. */}
+          <button className={CTA} onClick={() => onStartTrial('Free Trial')}>
+            Start free trial
+          </button>
         </div>
       </div>
 

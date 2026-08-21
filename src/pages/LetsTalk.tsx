@@ -6,14 +6,13 @@ import { useToast } from '../components/ui/toast';
 import { cn } from '../lib/utils';
 import { useSeo } from '../lib/useSeo';
 import {
-  FIELD_LIMITS, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
+  FIELD_LIMITS, HONEYPOT_NAME, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
 } from '../lib/formGuards';
 
-/** Public Xano endpoint the form posts to. Not a secret — it ships to the
- *  browser — but environment-specific, so it is worth an env var if you ever
- *  run a staging backend. */
-const DEMO_REQUEST_ENDPOINT =
-  'https://xrin-jgsf-pqis.f2.xano.io/api:ihnjCtph/demo_request';
+/** Same-origin serverless function (api/demo_request.ts). Relative on purpose:
+ *  a relative path cannot be undefined, which is the failure mode that shipped
+ *  "undefined/auth/signup" to production on the previous backend. */
+const DEMO_REQUEST_ENDPOINT = '/api/demo_request';
 
 const COMPANY_SIZES = [
   { value: '1-20', label: '1–20 employees' },
@@ -100,15 +99,25 @@ export default function LetsTalk() {
           company: clampField(values.company, FIELD_LIMITS.name),
           challenge: clampField(values.painPoint, FIELD_LIMITS.long),
           tools: clampField(values.tools, FIELD_LIMITS.short),
+          // Sent so the server can apply the same honeypot rule to callers
+          // that skip the client entirely.
+          [HONEYPOT_NAME]: honeypotRef.current?.value ?? '',
         }),
       });
-      if (!res.ok) throw new Error('Failed to submit demo request');
+
+      if (!res.ok) {
+        // The server owns the real rate limit; surface its wording, not ours.
+        const payload = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(payload?.error || 'Failed to submit demo request');
+      }
       setValues(EMPTY);
       setSubmitted(true);
-    } catch {
+    } catch (err) {
       toast({
         title: 'Error submitting request',
-        description: 'Please try again later.',
+        description: err instanceof Error && err.message !== 'Failed to submit demo request'
+          ? err.message
+          : 'Please try again later.',
         variant: 'destructive',
       });
     } finally {

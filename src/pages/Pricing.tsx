@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import { Container } from '../components/Container';
 import { CTASection } from '../components/home/CTASection';
 import { Faq } from '../components/home/Faq';
 import { EverythingInBusiness } from '../components/pricing/EverythingInBusiness';
 import { PlanCards } from '../components/pricing/PlanCards';
 import { PriceControls } from '../components/pricing/PriceControls';
+import { WaitlistModal } from '../components/pricing/WaitlistModal';
 import { usePricing } from '../components/pricing/usePricing';
 import { PRICING_JSON_LD } from '../components/pricing/seo';
 import { useSeo } from '../lib/useSeo';
 
 export default function Pricing() {
   const { billing, setBilling, tier, setTier, users, setUsers, step } = usePricing();
+  const [waitlistPlan, setWaitlistPlan] = useState<string | null>(null);
 
   useSeo({
     title: 'Pricing - Orakis',
@@ -45,7 +48,12 @@ export default function Pricing() {
             setBilling={setBilling}
             tier={tier}
           />
-          <PlanCards billing={billing} tier={tier} setTier={setTier} />
+          <PlanCards
+            billing={billing}
+            tier={tier}
+            setTier={setTier}
+            onStartTrial={setWaitlistPlan}
+          />
         </div>
 
         <div className="mt-8 md:mt-12">
@@ -59,6 +67,11 @@ export default function Pricing() {
         <div className="mt-8 md:mt-12">
           <CTASection />
         </div>
+        <WaitlistModal
+          open={waitlistPlan !== null}
+          plan={waitlistPlan ?? ''}
+          onClose={() => setWaitlistPlan(null)}
+        />
       </main>
     </Container>
   );
