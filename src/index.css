@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Self-hosted faces. Both subsets per family, exactly as the deployed site
+   splits them: the `latin` file covers the common range and `latin-ext` is
+   only fetched when a glyph outside it actually appears. The unicode-range
+   values are copied verbatim so the browser makes the same decision.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/orbitron-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 230 25% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 10%;
+    --primary: 252 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 252 100% 75%;
+    --secondary: 230 15% 96%;
+    --secondary-foreground: 230 25% 15%;
+    --muted: 230 15% 95%;
+    --muted-foreground: 230 10% 45%;
+    --accent: 252 85% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 20% 90%;
+    --input: 230 20% 90%;
+    --ring: 252 85% 60%;
+    --radius: 0.75rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(252 85% 60%), hsl(252 100% 75%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(230 15% 98%));
+    --shadow-elegant: 0 10px 40px -10px hsl(252 85% 60% / 0.25);
+    --shadow-glow: 0 0 50px hsl(252 100% 75% / 0.35);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  /* `scrollbar-gutter: stable` is what stops the page shifting sideways when a
+     route swaps a tall page for a short one. `overflow-x: clip` on the body
+     (not hidden) keeps the sticky header sticky while still cutting off the
+     marquee rows that deliberately overhang the viewport. */
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: inherit;
+    color: hsl(var(--foreground));
+    overflow-x: clip;
+    background-color: transparent;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The Orakis mark rendered as brushed metal: the SVG is used as a mask and a
+   large gradient is animated underneath it. --ora-angle has to be registered
+   with @property, otherwise it is just an unparsed string and the browser has
+   no way to interpolate between the two angles.
+   --------------------------------------------------------------------------- */
+@property --ora-angle {
+  syntax: '<angle>';
+  initial-value: 135deg;
+  inherits: false;
+}
+
+@keyframes ora-rotate {
+  0% { --ora-angle: 135deg; }
+  100% { --ora-angle: 495deg; }
+}
+
+.ora-icon-shimmer {
+  -webkit-mask-image: url('/orakis-mark-white.svg');
+  mask-image: url('/orakis-mark-white.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background: linear-gradient(
+    var(--ora-angle),
+    #2a2a2a 0%, #5a5a5a 15%, #acacac 28%, #f5f5f5 36%, #ffffff 40%,
+    #f0f0f0 44%, #b0b0b0 55%, #4a4a4a 70%, #888888 82%, #e8e8e8 90%, #2a2a2a 100%
+  );
+  background-size: 350% 350%;
+  /* Two long, mutually prime periods so the highlight never repeats visibly. */
+  animation: ora-rotate 90s linear infinite, ora-drift 67s ease-in-out infinite;
+}
+
+.ora-icon-shimmer.is-flat {
+  background: #f7f7f7;
+  animation: none;
+}
+
+/* ---------------------------------------------------------------------------
+   "You already have the data" card: circuit-board diagram.
+
+   Each coloured dot rides its own trace via `offset-path`, so the SVG only has
+   to declare a circle at 0,0 and CSS carries it along the route. The dots are
+   parked (`animation-play-state: paused`, `opacity: 0`) until the card scrolls
+   into view and `.cpu-active` is added, which is what keeps the staggered
+   delays meaningful instead of already half-elapsed by the time you see them.
+   --------------------------------------------------------------------------- */
+.cpu-architecture {
+  offset-anchor: 10px 0px;
+  animation: animation-path;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+.cpu-active {
+  animation-play-state: running;
+  opacity: 1;
+}
+
+/* Each trace has its own route, duration and delay so the dots never march in
+   lockstep. The paths mirror the drawn <path> geometry, extended slightly so a
+   dot finishes past the visible end of its line. */
+.cpu-line-1 { offset-path: path("M 10 20 h 79.5 q 5 0 5 5 v 30"); animation-duration: 5s; animation-delay: 1s; }
+.cpu-line-2 { offset-path: path("M 180 10 h -69.7 q -5 0 -5 5 v 40"); animation-duration: 2s; animation-delay: 6s; }
+.cpu-line-3 { offset-path: path("M 130 20 v 21.8 q 0 5 -5 5 h -25"); animation-duration: 6s; animation-delay: 4s; }
+.cpu-line-4 { offset-path: path("M 170 80 v -21.8 q 0 -5 -5 -5 h -65"); animation-duration: 3s; animation-delay: 3s; }
+.cpu-line-5 { offset-path: path("M 135 65 h 15 q 5 0 5 5 v 10 q 0 5 -5 5 h -39.8 q -5 0 -5 -5 v -35"); animation-duration: 4s; animation-delay: 9s; }
+.cpu-line-6 { offset-path: path("M 94.8 95 v -46"); animation-duration: 7s; animation-delay: 3s; }
+.cpu-line-7 { offset-path: path("M 88 88 v -15 q 0 -5 -5 -5 h -10 q -5 0 -5 -5 v -5 q 0 -5 5 -5 h 28"); animation-duration: 4s; animation-delay: 4s; }
+.cpu-line-8 { offset-path: path("M 30 30 h 25 q 5 0 5 5 v 6.5 q 0 5 5 5 h 35"); animation-duration: 3s; animation-delay: 3s; }
+
+/* These two are referenced from the hand-written rules above rather than from
+   any `animate-*` utility, so Tailwind's JIT has no reason to emit them and
+   they must be declared here. Without them the animations resolve to a name
+   with no keyframes: the circuit dots park at offset-distance 0 and the footer
+   mark stops drifting. */
+@keyframes animation-path {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+@keyframes ora-drift {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 100% 30%; }
+  50% { background-position: 60% 100%; }
+  75% { background-position: 10% 60%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* The Ora chat demo drives these from inline `style={{ animation: ... }}`
+   rather than an `animate-*` utility, so — like animation-path above — the JIT
+   has no reason to emit them and they must live here. */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spinMark {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes sendPress {
+  0% { transform: scale(1); animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  40% { transform: scale(0.87); animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes caretBlink {
+  0%, 49.9% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes countTick {
+  0% { transform: translateY(-2px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
