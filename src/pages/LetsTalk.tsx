@@ -4,6 +4,7 @@ import { Container } from '../components/Container';
 import { HoneypotField } from '../components/HoneypotField';
 import { useToast } from '../components/ui/toast';
 import { cn } from '../lib/utils';
+import { useSeo } from '../lib/useSeo';
 import {
   FIELD_LIMITS, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
 } from '../lib/formGuards';
@@ -37,6 +38,13 @@ const fieldClass = (invalid?: string) =>
 
 export default function LetsTalk() {
   const { toast } = useToast();
+
+  useSeo({
+    title: "Let's Talk - Orakis",
+    description:
+      "Talk to the founder and see Orakis in action: goals, tasks, documents and knowledge in one place, with an AI that knows your team's context.",
+    canonical: 'https://www.orakis.com/lets-talk',
+  });
   const [values, setValues] = useState<Fields>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
   const [submitting, setSubmitting] = useState(false);
