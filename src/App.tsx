@@ -6,6 +6,7 @@ import { ToastProvider } from './components/ui/toast';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import LetsTalk from './pages/LetsTalk';
+import YC from './pages/YC';
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/lets-talk" element={<LetsTalk />} />
+        <Route path="/yc" element={<YC />} />
         <Route path="/privacy-policy" element={<Placeholder title="Privacy Policy" />} />
         <Route path="/terms-of-service" element={<Placeholder title="Terms of Service" />} />
         <Route path="/dpa" element={<Placeholder title="DPA" />} />
