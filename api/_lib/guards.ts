@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { db } from './db';
+import type { db } from './db.js';
 
 /** Mirrors the client-side rule so both sides agree on what an email is. */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

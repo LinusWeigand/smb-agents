@@ -1,8 +1,8 @@
-import { db } from './_lib/db';
+import { db } from './_lib/db.js';
 import {
   FIELD_LIMITS, checkThrottle, clampField, clientHash, isValidEmail, json, readSubmission,
-} from './_lib/guards';
-import { notify } from './_lib/notify';
+} from './_lib/guards.js';
+import { notify } from './_lib/notify.js';
 
 /** POST /api/demo_request — the "Let's talk" form. */
 export default async function handler(req: Request): Promise<Response> {
