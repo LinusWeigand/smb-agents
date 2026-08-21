@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import type { VercelRequest } from '@vercel/node';
 import type { db } from './db.js';
 
 /** Mirrors the client-side rule so both sides agree on what an email is. */
@@ -22,13 +23,14 @@ const MIN_GAP_MS = 3_000;
  * A stable, non-identifying key for the caller.
  *
  * We hash rather than store the IP: it is personal data under GDPR, and for
- * rate limiting we only ever need to know "same caller as before", never who
- * they are. The salt matters because the IPv4 space is small enough to brute
- * force an unsalted hash.
+ * rate limiting we only need "same caller as before", never who they are. The
+ * salt matters because the IPv4 space is small enough to brute force an
+ * unsalted hash.
  */
-export function clientHash(req: Request): string {
-  const fwd = req.headers.get('x-forwarded-for') ?? '';
-  const ip = fwd.split(',')[0]?.trim() || 'unknown';
+export function clientHash(req: VercelRequest): string {
+  const fwd = req.headers['x-forwarded-for'];
+  const raw = Array.isArray(fwd) ? fwd[0] : fwd;
+  const ip = (raw ?? '').split(',')[0]?.trim() || 'unknown';
   const salt = process.env.THROTTLE_SALT ?? 'orakis-default-salt-set-THROTTLE_SALT';
   return createHash('sha256').update(`${salt}:${ip}`).digest('hex');
 }
@@ -65,31 +67,29 @@ export async function checkThrottle(
     return { ok: false, message: 'Too many attempts. Please try again in a few minutes.' };
   }
 
-  await sql`
-    insert into submission_throttle (form, client_hash) values (${form}, ${hash})
-  `;
+  await sql`insert into submission_throttle (form, client_hash) values (${form}, ${hash})`;
   return { ok: true, message: '' };
 }
 
-export const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  });
-
-/** Shared preamble: method check + JSON body parse + honeypot. */
-export async function readSubmission(
-  req: Request,
-): Promise<{ error: Response } | { body: Record<string, unknown>; isBot: boolean }> {
-  if (req.method !== 'POST') {
-    return { error: json({ error: 'Method not allowed' }, 405) };
+/**
+ * Vercel parses a JSON body for us, but only when the Content-Type says so —
+ * anything else arrives as a raw string, so handle both.
+ */
+export function parseBody(req: VercelRequest): Record<string, unknown> {
+  const raw = req.body;
+  if (raw && typeof raw === 'object') return raw as Record<string, unknown>;
+  if (typeof raw === 'string') {
+    try {
+      return JSON.parse(raw) as Record<string, unknown>;
+    } catch {
+      return {};
+    }
   }
-  let body: Record<string, unknown>;
-  try {
-    body = (await req.json()) as Record<string, unknown>;
-  } catch {
-    return { error: json({ error: 'Invalid JSON' }, 400) };
-  }
-  const pot = body[HONEYPOT_NAME];
-  return { body, isBot: typeof pot === 'string' && pot.trim().length > 0 };
+  return {};
 }
+
+/** A filled trap means a bot: no human ever sees that field. */
+export const isBotSubmission = (body: Record<string, unknown>) => {
+  const pot = body[HONEYPOT_NAME];
+  return typeof pot === 'string' && pot.trim().length > 0;
+};
