@@ -5,6 +5,7 @@ import { HoneypotField } from '../components/HoneypotField';
 import { useToast } from '../components/ui/toast';
 import { cn } from '../lib/utils';
 import { useSeo } from '../lib/useSeo';
+import { siteUrl } from '../lib/site';
 import {
   FIELD_LIMITS, HONEYPOT_NAME, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
 } from '../lib/formGuards';
@@ -42,7 +43,7 @@ export default function LetsTalk() {
     title: "Let's Talk - Orakis",
     description:
       "Talk to the founder and see Orakis in action: goals, tasks, documents and knowledge in one place, with an AI that knows your team's context.",
-    canonical: 'https://www.orakis.com/lets-talk',
+    canonical: siteUrl('/lets-talk'),
   });
   const [values, setValues] = useState<Fields>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});

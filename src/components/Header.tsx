@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { OrakisMark } from './OrakisMark';
 import { cn } from '../lib/utils';
+import { APP_URL } from '../lib/site';
 
 const SECTIONS = [
   { id: 'how-it-works', label: 'Product' },
@@ -127,7 +128,7 @@ export function Header() {
 
           <div className="flex items-center justify-end gap-2 sm:gap-3">
             <a
-              href="https://app.orakis.com/"
+              href={APP_URL}
               aria-label="Log in to Orakis app"
               className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-white border border-gray-200 text-[13px] font-sans font-medium text-gray-700 whitespace-nowrap"
               style={BUTTON_SHADOW}

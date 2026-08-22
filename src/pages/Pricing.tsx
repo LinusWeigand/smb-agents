@@ -9,6 +9,7 @@ import { WaitlistModal } from '../components/pricing/WaitlistModal';
 import { usePricing } from '../components/pricing/usePricing';
 import { PRICING_JSON_LD } from '../components/pricing/seo';
 import { useSeo } from '../lib/useSeo';
+import { siteUrl } from '../lib/site';
 
 export default function Pricing() {
   const { billing, setBilling, tier, setTier, users, setUsers, step } = usePricing();
@@ -18,7 +19,7 @@ export default function Pricing() {
     title: 'Pricing - Orakis',
     description:
       'Try Orakis free for 7 days, no credit card required. Business from €24 per user/month billed yearly (€29 monthly), plus custom Enterprise plans.',
-    canonical: 'https://www.orakis.com/pricing',
+    canonical: siteUrl('/pricing'),
     jsonLd: PRICING_JSON_LD,
   });
 

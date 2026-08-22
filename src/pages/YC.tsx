@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Container } from '../components/Container';
 import { useSeo } from '../lib/useSeo';
+import { siteUrl } from '../lib/site';
 
 /** The two talks the product thesis is built on. */
 const VIDEOS = [
@@ -30,8 +31,8 @@ export default function YC() {
         {
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.orakis.com/' },
-            { '@type': 'ListItem', position: 2, name: 'YC Videos', item: 'https://www.orakis.com/yc' },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'YC Videos', item: siteUrl('/yc') },
           ],
         },
       ],
@@ -42,7 +43,7 @@ export default function YC() {
   useSeo({
     title: TITLE,
     description: DESCRIPTION,
-    canonical: 'https://www.orakis.com/yc',
+    canonical: siteUrl('/yc'),
     jsonLd,
   });
 

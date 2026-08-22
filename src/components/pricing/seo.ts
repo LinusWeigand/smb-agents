@@ -1,6 +1,7 @@
 import { MAX_PRICE, STANDARD_PRICE } from './plans';
+import { SITE_URL, siteUrl } from '../../lib/site';
 
-const SIGN_UP = 'https://www.orakis.com/sign-up';
+const SIGN_UP = siteUrl('/sign-up');
 
 const offer = (name: string, price: number, description?: string) => ({
   '@type': 'Offer',
@@ -20,19 +21,19 @@ export const PRICING_JSON_LD = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.orakis.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.orakis.com/pricing' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: 'Pricing', item: siteUrl('/pricing') },
       ],
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://www.orakis.com/#software',
+      '@id': `${SITE_URL}/#software`,
       name: 'Orakis',
       description:
         'Company brain for task and knowledge management. Free 7-day trial, Business plans per user, and custom Enterprise plans.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://www.orakis.com/pricing',
+      url: siteUrl('/pricing'),
       offers: [
         offer(
           'Free Trial',

@@ -50,10 +50,10 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://www.orakis.com/sitemap.xml
+Sitemap: https://www.limitless-stack.com/sitemap.xml
 
 # LLM context file
-# https://www.orakis.com/llms.txt
+# https://www.limitless-stack.com/llms.txt
 
 # Disallow admin, auth, and internal paths (intentionally excluded from sitemap)
 Disallow: /api/
