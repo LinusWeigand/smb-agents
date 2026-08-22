@@ -1,3 +1,7 @@
+/** Prices always read with two decimals — €24,00, not €24. Paired with the
+ *  de-DE locale this yields a comma as the decimal separator. */
+export const PRICE_FORMAT = { minimumFractionDigits: 2, maximumFractionDigits: 2 } as const;
+
 /**
  * Pricing plans and credit packs, recovered from the deployed bundle.
  *

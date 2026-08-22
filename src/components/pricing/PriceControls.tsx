@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import NumberFlow from '@number-flow/react';
-import { MAX_PRICE, MAX_USERS, STANDARD_PRICE, yearlySaving } from './plans';
+import { MAX_PRICE, MAX_USERS, PRICE_FORMAT, STANDARD_PRICE, yearlySaving } from './plans';
 import type { Billing, Tier } from './usePricing';
 
 /**
@@ -125,7 +125,7 @@ export function PriceControls({
         </div>
         <span className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">
           €
-          <NumberFlow value={price} locales="de-DE" />
+          <NumberFlow value={price} format={PRICE_FORMAT} locales="de-DE" />
         </span>
         <p className="mt-1 text-[13px] font-sans text-gray-400">
           per month (excl. VAT), billed {billing === 'yearly' ? 'yearly' : 'monthly'}

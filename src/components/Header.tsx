@@ -17,6 +17,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const onPricing = pathname === '/pricing';
 
   /* Scroll-spy. The probe line sits a third of the way down the viewport
      rather than at its top, so a section counts as "current" once it has
@@ -135,14 +136,28 @@ export function Header() {
             >
               Log in
             </a>
-            <a
-              href="/pricing"
-              aria-label="Sign up"
-              className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-[#171717] border border-[#171717] text-[13px] font-sans font-medium text-white whitespace-nowrap shrink-0"
-              style={BUTTON_SHADOW}
-            >
-              Sign up
-            </a>
+            {/* On the pricing page the primary action is a conversation, not
+                another trip to the pricing page. The mobile menu is unaffected:
+                it lists both actions on every route. */}
+            {onPricing ? (
+              <a
+                href="/lets-talk"
+                aria-label="Request a demo"
+                className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-[#171717] border border-[#171717] text-[13px] font-sans font-medium text-white whitespace-nowrap shrink-0"
+                style={BUTTON_SHADOW}
+              >
+                Let's Talk
+              </a>
+            ) : (
+              <a
+                href="/pricing"
+                aria-label="Sign up"
+                className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-[#171717] border border-[#171717] text-[13px] font-sans font-medium text-white whitespace-nowrap shrink-0"
+                style={BUTTON_SHADOW}
+              >
+                Sign up
+              </a>
+            )}
 
             <button
               className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-[6px] hover:bg-[#EBEBEB] transition-colors"
