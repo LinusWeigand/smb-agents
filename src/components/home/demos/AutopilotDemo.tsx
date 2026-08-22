@@ -3,6 +3,7 @@ import { useTabCycle } from './autopilot/useTabCycle';
 import { Toolbar } from './autopilot/Toolbar';
 import { GoalsView } from './autopilot/GoalsView';
 import { TasksView } from './autopilot/TasksView';
+import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
 
 /**
  * Goals & Tasks board: every goal with owners, progress and due date.
@@ -12,6 +13,7 @@ import { TasksView } from './autopilot/TasksView';
  * of the product UI, not the product UI.
  */
 export function AutopilotDemo() {
+  const { ref: fitRef, scale: fitScale } = useFitScale();
   const maskId = `orakis-mark-solid-cut-${useId()}`;
   // The observer needs the outermost node, so the cycle only runs on screen.
   const rootRef = useRef<HTMLDivElement>(null);
@@ -62,8 +64,8 @@ export function AutopilotDemo() {
                 </g>
               </svg>
               <div className="bg-zinc-800 overflow-hidden">
-                <div className="relative w-full overflow-hidden" style={{ height: "457.917px" }}>
-                  <div style={{ width: "1440px", height: "840px", transform: "scale(0.545139)", transformOrigin: "left top" }}>
+                <div ref={fitRef} className="relative w-full overflow-hidden" style={{ height: DEMO_HEIGHT * fitScale }}>
+                  <div style={{ width: DEMO_WIDTH, height: DEMO_HEIGHT, transform: `scale(${fitScale})`, transformOrigin: "left top" }}>
                     <div className="relative flex h-full w-full bg-[#1F1F1E] text-left font-sans">
                       <div className="shrink-0 p-2 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] w-[232px]">
                         <div className="flex h-full flex-col overflow-hidden rounded-xl border border-[#3D3D3D] bg-[#262626]">

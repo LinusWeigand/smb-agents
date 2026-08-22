@@ -3,6 +3,7 @@ import { cn } from '../../../lib/utils';
 import { TeamGraph } from './team/TeamGraph';
 import { MemberDetail, MemberTable } from './team/ListView';
 import { LIST_MEMBERS, MEMBERS } from './team/data';
+import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
 
 const VIEW_TAB =
   'relative z-10 h-full rounded-[6px] px-4 text-sm font-medium transition-colors duration-200 ease-in-out';
@@ -19,6 +20,7 @@ const TOTAL_OVERDUE = MEMBERS.reduce((n, m) => n + m.overdue, 0);
  * of the product UI, not the product UI.
  */
 export function TeamMapDemo() {
+  const { ref: fitRef, scale: fitScale } = useFitScale();
   const maskId = `orakis-mark-solid-cut-${useId()}`;
   const [view, setView] = useState<'map' | 'list'>('map');
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
@@ -76,8 +78,8 @@ export function TeamMapDemo() {
               </g>
             </svg>
             <div className="bg-zinc-800 overflow-hidden">
-              <div className="relative w-full overflow-hidden" style={{ height: "457.917px" }}>
-                <div style={{ width: "1440px", height: "840px", transform: "scale(0.545139)", transformOrigin: "left top" }}>
+              <div ref={fitRef} className="relative w-full overflow-hidden" style={{ height: DEMO_HEIGHT * fitScale }}>
+                <div style={{ width: DEMO_WIDTH, height: DEMO_HEIGHT, transform: `scale(${fitScale})`, transformOrigin: "left top" }}>
                   <div className="relative flex h-full w-full bg-[#1F1F1E] text-left font-sans">
                     <div className="shrink-0 p-2 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] w-[232px]">
                       <div className="flex h-full flex-col overflow-hidden rounded-xl border border-[#3D3D3D] bg-[#262626]">

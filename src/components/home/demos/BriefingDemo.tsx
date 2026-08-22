@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
 
 /**
  * Daily Briefing panel: what is waiting on you, what Orakis prepared, and the rest of the day.
@@ -19,6 +20,7 @@ const TODAY_LABEL = new Date().toLocaleDateString('en-US', {
 });
 
 export function BriefingDemo() {
+  const { ref: fitRef, scale: fitScale } = useFitScale();
   const maskId = `orakis-mark-solid-cut-${useId()}`;
   return (
     <div className="lg:flex-1 min-w-0 w-full">
@@ -64,8 +66,8 @@ export function BriefingDemo() {
               </g>
             </svg>
             <div className="bg-zinc-800 overflow-hidden">
-              <div className="relative w-full overflow-hidden" style={{ height: "457.917px" }}>
-                <div style={{ width: "1440px", height: "840px", transform: "scale(0.545139)", transformOrigin: "left top" }}>
+              <div ref={fitRef} className="relative w-full overflow-hidden" style={{ height: DEMO_HEIGHT * fitScale }}>
+                <div style={{ width: DEMO_WIDTH, height: DEMO_HEIGHT, transform: `scale(${fitScale})`, transformOrigin: "left top" }}>
                   <div className="relative flex h-full w-full bg-[#1F1F1E] text-left font-sans">
                     <div className="shrink-0 p-2 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] w-[232px]">
                       <div className="flex h-full flex-col overflow-hidden rounded-xl border border-[#3D3D3D] bg-[#262626]">
