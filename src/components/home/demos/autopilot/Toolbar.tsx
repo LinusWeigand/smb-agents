@@ -1,5 +1,7 @@
 import { cn } from '../../../../lib/utils';
 import type { Tab } from './useTabCycle';
+import { autopilotText } from './data';
+import { useLang } from '../../../../lib/i18n';
 
 const TAB_BASE =
   'relative z-10 flex h-9 cursor-pointer items-center justify-center rounded-[6px] px-3 text-sm font-medium transition-colors duration-200 ease-in-out';
@@ -12,25 +14,28 @@ const TAB_OFF = 'text-[#8C8C8C] hover:text-[#FAFAFA]';
  * here (search placeholder, view name, primary button) just relabels per tab.
  */
 export function Toolbar({ tab, onSelect }: { tab: Tab; onSelect: (t: Tab) => void }) {
+  const { lang } = useLang();
+  const x = autopilotText(lang);
+
   return (
     <div className="mb-4 flex items-center gap-3">
       <div className="relative grid h-9 shrink-0 grid-cols-2 overflow-hidden rounded-[6px] border border-[#3D3D3B] bg-[#2E2E2E]">
         <div className="pointer-events-none absolute top-0 h-full w-1/2 rounded-[6px] bg-[#FAFAFA] transition-[left] duration-200 ease-in-out" style={{ left: tab === 'goals' ? '0%' : '50%' }} />
-        <button type="button" onClick={() => onSelect('goals')} className={cn(TAB_BASE, tab === 'goals' ? TAB_ON : TAB_OFF)}>Goals</button>
-        <button type="button" onClick={() => onSelect('tasks')} className={cn(TAB_BASE, tab === 'tasks' ? TAB_ON : TAB_OFF)}>Tasks</button>
+        <button type="button" onClick={() => onSelect('goals')} className={cn(TAB_BASE, tab === 'goals' ? TAB_ON : TAB_OFF)}>{x.tabs.goals}</button>
+        <button type="button" onClick={() => onSelect('tasks')} className={cn(TAB_BASE, tab === 'tasks' ? TAB_ON : TAB_OFF)}>{x.tabs.tasks}</button>
       </div>
       <div className="relative flex-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-[#8C8C8C]">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
         </svg>
-        <div className="flex h-9 w-full cursor-text items-center rounded-[6px] border border-[#3D3D3D] bg-[#1F1F1E] pl-10 pr-3 text-sm text-[#8C8C8C] transition-colors hover:border-[#8C8C8C]/40">{`Search ${tab}...`}</div>
+        <div className="flex h-9 w-full cursor-text items-center rounded-[6px] border border-[#3D3D3D] bg-[#1F1F1E] pl-10 pr-3 text-sm text-[#8C8C8C] transition-colors hover:border-[#8C8C8C]/40">{x.searchPlaceholder.replace('{tab}', x.tabs[tab])}</div>
       </div>
       <div className="flex shrink-0 items-center gap-3">
         <div className="relative">
           <span className="grid h-9 cursor-pointer items-center rounded-[6px] bg-[#2E2E2E] pl-3 pr-8 text-sm text-white transition-colors hover:bg-[#3D3D3D]">
-            <span aria-hidden="true" className="invisible col-start-1 row-start-1">Kanban</span>
-            <span className="col-start-1 row-start-1">{tab === 'goals' ? 'Grid' : 'Kanban'}</span>
+            <span aria-hidden="true" className="invisible col-start-1 row-start-1">{x.view.tasks}</span>
+            <span className="col-start-1 row-start-1">{x.view[tab]}</span>
           </span>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white opacity-60">
             <path d="m6 9 6 6 6-6" />
@@ -119,7 +124,7 @@ export function Toolbar({ tab, onSelect }: { tab: Tab; onSelect: (t: Tab) => voi
             <span className="absolute h-2 w-2 bg-[#18181b] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" style={{ left: "112px", top: "32px", transitionDelay: "0.297335s" }} />
             <span className="absolute h-2 w-2 bg-[#18181b] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" style={{ left: "120px", top: "32px", transitionDelay: "0.0352664s" }} />
           </span>
-          <span className="relative z-10 font-orbitron text-sm font-semibold uppercase leading-none tracking-wider text-zinc-900 transition-colors delay-150 duration-300 group-hover:text-white">{tab === 'goals' ? 'New Goal' : 'New Task'}</span>
+          <span className="relative z-10 font-orbitron text-sm font-semibold uppercase leading-none tracking-wider text-zinc-900 transition-colors delay-150 duration-300 group-hover:text-white">{x.newItem[tab]}</span>
         </span>
       </div>
     </div>

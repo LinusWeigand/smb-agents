@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { useT } from '../../lib/i18n';
 
 type Variant = 'default' | 'destructive';
 type Toast = { id: number; title: string; description?: string; variant: Variant };
@@ -12,6 +13,7 @@ const ToastContext = createContext<{
 const AUTO_DISMISS_MS = 5000;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
+  const copy = useT();
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const dismiss = useCallback((id: number) => {
@@ -38,7 +40,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
       {/* Viewport is pointer-events:none so toasts never block the page; each
           toast re-enables pointer events for its own dismiss button. */}
-      <div role="region" aria-label="Notifications (F8)" tabIndex={-1} style={{ pointerEvents: 'none' }}>
+      <div role="region" aria-label={copy.toast.regionAria} tabIndex={-1} style={{ pointerEvents: 'none' }}>
         <ol
           tabIndex={-1}
           className="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
@@ -59,7 +61,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               </div>
               <button
                 type="button"
-                aria-label="Dismiss"
+                aria-label={copy.toast.dismiss}
                 onClick={() => dismiss(t.id)}
                 className="absolute right-2 top-2 rounded-md p-1 opacity-50 transition-opacity hover:opacity-100"
               >

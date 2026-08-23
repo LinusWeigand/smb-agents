@@ -1,14 +1,11 @@
 import type { ReactNode } from 'react';
 import NumberFlow from '@number-flow/react';
 import { CircleCheckBig, X } from 'lucide-react';
-import {
-  BUSINESS_FEATURES, ENTERPRISE_FEATURES, MAX_PRICE, PRICE_FORMAT, STANDARD_PRICE,
-  TRIAL_FEATURES,
-  type Feature,
-} from './plans';
+import { MAX_PRICE, PRICE_FORMAT, STANDARD_PRICE, type Feature } from './plans';
 import type { Billing, Tier } from './usePricing';
 import { GradientCta } from './GradientCta';
 import { cn } from '../../lib/utils';
+import { localeOf, useLang, useT } from '../../lib/i18n';
 
 const CARD =
   'relative flex w-full max-w-[360px] flex-col overflow-hidden bg-white rounded-[6px] border border-gray-200 min-[1060px]:max-w-none min-[1060px]:flex-1';
@@ -75,11 +72,13 @@ function FeatureRow({ feature }: { feature: Feature }) {
 
 /** Licence option inside the Business card; selecting one drives the sidebar. */
 function LicenceOption({
-  label, price, note, selected, onSelect,
+  label, price, note, unit, locale, selected, onSelect,
 }: {
   label: string;
   price: number;
   note?: string;
+  unit: string;
+  locale: string;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -94,12 +93,12 @@ function LicenceOption({
       <div className="flex items-baseline justify-between gap-2">
         <span className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">
           €
-          <NumberFlow value={price} format={PRICE_FORMAT} locales="de-DE" />
+          <NumberFlow value={price} format={PRICE_FORMAT} locales={locale} />
         </span>
         <span className="shrink-0 text-[13px] font-sans text-gray-500">{label}</span>
       </div>
       {note && <p className="mt-1 text-[13px] font-sans text-gray-500">{note}</p>}
-      <p className="mt-1 text-[13px] font-sans text-gray-400">per user / month (excl. VAT)</p>
+      <p className="mt-1 text-[13px] font-sans text-gray-400">{unit}</p>
     </button>
   );
 }
@@ -112,6 +111,30 @@ export function PlanCards({
   setTier: (t: Tier) => void;
   onStartTrial: (plan: string) => void;
 }) {
+  const t = useT();
+  const { lang } = useLang();
+  const locale = localeOf(lang);
+  const c = t.pricing.cards;
+
+  const trialFeatures: Feature[] = [
+    { text: t.pricing.trialFeatures.header, header: true },
+    { text: t.pricing.trialFeatures.allFeatures, value: true },
+    { text: t.pricing.trialFeatures.aiCredit, value: true },
+    { text: t.pricing.trialFeatures.users, value: true },
+  ];
+  const businessFeatures: Feature[] = [
+    { text: t.pricing.businessFeatures.header, header: true },
+    { text: t.pricing.businessFeatures.allFeatures, value: true },
+    { text: t.pricing.businessFeatures.aiUsage, value: true },
+    { text: t.pricing.businessFeatures.users, value: true },
+  ];
+  const enterpriseFeatures: Feature[] = [
+    { text: t.pricing.enterpriseFeatures.header, header: true },
+    { text: t.pricing.enterpriseFeatures.users, value: true },
+    { text: t.pricing.enterpriseFeatures.tailored, value: true },
+    { text: t.pricing.enterpriseFeatures.covered, value: true },
+  ];
+
   return (
     <div className="relative z-10 flex w-full flex-1 flex-col items-center gap-4 min-[1060px]:flex-row min-[1060px]:items-stretch min-[1060px]:gap-0">
       {/* Free trial */}
@@ -121,27 +144,27 @@ export function PlanCards({
            while Orakis is in closed beta. */
         cta={
           <div className="block cursor-pointer" onClick={() => onStartTrial('Free Trial')}>
-            <button className={CTA}>Start free trial</button>
+            <button className={CTA}>{c.startFreeTrial}</button>
           </div>
         }
       >
         <div className="relative p-5 flex flex-col gap-4">
           <div className="flex items-center gap-2 min-h-6">
             <p className="text-[16px] font-medium font-orbitron text-gray-900 tracking-[-0.01em]">
-              Free Trial
+              {c.freeTrial}
             </p>
           </div>
           <div className="w-full rounded-[6px] border border-transparent py-4">
             <div className="flex items-baseline gap-2">
-              <span className="font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">Free</span>
+              <span className="font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">{c.free}</span>
             </div>
             <p className="mt-1 text-[13px] font-sans text-gray-400">
-              Try it free for 7 days. No credit card required.
+              {c.freeNote}
             </p>
           </div>
         </div>
         <div className="flex flex-col justify-end gap-2 px-5 py-4 flex-1">
-          {TRIAL_FEATURES.map((f) => (
+          {trialFeatures.map((f) => (
             <FeatureRow key={f.text} feature={f} />
           ))}
         </div>
@@ -153,7 +176,7 @@ export function PlanCards({
         highlight
         cta={
           <GradientCta
-            label="Start free trial"
+            label={c.startFreeTrial}
             onClick={() => onStartTrial(tier === 'max' ? 'Pro license' : 'Business')}
           />
         }
@@ -161,30 +184,34 @@ export function PlanCards({
         <div className="relative p-5 flex flex-col gap-4">
           <div className="flex items-center gap-2 min-h-6">
             <p className="text-[16px] font-medium font-orbitron text-gray-900 tracking-[-0.01em]">
-              Business
+              {c.business}
             </p>
             <span className="inline-block rounded-[6px] bg-blue-100 px-2 py-0.5 text-[11px] font-medium font-sans text-blue-600">
-              Recommended
+              {c.recommended}
             </span>
           </div>
           <div className="flex flex-col gap-3">
             <LicenceOption
-              label="Standard license"
+              label={c.standardLicence}
               price={STANDARD_PRICE[billing]}
+              unit={c.perUserPerMonth}
+              locale={locale}
               selected={tier === 'standard'}
               onSelect={() => setTier('standard')}
             />
             <LicenceOption
-              label="Pro license"
+              label={c.proLicence}
               price={MAX_PRICE[billing]}
-              note="5x higher usage limits"
+              note={c.proNote}
+              unit={c.perUserPerMonth}
+              locale={locale}
               selected={tier === 'max'}
               onSelect={() => setTier('max')}
             />
           </div>
         </div>
         <div className="flex flex-col justify-end gap-2 px-5 py-4 flex-1">
-          {BUSINESS_FEATURES.map((f) => (
+          {businessFeatures.map((f) => (
             <FeatureRow key={f.text} feature={f} />
           ))}
         </div>
@@ -195,29 +222,29 @@ export function PlanCards({
         index={2}
         cta={
           <a href="/lets-talk" className="block">
-            <button className={CTA}>Let's talk</button>
+            <button className={CTA}>{c.letsTalk}</button>
           </a>
         }
       >
         <div className="relative p-5 flex flex-col gap-4">
           <div className="flex items-center gap-2 min-h-6">
             <p className="text-[16px] font-medium font-orbitron text-gray-900 tracking-[-0.01em]">
-              Enterprise
+              {c.enterprise}
             </p>
           </div>
           <div className="w-full rounded-[6px] border border-transparent py-4">
             <div className="flex items-baseline gap-2">
               <span className="font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">
-                Individual
+                {c.individual}
               </span>
             </div>
             <p className="mt-1 text-[13px] font-sans text-gray-400">
-              Roll out Orakis across your organization.
+              {c.enterpriseNote}
             </p>
           </div>
         </div>
         <div className="flex flex-col justify-end gap-2 px-5 py-4 flex-1">
-          {ENTERPRISE_FEATURES.map((f) => (
+          {enterpriseFeatures.map((f) => (
             <FeatureRow key={f.text} feature={f} />
           ))}
         </div>

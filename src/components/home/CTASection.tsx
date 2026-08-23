@@ -1,4 +1,7 @@
+import { useT } from '../../lib/i18n';
+
 export function CTASection() {
+  const t = useT();
   return (
     <section className="py-0 relative overflow-hidden">
       <div className="max-w-[1190px] mx-auto">
@@ -23,23 +26,23 @@ export function CTASection() {
               className="font-display font-medium mb-3 leading-[1.15] text-2xl md:text-4xl text-white"
               style={{ letterSpacing: '-0.02em' }}
             >
-              Try Orakis Now.
+              {t.cta.heading}
             </h2>
             <p className="text-white/70 text-base mb-8 font-normal max-w-md mx-auto">
-              Give your team the brain it needs to move faster.
+              {t.cta.body}
             </p>
             <div className="flex items-center justify-center gap-3">
               <a
                 href="/lets-talk"
                 className="inline-flex items-center justify-center h-11 px-6 rounded-[6px] bg-white/10 border border-white/20 text-[15px] font-sans font-medium text-white whitespace-nowrap backdrop-blur-sm"
               >
-                Let's Talk
+                {t.nav.letsTalk}
               </a>
               <a
                 href="/pricing"
                 className="inline-flex items-center justify-center h-11 px-6 rounded-[6px] bg-white text-[15px] font-sans font-medium text-[#171717] whitespace-nowrap"
               >
-                Sign up
+                {t.nav.signUp}
               </a>
             </div>
           </div>

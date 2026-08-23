@@ -469,27 +469,8 @@ export const MAX_PRICE = { monthly: 119, yearly: 99 };
 /** Seat ceiling for the stepper; past this it is an Enterprise conversation. */
 export const MAX_USERS = 50;
 
-/** Feature blurbs for the three headline cards. */
-export const TRIAL_FEATURES: Feature[] = [
-  { text: 'Perfect to get started.', header: true },
-  { text: 'Every feature unlocked', value: true },
-  { text: '\u20AC5 AI usage included', value: true },
-  { text: 'Up to 50 users', value: true },
-];
-
-export const BUSINESS_FEATURES: Feature[] = [
-  { text: 'One platform for your whole team.', header: true },
-  { text: 'All features included', value: true },
-  { text: 'AI usage included', value: true },
-  { text: 'Up to 50 users', value: true },
-];
-
-export const ENTERPRISE_FEATURES: Feature[] = [
-  { text: 'For large organizations.', header: true },
-  { text: '50+ users', value: true },
-  { text: 'Tailored to your organization', value: true },
-  { text: 'All your needs covered', value: true },
-];
+/* The three headline cards' feature blurbs are copy, so they live in
+   src/copy/*.ts and are assembled in PlanCards for the active language. */
 
 /** Yearly saving per seat, over a year. */
 export const yearlySaving = (tier: 'standard' | 'max') => {

@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowUp, Check, ChevronRight, Plus } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { useInView } from '../../../lib/useInView';
 import { OrakisMark } from '../../OrakisMark';
 import {
-  ANSWER, ANSWER_START, CLEAR_MS, DONE_HOLD, GOAL_CARD_AT, GOAL_DUE_DAYS,
-  MS_PER_ANSWER_CHAR, PAUSE_BEFORE_SEND, PRIORITY_CLASS, QUESTION, RUN_DURATION,
-  STEPS, TASKS, THOUGHTS, TICK_MS, TYPE_INTERVAL, formatDueDate,
+  ANSWER_START, CLEAR_MS, DONE_HOLD, GOAL_DUE_DAYS, MS_PER_ANSWER_CHAR,
+  PAUSE_BEFORE_SEND, PRIORITY_CLASS, TICK_MS, TYPE_INTERVAL, chatScript, formatDueDate,
 } from './data';
+import { useLang, type Lang } from '../../../lib/i18n';
+
+type Script = ReturnType<typeof chatScript>;
 
 /** Collapse/expand wrapper. Animating grid-template-rows lets a block slide to
  *  its natural height without anyone measuring it. */
@@ -42,16 +44,16 @@ const Avatar = ({ initials }: { initials: string }) => (
 );
 
 /** The goal Ora creates, with the three tasks hung off it. */
-function GoalCard() {
+function GoalCard({ script, lang }: { script: Script; lang: Lang }) {
   return (
     <div className="overflow-hidden rounded-[10px] border border-gray-200">
       <div className="flex flex-col px-4 pt-[11px] pb-2">
         <div className="flex items-center gap-2.5">
           <span className="min-w-0 shrink truncate text-sm font-medium text-gray-900">
-            Hiring: senior engineers
+            {script.goal.title}
           </span>
           <span className="shrink-0 rounded border border-gray-300 px-1.5 py-0.5 text-[11px] leading-none text-gray-600">
-            Expansion
+            {script.goal.tag}
           </span>
           <span className="flex flex-1 items-center justify-end">
             <span className="flex items-center -space-x-1">
@@ -63,11 +65,17 @@ function GoalCard() {
         </div>
 
         <div className="mt-2.5 flex min-w-0 items-center gap-2.5 text-xs text-gray-500">
-          <span className="min-w-0 truncate">One lead and two senior engineers for Munich.</span>
+          <span className="min-w-0 truncate">{script.goal.summary}</span>
           <span className="ml-auto flex shrink-0 items-center gap-2.5">
-            <span className="hidden min-w-[76px] font-medium text-[#71717a] sm:block">Not started</span>
-            <span className={cn('hidden min-w-[58px] font-medium sm:block', PRIORITY_CLASS.High)}>High</span>
-            <span className="min-w-[70px] text-right tabular-nums">{formatDueDate(GOAL_DUE_DAYS)}</span>
+            <span className="hidden min-w-[76px] font-medium text-[#71717a] sm:block">
+              {script.goal.status}
+            </span>
+            <span className={cn('hidden min-w-[58px] font-medium sm:block', PRIORITY_CLASS.high)}>
+              {script.goal.priority}
+            </span>
+            <span className="min-w-[70px] text-right tabular-nums">
+              {formatDueDate(GOAL_DUE_DAYS, lang)}
+            </span>
           </span>
         </div>
 
@@ -82,7 +90,7 @@ function GoalCard() {
         </div>
       </div>
 
-      {TASKS.map((t) => (
+      {script.tasks.map((t) => (
         <div key={t.title} className="flex h-[37px] items-center gap-2.5 px-4">
           <span className="size-3.5 shrink-0 rounded-[4px] border border-gray-300" />
           <span className="mr-auto flex min-w-0 items-center gap-2">
@@ -93,10 +101,10 @@ function GoalCard() {
             {t.status}
           </span>
           <span className={cn('hidden min-w-[58px] shrink-0 text-xs font-medium sm:block', PRIORITY_CLASS[t.priority])}>
-            {t.priority}
+            {script.priorityLabel[t.priority]}
           </span>
           <span className="min-w-[70px] shrink-0 text-right text-xs tabular-nums text-gray-500">
-            {formatDueDate(t.dueDays)}
+            {formatDueDate(t.dueDays, lang)}
           </span>
         </div>
       ))}
@@ -117,6 +125,8 @@ type Phase = 'idle' | 'typing' | 'running' | 'done' | 'clearing';
  * finished, so the sequence is never half over before it is in view.
  */
 export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
+  const { lang } = useLang();
+  const script = useMemo(() => chatScript(lang), [lang]);
   const [phase, setPhase] = useState<Phase>('idle');
   const [typed, setTyped] = useState(0);
   const [pressed, setPressed] = useState(false);
@@ -134,7 +144,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
   // Type the question a character at a time, then hit send.
   useEffect(() => {
     if (phase !== 'typing') return;
-    if (typed < QUESTION.length) {
+    if (typed < script.question.length) {
       const t = setTimeout(() => setTyped(typed + 1), TYPE_INTERVAL);
       return () => clearTimeout(t);
     }
@@ -143,7 +153,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
       setPhase('running');
     }, PAUSE_BEFORE_SEND);
     return () => clearTimeout(t);
-  }, [phase, typed]);
+  }, [phase, typed, script.question.length]);
 
   // Send button press is a momentary state, independent of the run.
   useEffect(() => {
@@ -160,15 +170,15 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
     setElapsed(0);
     const id = setInterval(() => {
       const ms = Date.now() - startedAt.current;
-      if (ms >= RUN_DURATION) {
-        setElapsed(RUN_DURATION);
+      if (ms >= script.runDuration) {
+        setElapsed(script.runDuration);
         setPhase('done');
         return;
       }
       setElapsed(ms);
     }, TICK_MS);
     return () => clearInterval(id);
-  }, [phase]);
+  }, [phase, script.runDuration]);
 
   useEffect(() => {
     if (phase !== 'done') return;
@@ -190,11 +200,12 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
   const clearing = phase === 'clearing';
   const sending = running && !pressed;
   const answerChars = Math.max(0, Math.floor((elapsed - ANSWER_START) / MS_PER_ANSWER_CHAR));
-  const answerComplete = answerChars >= ANSWER.length;
+  const answerComplete = answerChars >= script.answer.length;
   const showAnswer = answerChars > 0 && !clearing;
-  const showGoalCard = elapsed >= GOAL_CARD_AT && !clearing;
-  const thought = THOUGHTS.find((t) => elapsed >= t.at && elapsed < t.until)?.text;
-  const statusLabel = elapsed >= ANSWER_START ? 'writing the answer...' : (thought ?? 'thinking...');
+  const showGoalCard = elapsed >= script.goalCardAt && !clearing;
+  const thought = script.thoughts.find((t) => elapsed >= t.at && elapsed < t.until)?.text;
+  const statusLabel =
+    elapsed >= ANSWER_START ? script.ui.writing : (thought ?? script.ui.thinking);
   const conversationShown = phase === 'running' || phase === 'done';
 
   return (
@@ -207,7 +218,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
               <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-[9px] font-semibold text-gray-700">
                 AM
               </span>
-              <p className="min-w-0 truncate text-sm text-gray-900">{QUESTION}</p>
+              <p className="min-w-0 truncate text-sm text-gray-900">{script.question}</p>
             </div>
           </Reveal>
 
@@ -244,7 +255,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
                     answerComplete ? 'opacity-100' : 'opacity-0',
                   )}
                 >
-                  Thought for {Math.floor(ANSWER_START / 1000)}s
+                  {script.ui.thoughtFor.replace('{n}', String(Math.floor(ANSWER_START / 1000)))}
                 </span>
               </div>
             </div>
@@ -253,7 +264,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
           {/* Tool steps. A step with `repeatsAt` fires more than once and
               switches to its plural label, counting up as it goes. */}
           <div className="ml-[3px]">
-            {STEPS.map((step, i) => {
+            {script.steps.map((step, i) => {
               const shown = elapsed >= step.at && !clearing;
               const done = elapsed >= step.doneAt;
               const count = 1 + (step.repeatsAt?.filter((t) => elapsed >= t).length ?? 0);
@@ -297,14 +308,14 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
           {/* Answer. An invisible full copy reserves the final height so the
               block does not reflow as the visible text types in. */}
           <Reveal shown={showAnswer} className="relative mt-3">
-            <p className="invisible text-sm leading-relaxed">{ANSWER}</p>
+            <p className="invisible text-sm leading-relaxed">{script.answer}</p>
             <p className="absolute inset-0 text-sm leading-relaxed text-gray-700">
-              {answerChars > 0 ? ANSWER.slice(0, answerChars) : ANSWER}
+              {answerChars > 0 ? script.answer.slice(0, answerChars) : script.answer}
             </p>
           </Reveal>
 
           <Reveal shown={showGoalCard} className="mt-4">
-            <GoalCard />
+            <GoalCard script={script} lang={lang} />
           </Reveal>
         </div>
 
@@ -316,14 +327,14 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
         <div className="text-sm h-5">
           {phase === 'typing' && typed > 0 ? (
             <span className="text-gray-700">
-              {QUESTION.slice(0, typed)}
+              {script.question.slice(0, typed)}
               <span
                 className="ml-px inline-block h-[1.15em] w-px translate-y-[0.2em] bg-gray-700"
-                style={typed >= QUESTION.length ? { animation: 'caretBlink 1.06s step-end infinite' } : undefined}
+                style={typed >= script.question.length ? { animation: 'caretBlink 1.06s step-end infinite' } : undefined}
               />
             </span>
           ) : (
-            <span className="text-gray-400">Ask Orakis</span>
+            <span className="text-gray-400">{script.ui.composerPlaceholder}</span>
           )}
         </div>
 
@@ -333,13 +344,13 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
               type="button"
               tabIndex={-1}
               aria-hidden={true}
-              aria-label="Add attachment"
+              aria-label={script.ui.addAttachment}
               className="size-7 flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors"
             >
               <Plus className="size-4" />
             </button>
             <span className="inline-flex h-7 items-center rounded-xl bg-[#0044ff]/10 px-2.5 text-sm text-[#0044ff]">
-              Think
+              {script.ui.think}
             </span>
           </div>
 

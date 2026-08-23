@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FAQ_ITEMS } from '../../lib/faq';
+import { useT } from '../../lib/i18n';
 
 /**
  * Single-open accordion.
@@ -10,6 +10,7 @@ import { FAQ_ITEMS } from '../../lib/faq';
  * row refuses to shrink below the content's intrinsic height and nothing moves.
  */
 export function Faq() {
+  const t = useT();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -20,11 +21,11 @@ export function Faq() {
           id="faq-heading"
           style={{ letterSpacing: '-0.02em' }}
         >
-          FAQs
+          {t.faq.heading}
         </h2>
 
         <div className="relative flex w-full flex-col">
-          {FAQ_ITEMS.map((item, i) => {
+          {t.faq.items.map((item, i) => {
             const expanded = openIndex === i;
             return (
               <div

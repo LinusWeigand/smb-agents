@@ -2,6 +2,7 @@ import { useInView } from '../../lib/useInView';
 import { ConnectsGraph } from './overview/ConnectsGraph';
 import { HarborCanvas } from './overview/HarborCanvas';
 import { useCardMediaScale } from './overview/useCardMediaScale';
+import { useT } from '../../lib/i18n';
 
 /** The chip's centre logo is painted by masking a white block through the
  *  Orakis mark, so it inherits the mark's negative space exactly. */
@@ -16,6 +17,7 @@ const ORAKIS_MARK_MASK = "url('/orakis-mark-white.svg')";
  * live in ./overview and are driven by their own in-view flags.
  */
 export function Overview() {
+  const t = useT();
   const dataMedia = useCardMediaScale();
   const toolsMedia = useCardMediaScale();
   // The circuit dots stay parked until the card is properly on screen, so the
@@ -26,12 +28,12 @@ export function Overview() {
   return (
     <section>
       <div className="mx-auto w-full max-w-[1190px]">
-        <h2 className="mx-auto max-w-2xl font-display text-2xl md:text-4xl font-medium text-gray-900 leading-[1.15] text-center" style={{ letterSpacing: "-0.02em" }}>Overview</h2>
+        <h2 className="mx-auto max-w-2xl font-display text-2xl md:text-4xl font-medium text-gray-900 leading-[1.15] text-center" style={{ letterSpacing: "-0.02em" }}>{t.overview.heading}</h2>
         <div className="mt-[75px] md:mt-[105px] grid grid-cols-1 gap-4 md:grid-cols-2 md:auto-rows-fr">
           <div ref={cpuRef}>
             <div className="rounded-lg border text-card-foreground shadow-sm bg-zinc-50 border-zinc-200/60 overflow-hidden p-6 flex flex-col min-h-[320px] h-full">
-              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">You already have the data. Let it work for you.</h3>
-              <p className="text-sm text-gray-500 mt-2">Your tasks, documents, and conversations already hold the context Orakis needs to help you.</p>
+              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">{t.overview.data.title}</h3>
+              <p className="text-sm text-gray-500 mt-2">{t.overview.data.body}</p>
               <div ref={dataMedia.ref} className="relative mt-auto -mx-6 -mb-6 overflow-hidden" style={{ aspectRatio: "585 / 407" }}>
                 <div className="absolute left-1/2 top-1/2 flex items-center justify-center" style={{ width: "585px", height: "407px", transform: `translate(-50%, -50%) scale(${dataMedia.scale ?? 1})`, visibility: dataMedia.scale === null ? "hidden" : undefined }}>
                   <div className="flex-none">
@@ -188,8 +190,8 @@ export function Overview() {
           </div>
           <div ref={dotsRef}>
             <div className="rounded-lg border text-card-foreground shadow-sm bg-zinc-50 border-zinc-200/60 overflow-hidden p-6 flex flex-col min-h-[320px] h-full">
-              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">Orakis connects the dots so you don't have to.</h3>
-              <p className="text-sm text-gray-500 mt-2">Your data gets stored clean and structured, automatically, ready for your AI agents, and always there when you need it.</p>
+              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">{t.overview.dots.title}</h3>
+              <p className="text-sm text-gray-500 mt-2">{t.overview.dots.body}</p>
               <div className="mt-auto pt-6">
                 <ConnectsGraph active={dotsActive} />
               </div>
@@ -197,8 +199,8 @@ export function Overview() {
           </div>
           <div>
             <div className="rounded-lg border text-card-foreground shadow-sm bg-zinc-50 border-zinc-200/60 overflow-hidden p-6 flex flex-col min-h-[320px] h-full">
-              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">Integrate your existing tools</h3>
-              <p className="text-sm text-gray-500 mt-2">Orakis integrates with the tools your team already uses.</p>
+              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">{t.overview.tools.title}</h3>
+              <p className="text-sm text-gray-500 mt-2">{t.overview.tools.body}</p>
               <div ref={toolsMedia.ref} className="relative mt-auto -mx-6 -mb-6 overflow-hidden" style={{ aspectRatio: "585 / 427" }}>
                 <div className="absolute left-1/2 top-1/2 flex items-center justify-center" style={{ width: "585px", height: "427px", transform: `translate(-50%, -50%) scale(${toolsMedia.scale ?? 1})`, visibility: toolsMedia.scale === null ? "hidden" : undefined }}>
                   <div className="flex-none scale-[1.5]">
@@ -235,8 +237,8 @@ export function Overview() {
           </div>
           <div>
             <div className="rounded-lg border text-card-foreground shadow-sm bg-zinc-50 border-zinc-200/60 overflow-hidden p-6 flex flex-col min-h-[320px] h-full">
-              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">Your LLM docks at the Orakis harbor</h3>
-              <p className="text-sm text-gray-500 mt-2">Whichever ship you sail, it docks and gets loaded with context from your Company Brain, container by container.</p>
+              <h3 className="text-xl font-display font-medium text-gray-900 leading-snug">{t.overview.harbor.title}</h3>
+              <p className="text-sm text-gray-500 mt-2">{t.overview.harbor.body}</p>
               <div className="mt-auto pt-6 -mx-6 -mb-6">
                 <HarborCanvas />
               </div>

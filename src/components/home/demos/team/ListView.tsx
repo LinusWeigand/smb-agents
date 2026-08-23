@@ -4,9 +4,11 @@ import { cn } from '../../../../lib/utils';
 import { SCROLLBAR } from '../autopilot/TasksView';
 import {
   LIST_MEMBERS, PRIORITY_STYLE, STATUS_STYLE,
-  formatDay, initials,
+  initials,
   type ListMember,
 } from './data';
+import { formatDay, teamUi, trTeam } from './i18n';
+import { useLang } from '../../../../lib/i18n';
 
 const TH = 'py-2 text-left text-[10px] font-semibold uppercase tracking-widest text-[#8C8C8C]/60';
 
@@ -17,17 +19,20 @@ export function MemberTable({
   selectedId: string | null;
   onSelect: (id: string) => void;
 }) {
+  const { lang } = useLang();
+  const ui = teamUi(lang);
+
   return (
     <div className="px-[18px] pb-4 pt-2">
       <div className="overflow-hidden rounded-xl border border-[#3D3D3D] bg-[#2C2C2B]">
         <table className="w-full table-fixed">
           <thead>
             <tr className="border-b border-[#3D3D3B]">
-              <th className={cn('w-[220px] pl-6 pr-4', TH)}>Member</th>
-              <th className={cn('px-4', TH)}>Active Goals</th>
-              <th className={cn('w-[70px] px-4 text-center', TH)}>Goals</th>
-              <th className={cn('w-[70px] px-4 text-center', TH)}>Tasks</th>
-              <th className={cn('w-[80px] pl-4 pr-6 text-center', TH)}>Overdue</th>
+              <th className={cn('w-[220px] pl-6 pr-4', TH)}>{ui.table.member}</th>
+              <th className={cn('px-4', TH)}>{ui.table.activeGoals}</th>
+              <th className={cn('w-[70px] px-4 text-center', TH)}>{ui.table.goals}</th>
+              <th className={cn('w-[70px] px-4 text-center', TH)}>{ui.table.tasks}</th>
+              <th className={cn('w-[80px] pl-4 pr-6 text-center', TH)}>{ui.table.overdue}</th>
             </tr>
           </thead>
           <tbody>
@@ -56,11 +61,13 @@ export function MemberTable({
                     {m.activeGoals.map((g) => (
                       <div key={g} className="flex min-w-0 items-center gap-1.5">
                         <span className="h-1 w-1 shrink-0 rounded-full bg-[#FAFAFA]/40" />
-                        <span className="truncate text-[12px] text-[#FAFAFA]/85">{g}</span>
+                        <span className="truncate text-[12px] text-[#FAFAFA]/85">{trTeam(g, lang)}</span>
                       </div>
                     ))}
                     {m.more > 0 && (
-                      <span className="pl-2.5 text-[11px] text-[#8C8C8C]/50">+{m.more} more</span>
+                      <span className="pl-2.5 text-[11px] text-[#8C8C8C]/50">
+                        {ui.table.more.replace('{n}', String(m.more))}
+                      </span>
                     )}
                   </div>
                 </td>
@@ -91,6 +98,8 @@ export function MemberTable({
 
 /** Detail pane for one person, with its own Goals/Tasks sub-tabs. */
 export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () => void }) {
+  const { lang } = useLang();
+  const ui = teamUi(lang);
   const [tab, setTab] = useState<'goals' | 'tasks'>('goals');
 
   return (
@@ -117,9 +126,11 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
         {row.focus && (
           <div className="mt-3 rounded-lg border border-[#3D3D3D] bg-[#242424] px-3 py-2">
             <p className="mb-0.5 text-[10px] uppercase tracking-wider text-[#8C8C8C]/40">
-              Working on
+              {ui.workingOn}
             </p>
-            <p className="text-[12px] leading-relaxed text-[#FAFAFA]/80">{row.focus}</p>
+            <p className="text-[12px] leading-relaxed text-[#FAFAFA]/80">
+              {trTeam(row.focus, lang)}
+            </p>
           </div>
         )}
 
@@ -136,7 +147,7 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                   : 'text-[#8C8C8C]/50 hover:bg-[#242424] hover:text-[#FAFAFA]',
               )}
             >
-              {t === 'goals' ? 'Goals' : 'Tasks'}
+              {t === 'goals' ? ui.tabs.goals : ui.tabs.tasks}
             </button>
           ))}
         </div>
@@ -160,26 +171,28 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                     {g.category && (
                       <div className="mb-1.5 flex">
                         <span className="max-w-full truncate rounded border border-[#FAFAFA]/15 px-1.5 py-0.5 text-[10px] leading-none text-[#FAFAFA]/70">
-                          {g.category}
+                          {trTeam(g.category, lang)}
                         </span>
                       </div>
                     )}
-                    <p className="text-[13px] font-medium leading-snug text-[#FAFAFA]">{g.title}</p>
+                    <p className="text-[13px] font-medium leading-snug text-[#FAFAFA]">{trTeam(g.title, lang)}</p>
                     {g.description && (
                       <p className="mt-0.5 line-clamp-1 text-[11px] text-[#8C8C8C]/50">
-                        {g.description}
+                        {trTeam(g.description, lang)}
                       </p>
                     )}
                   </div>
                   {priority && (
                     <span className={cn('shrink-0 text-[11px] font-medium', priority.color)}>
-                      {priority.label}
+                      {trTeam(priority.label, lang)}
                     </span>
                   )}
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className={cn('text-[11px] font-medium', status.color)}>{status.label}</span>
+                  <span className={cn('text-[11px] font-medium', status.color)}>
+                    {trTeam(status.label, lang)}
+                  </span>
                   {g.deadlineDays !== undefined && (
                     <span
                       className={cn(
@@ -187,7 +200,7 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                         late ? 'font-medium text-red-400' : 'text-[#8C8C8C]/50',
                       )}
                     >
-                      {formatDay(g.deadlineDays)}
+                      {formatDay(g.deadlineDays, lang)}
                     </span>
                   )}
                 </div>
@@ -204,7 +217,10 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                       />
                     </div>
                     <p className="text-[10px] tabular-nums text-[#8C8C8C]/40">
-                      {g.done}/{total} Tasks · {pct}%
+                      {ui.progress
+                        .replace('{done}', String(g.done))
+                        .replace('{total}', String(total))
+                        .replace('{pct}', String(pct))}
                     </p>
                   </div>
                 )}
@@ -223,10 +239,10 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                 className="flex items-start gap-3 rounded-xl border border-[#3D3D3D] bg-[#1E1E1D] p-3"
               >
                 <div className="min-w-0 flex-1 space-y-1">
-                  <p className="text-[13px] font-medium leading-snug text-[#FAFAFA]">{t.title}</p>
+                  <p className="text-[13px] font-medium leading-snug text-[#FAFAFA]">{trTeam(t.title, lang)}</p>
                   <div className="flex flex-wrap items-center gap-2.5">
                     <span className={cn('text-[11px] font-medium', status.color)}>
-                      {status.label}
+                      {trTeam(status.label, lang)}
                     </span>
                     {t.deadlineDays !== undefined && (
                       <span
@@ -235,11 +251,13 @@ export function MemberDetail({ row, onClose }: { row: ListMember; onClose: () =>
                           late ? 'font-medium text-red-400' : 'text-[#8C8C8C]/50',
                         )}
                       >
-                        {formatDay(t.deadlineDays)}
+                        {formatDay(t.deadlineDays, lang)}
                       </span>
                     )}
                     {priority && (
-                      <span className={cn('text-[11px]', priority.color)}>{priority.label}</span>
+                      <span className={cn('text-[11px]', priority.color)}>
+                        {trTeam(priority.label, lang)}
+                      </span>
                     )}
                   </div>
                 </div>

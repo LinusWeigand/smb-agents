@@ -54,20 +54,23 @@ function writeAttempts(form: string, attempts: number[]) {
   }
 }
 
+/** Why a submission was refused; the caller turns this into localized copy. */
+export type RateLimitReason = 'tooSoon' | 'tooMany';
+
 /** Records an attempt and reports whether this one may proceed. */
-export function checkRateLimit(form: string): { ok: boolean; message: string } {
+export function checkRateLimit(form: string): { ok: boolean; reason: RateLimitReason | null } {
   const now = Date.now();
   const attempts = readAttempts(form);
   const last = attempts[attempts.length - 1];
 
   if (last !== undefined && now - last < MIN_GAP_MS) {
-    return { ok: false, message: 'One moment — that was just sent.' };
+    return { ok: false, reason: 'tooSoon' };
   }
   if (attempts.length >= MAX_ATTEMPTS) {
-    return { ok: false, message: 'Too many attempts. Please try again in a few minutes.' };
+    return { ok: false, reason: 'tooMany' };
   }
   writeAttempts(form, [...attempts, now]);
-  return { ok: true, message: '' };
+  return { ok: true, reason: null };
 }
 
 export const HONEYPOT_NAME = 'company_website';

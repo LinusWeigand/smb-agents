@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { OraChatDemo } from './chat/OraChatDemo';
+import { useT } from '../../lib/i18n';
 
 /**
  * "Manage your work" — the chat demo, framed by a scroll-driven entrance.
@@ -16,6 +17,7 @@ import { OraChatDemo } from './chat/OraChatDemo';
  * scrolling does not re-render the demo on every frame.
  */
 export function ManageYourWork() {
+  const t = useT();
   const panelRef = useRef<HTMLDivElement>(null);
   const [canStart, setCanStart] = useState(false);
   const [animated, setAnimated] = useState(false);
@@ -56,7 +58,7 @@ export function ManageYourWork() {
         className="max-w-2xl font-display text-2xl md:text-4xl font-medium text-gray-900 leading-[1.15] text-center"
         style={{ letterSpacing: '-0.02em' }}
       >
-        Manage your work
+        {t.manageYourWork.heading}
       </h2>
       <div
         ref={panelRef}

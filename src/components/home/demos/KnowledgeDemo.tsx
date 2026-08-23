@@ -2,6 +2,7 @@ import { useId, useState } from 'react';
 import { Minimize2 } from 'lucide-react';
 import { KnowledgeGraph } from './knowledge/KnowledgeGraph';
 import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
+import { useDemoChrome } from './chrome';
 
 /**
  * Knowledge base: every entry in the company brain and how the entries reference each other.
@@ -11,6 +12,7 @@ import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
  * of the product UI, not the product UI.
  */
 export function KnowledgeDemo() {
+  const chrome = useDemoChrome();
   const { ref: fitRef, scale: fitScale } = useFitScale();
   const maskId = `orakis-mark-solid-cut-${useId()}`;
   const [fullscreen, setFullscreen] = useState(false);
@@ -95,14 +97,14 @@ export function KnowledgeDemo() {
                               <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                               <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Dashboard</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.dashboard}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-inbox h-4 w-4 shrink-0">
                               <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
                               <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Inbox</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.inbox}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers h-4 w-4 shrink-0">
@@ -110,7 +112,7 @@ export function KnowledgeDemo() {
                               <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
                               <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Goals & Tasks</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.goalsTasks}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users h-4 w-4 shrink-0">
@@ -119,13 +121,13 @@ export function KnowledgeDemo() {
                               <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Team</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.team}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-folder-open h-4 w-4 shrink-0">
                               <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Docs</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.docs}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar-range h-4 w-4 shrink-0">
@@ -138,7 +140,7 @@ export function KnowledgeDemo() {
                               <path d="M7 14h.01" />
                               <path d="M17 18h.01" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Calendar</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.calendar}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] bg-white font-medium text-[#18181B]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-atom h-4 w-4 shrink-0">
@@ -146,7 +148,7 @@ export function KnowledgeDemo() {
                               <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
                               <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Ora</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.ora}</span>
                           </span>
                         </nav>
                         <div className="mt-auto flex flex-col gap-[5px] p-2">
@@ -1390,7 +1392,7 @@ export function KnowledgeDemo() {
                           <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
                         </svg>
                         <span className="flex min-w-0 items-center gap-2.5 text-[14px]">
-                          <span className="cursor-pointer text-[#8C8C8C] transition-colors hover:text-[#FAFAFA]">Ora</span>
+                          <span className="cursor-pointer text-[#8C8C8C] transition-colors hover:text-[#FAFAFA]">{chrome.ora}</span>
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right h-4 w-4 shrink-0 text-[#8C8C8C]">
                             <path d="m9 18 6-6-6-6" />
                           </svg>

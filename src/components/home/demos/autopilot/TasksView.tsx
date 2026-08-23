@@ -1,6 +1,7 @@
 import { Calendar, EllipsisVertical, Plus } from 'lucide-react';
 import { cn } from '../../../../lib/utils';
-import { PRIORITY, TASK_COLUMNS, dueDate, type TaskCard } from './data';
+import { PRIORITY_CLASS, autopilotText, dueDate, taskColumns, type TaskCard } from './data';
+import { useLang, type Lang } from '../../../../lib/i18n';
 
 export const SCROLLBAR =
   '[scrollbar-width:thin] [scrollbar-color:#333333_#1F1F1E] [&::-webkit-scrollbar]:h-2.5 [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-track]:bg-[#1F1F1E] [&::-webkit-scrollbar-thumb]:rounded-[5px] [&::-webkit-scrollbar-thumb]:bg-[#333333] [&::-webkit-scrollbar-thumb]:[border:2px_solid_#1F1F1E] [&::-webkit-scrollbar-thumb:hover]:bg-[#4d4d4d]';
@@ -25,9 +26,9 @@ const Chip = ({ children, truncate }: { children: React.ReactNode; truncate?: bo
 /** Half-pixel spacer that stands in for the drop indicator between cards. */
 const Gap = () => <div className="my-0.5 h-0.5 w-full" />;
 
-function Card({ card }: { card: TaskCard }) {
-  const due = card.dueDays === undefined ? null : dueDate(card.dueDays);
-  const priority = PRIORITY[card.priority];
+function Card({ card, lang }: { card: TaskCard; lang: Lang }) {
+  const x = autopilotText(lang);
+  const due = card.dueDays === undefined ? null : dueDate(card.dueDays, lang);
 
   return (
     <>
@@ -52,12 +53,12 @@ function Card({ card }: { card: TaskCard }) {
           </p>
         )}
         <div className="mt-1.5 flex flex-wrap items-center gap-2.5 border-t border-[#3D3D3D] pt-2">
-          <span className={cn('text-[11px] font-medium leading-none', priority.cls)}>
-            {priority.label}
+          <span className={cn('text-[11px] font-medium leading-none', PRIORITY_CLASS[card.priority])}>
+            {x.priority[card.priority]}
           </span>
           {card.review && (
             <span className="max-w-[150px] truncate text-[11px] font-medium leading-none text-teal-400">
-              Review {card.review}
+              {x.review.replace('{name}', card.review)}
             </span>
           )}
           {due && (
@@ -85,13 +86,17 @@ function Card({ card }: { card: TaskCard }) {
 }
 
 export function TasksView() {
+  const { lang } = useLang();
+  const x = autopilotText(lang);
+  const columns = taskColumns(lang);
+
   return (
     <div className="-mx-4 -mb-6 flex flex-1 flex-col">
       <div
         className={cn('flex w-full flex-1 gap-3 overflow-x-auto px-4 pb-4', SCROLLBAR)}
         style={EDGE_FADE}
       >
-        {TASK_COLUMNS.map((col) => (
+        {columns.map((col) => (
           <div key={col.label} className="w-[300px] shrink-0">
             <div className="mb-3 flex items-center gap-2">
               <span
@@ -102,11 +107,11 @@ export function TasksView() {
               <span className="text-sm text-[#8C8C8C]">{col.cards.length}</span>
             </div>
             {col.cards.map((card) => (
-              <Card key={card.title} card={card} />
+              <Card key={card.title} card={card} lang={lang} />
             ))}
             <Gap />
             <span className="flex w-full cursor-pointer items-center gap-1.5 px-3 py-1.5 text-xs text-[#8C8C8C] transition-colors hover:text-[#FAFAFA]">
-              <span>Add card</span>
+              <span>{x.addCard}</span>
               <Plus size={16} />
             </span>
           </div>

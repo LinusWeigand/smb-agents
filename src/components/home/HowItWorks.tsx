@@ -3,6 +3,7 @@ import { BriefingDemo } from './demos/BriefingDemo';
 import { AutopilotDemo } from './demos/AutopilotDemo';
 import { TeamMapDemo } from './demos/TeamMapDemo';
 import { KnowledgeDemo } from './demos/KnowledgeDemo';
+import { useT } from '../../lib/i18n';
 
 type Feature = {
   heading: string;
@@ -11,34 +12,18 @@ type Feature = {
   demo: ReactNode;
 };
 
-const FEATURES: Feature[] = [
-  {
-    heading: 'Start your day with a Briefing',
-    body: "Know what matters, see who's waiting on you, and know exactly what you need to do. Orakis manages the work around you, reorganizing your calendar, working through your inbox, and protecting time for what matters most.",
-    demo: <BriefingDemo />,
-  },
-  {
-    heading: 'Your company, on autopilot',
-    badge: 'Human in the loop also possible',
-    body: 'Orakis orchestrates every task in your team and keeps everything moving efficiently, so your projects run themselves without you having to manually chase it every time.',
-    demo: <AutopilotDemo />,
-  },
-  {
-    heading: "See the risk before it's a crisis.",
-    body: "Orakis already analyzes your data and knows what's going on before you do.",
-    demo: <TeamMapDemo />,
-  },
-  {
-    heading: "You're building an asset.",
-    body: "Every source compounds into one connected picture of how your company works. What your people know never has to leave with them. It's the infrastructure your company runs on. AI agents, for example, finally get clean company data to work with.",
-    demo: <KnowledgeDemo />,
-  },
-];
-
 export function FeatureList() {
+  const t = useT();
+  const features: Feature[] = [
+    { ...t.features.briefing, demo: <BriefingDemo /> },
+    { ...t.features.autopilot, demo: <AutopilotDemo /> },
+    { ...t.features.risk, demo: <TeamMapDemo /> },
+    { ...t.features.asset, demo: <KnowledgeDemo /> },
+  ];
+
   return (
     <ul className="flex flex-col gap-20 md:gap-28">
-      {FEATURES.map((f, i) => (
+      {features.map((f, i) => (
         <li
           key={f.heading}
           /* Odd rows flip to `flex-row-reverse` so the mock window alternates

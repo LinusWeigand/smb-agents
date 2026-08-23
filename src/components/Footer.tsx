@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { TAGLINE } from '../lib/constants';
+import { useT } from '../lib/i18n';
 
 const COL_HEADING =
   'font-serif text-[11px] font-bold tracking-[0.16em] uppercase text-[#F7F7F7] mb-5';
@@ -7,6 +7,7 @@ const COL_LIST = 'space-y-3.5 text-sm text-white/50 font-sans font-normal';
 const LINK = 'hover:text-white transition-colors duration-200';
 
 export function Footer() {
+  const t = useT();
   const navigate = useNavigate();
 
   // Same cross-route anchor dance as the header: if we are not on "/", route
@@ -47,48 +48,48 @@ export function Footer() {
               </span>
             </a>
             <p className="font-serif text-2xl font-medium leading-snug text-[#F7F7F7]">
-              {TAGLINE}
+              {t.tagline}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
             <div>
-              <p className={COL_HEADING}>Product</p>
+              <p className={COL_HEADING}>{t.footer.productHeading}</p>
               <ul className={COL_LIST} style={{ letterSpacing: '-0.1px' }}>
                 <li>
                   <button onClick={() => scrollToSection('how-it-works')} className={LINK}>
-                    Product
+                    {t.nav.product}
                   </button>
                 </li>
                 <li>
                   <button onClick={() => scrollToSection('overview')} className={LINK}>
-                    Overview
+                    {t.nav.overview}
                   </button>
                 </li>
                 <li>
                   <button onClick={() => scrollToSection('faq')} className={LINK}>
-                    FAQ
+                    {t.nav.faq}
                   </button>
                 </li>
                 <li>
                   <Link to="/pricing" onClick={toTop} className={LINK}>
-                    Pricing
+                    {t.nav.pricing}
                   </Link>
                 </li>
                 <li>
                   <Link to="/lets-talk" onClick={() => window.scrollTo({ top: 0 })} className={LINK}>
-                    Let's Talk
+                    {t.nav.letsTalk}
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <p className={COL_HEADING}>Company</p>
+              <p className={COL_HEADING}>{t.footer.companyHeading}</p>
               <ul className={COL_LIST} style={{ letterSpacing: '-0.1px' }}>
                 <li>
                   <a href="mailto:info@orakis.com" className={LINK}>
-                    Contact
+                    {t.footer.contact}
                   </a>
                 </li>
                 <li>
@@ -98,14 +99,14 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className={LINK}
                   >
-                    LinkedIn
+                    {t.footer.linkedIn}
                   </a>
                 </li>
               </ul>
             </div>
 
             <div>
-              <p className={COL_HEADING}>Legal</p>
+              <p className={COL_HEADING}>{t.footer.legalHeading}</p>
               <ul className={COL_LIST} style={{ letterSpacing: '-0.1px' }}>
                 {/* German names on purpose: these documents have legally
                     prescribed titles, so they are not translated for the rest
@@ -143,7 +144,7 @@ export function Footer() {
         />
         <div className="py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-sm text-white/50 font-sans flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-            <span>© 2026 Orakis, all rights reserved</span>
+            <span>{t.footer.rights}</span>
           </p>
           <p className="text-sm text-white/50 font-sans flex items-center gap-2">
             <svg width="16" height="11" viewBox="0 0 5 3" className="rounded-[1px] shrink-0" aria-hidden="true">
@@ -151,7 +152,7 @@ export function Footer() {
               <rect y="1" width="5" height="1" fill="#DD0000" />
               <rect y="2" width="5" height="1" fill="#FFCE00" />
             </svg>
-            Built in Germany
+            {t.footer.builtIn}
           </p>
         </div>
       </div>

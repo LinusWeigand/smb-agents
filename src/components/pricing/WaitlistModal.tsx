@@ -4,6 +4,7 @@ import { HoneypotField } from '../HoneypotField';
 import {
   FIELD_LIMITS, HONEYPOT_NAME, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
 } from '../../lib/formGuards';
+import { useT } from '../../lib/i18n';
 
 /**
  * Beta waitlist capture, opened from the pricing CTA.
@@ -19,6 +20,7 @@ export function WaitlistModal({
   onClose: () => void;
   plan: string;
 }) {
+  const t = useT();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -52,12 +54,12 @@ export function WaitlistModal({
       return;
     }
     if (!isValidEmail(email)) {
-      setError('Please enter a valid email address.');
+      setError(t.pricing.waitlist.invalidEmail);
       return;
     }
     const limit = checkRateLimit('waitlist');
     if (!limit.ok) {
-      setError(limit.message);
+      setError(limit.reason ? t.formGuards[limit.reason] : t.pricing.waitlist.genericError);
       return;
     }
 
@@ -75,11 +77,11 @@ export function WaitlistModal({
       });
       if (!res.ok) {
         const payload = (await res.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(payload?.error || 'Something went wrong. Please try again.');
+        throw new Error(payload?.error || t.pricing.waitlist.genericError);
       }
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      setError(err instanceof Error ? err.message : t.pricing.waitlist.genericError);
     } finally {
       setSending(false);
     }
@@ -92,14 +94,14 @@ export function WaitlistModal({
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Join the beta waitlist"
+      aria-label={t.pricing.waitlist.dialogAria}
     >
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
 
       <div className="relative bg-white rounded-2xl border border-gray-200 w-full max-w-md p-8 shadow-2xl">
         <button
           onClick={onClose}
-          aria-label="Close modal"
+          aria-label={t.pricing.waitlist.close}
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-[6px] text-gray-400 hover:text-gray-700 hover:bg-[#F2F2F2] transition-colors"
         >
           <X className="w-4 h-4" />
@@ -114,10 +116,10 @@ export function WaitlistModal({
               className="font-display font-medium text-xl text-gray-900 mb-2"
               style={{ letterSpacing: '-0.02em' }}
             >
-              You're on the list
+              {t.pricing.waitlist.doneHeading}
             </h2>
             <p className="font-sans text-sm text-gray-500 leading-relaxed">
-              We'll reach out as soon as access opens up.
+              {t.pricing.waitlist.doneBody}
             </p>
           </div>
         ) : (
@@ -127,11 +129,10 @@ export function WaitlistModal({
                 className="font-display font-medium text-2xl text-gray-900 mb-2"
                 style={{ letterSpacing: '-0.02em' }}
               >
-                We're in beta
+                {t.pricing.waitlist.heading}
               </h2>
               <p className="font-sans text-sm text-gray-500 leading-relaxed">
-                Orakis is currently in closed beta. Leave your email and we'll notify you as soon as
-                your spot opens up.
+                {t.pricing.waitlist.body}
               </p>
             </div>
 
@@ -139,7 +140,7 @@ export function WaitlistModal({
               <HoneypotField inputRef={honeypotRef} />
               <input
                 type="email"
-                placeholder="your@email.com"
+                placeholder={t.pricing.waitlist.emailPlaceholder}
                 value={email}
                 maxLength={FIELD_LIMITS.email}
                 onChange={(e) => {
@@ -161,7 +162,7 @@ export function WaitlistModal({
                 disabled={sending}
                 className="w-full h-10 rounded-[6px] border border-gray-200 bg-white hover:bg-[#171717] hover:border-[#171717] hover:text-white transition-colors duration-200 cursor-pointer text-sm font-medium font-sans text-gray-700"
               >
-                {sending ? 'Sending...' : 'Notify me'}
+                {sending ? t.pricing.waitlist.sending : t.pricing.waitlist.submit}
               </button>
             </div>
           </>

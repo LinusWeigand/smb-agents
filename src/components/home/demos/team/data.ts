@@ -7,6 +7,9 @@
  * `inDays`/`deadlineDays` are offsets from today so nothing ever reads stale.
  */
 
+import type { Lang } from '../../../../lib/i18n';
+import { formatDay, teamUi, trTeam } from './i18n';
+
 /** Palette, kept as named constants because the raw rgba() values repeat. */
 export const FONT = 'system-ui,-apple-system,sans-serif';
 export const STROKE_IDLE = 'rgba(61,61,61,0.9)';
@@ -647,36 +650,33 @@ export const memberById = (id: string) => MEMBERS.find((m) => m.id === id);
 export const initials = (name: string) =>
   name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
 
-/** dd.mm.yyyy, offset from today. */
-export const formatDay = (offsetDays: number) => {
-  const dt = new Date();
-  dt.setDate(dt.getDate() + offsetDays);
-  const p = (n: number) => String(n).padStart(2, '0');
-  return `${p(dt.getDate())}.${p(dt.getMonth() + 1)}.${dt.getFullYear()}`;
-};
-
 export const isOverdue = (n: { inDays?: number; done?: boolean }) =>
   n.inDays !== undefined && n.inDays < 0 && !n.done;
 
 /** Compact meta line used on graph nodes. */
-export const nodeMeta = (n: TaskNode | GoalNode) => {
+export const nodeMeta = (n: TaskNode | GoalNode, lang: Lang) => {
   const out: { text: string; color: string }[] = [
-    { text: String(n.status ?? ''), color: META_DIM },
+    { text: trTeam(String(n.status ?? ''), lang), color: META_DIM },
   ];
   if (n.inDays !== undefined)
-    out.push({ text: formatDay(n.inDays), color: isOverdue(n) ? OVERDUE : META_DIM });
+    out.push({ text: formatDay(n.inDays, lang), color: isOverdue(n) ? OVERDUE : META_DIM });
   return out;
 };
 
 /** Longer meta line used in the side panel. */
-export const panelMeta = (n: TaskNode | GoalNode) => {
+export const panelMeta = (n: TaskNode | GoalNode, lang: Lang) => {
+  const ui = teamUi(lang);
   const out: { text: string; color: string }[] = [
-    { text: String(n.status ?? ''), color: META },
+    { text: trTeam(String(n.status ?? ''), lang), color: META },
   ];
-  if (n.priority) out.push({ text: `${n.priority} priority`, color: META });
+  if (n.priority)
+    out.push({ text: ui.priority.replace('{p}', trTeam(n.priority, lang)), color: META });
   if (n.inDays !== undefined) {
-    const day = formatDay(n.inDays);
-    out.push({ text: isOverdue(n) ? `Overdue · ${day}` : day, color: isOverdue(n) ? OVERDUE : META });
+    const day = formatDay(n.inDays, lang);
+    out.push({
+      text: isOverdue(n) ? `${ui.overdue} · ${day}` : day,
+      color: isOverdue(n) ? OVERDUE : META,
+    });
   }
   return out;
 };
@@ -686,4 +686,6 @@ export const kindOf = (n: GraphNodeT): 'member' | 'goal' | 'task' =>
   : GOALS.some((g) => g.id === n.id) ? 'goal'
   : 'task';
 
-export const labelOf = (n: GraphNodeT) => ('title' in n ? n.title : n.name);
+/** Member names are proper nouns; goal and task titles come from the map. */
+export const labelOf = (n: GraphNodeT, lang: Lang) =>
+  'title' in n ? trTeam(n.title, lang) : n.name;

@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { OrakisMark } from './OrakisMark';
+import { LanguageToggle } from './LanguageToggle';
 import { cn } from '../lib/utils';
 import { APP_URL } from '../lib/site';
+import { useT } from '../lib/i18n';
 
-const SECTIONS = [
-  { id: 'how-it-works', label: 'Product' },
-  { id: 'overview', label: 'Overview' },
-  { id: 'faq', label: 'FAQ' },
-] as const;
+const SECTION_IDS = ['how-it-works', 'overview', 'faq'] as const;
 
 const BUTTON_SHADOW = { boxShadow: '0 1px 3px rgba(23,23,23,0.08)' };
 
 export function Header() {
+  const t = useT();
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const onPricing = pathname === '/pricing';
+
+  const sections = [
+    { id: SECTION_IDS[0], label: t.nav.product },
+    { id: SECTION_IDS[1], label: t.nav.overview },
+    { id: SECTION_IDS[2], label: t.nav.faq },
+  ];
 
   /* Scroll-spy. The probe line sits a third of the way down the viewport
      rather than at its top, so a section counts as "current" once it has
@@ -26,10 +31,10 @@ export function Header() {
   useEffect(() => {
     const onScroll = () => {
       const probe = window.scrollY + window.innerHeight / 3;
-      for (let i = SECTIONS.length - 1; i >= 0; i--) {
-        const el = document.getElementById(SECTIONS[i].id);
+      for (let i = SECTION_IDS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(SECTION_IDS[i]);
         if (el && el.offsetTop <= probe) {
-          setActiveSection(SECTIONS[i].id);
+          setActiveSection(SECTION_IDS[i]);
           break;
         }
       }
@@ -82,7 +87,7 @@ export function Header() {
             <a
               href="/"
               className="flex items-center gap-2 shrink-0"
-              aria-label="Orakis - Go to homepage"
+              aria-label={t.nav.logoAria}
               onClick={(e) => {
                 if (window.location.pathname === '/') {
                   e.preventDefault();
@@ -102,9 +107,9 @@ export function Header() {
             <nav
               className="hidden md:flex items-center gap-1"
               role="navigation"
-              aria-label="Page sections"
+              aria-label={t.nav.sectionsAria}
             >
-              {SECTIONS.map((s) => (
+              {sections.map((s) => (
                 <a
                   key={s.id}
                   href={`/#${s.id}`}
@@ -122,19 +127,24 @@ export function Header() {
                 href="/pricing"
                 className="text-[13px] font-sans font-medium text-gray-500 hover:text-gray-700 hover:bg-[#F2F2F2] transition-all duration-150 whitespace-nowrap rounded-[6px] px-3 py-2"
               >
-                Pricing
+                {t.nav.pricing}
               </a>
             </nav>
           </div>
 
           <div className="flex items-center justify-end gap-2 sm:gap-3">
+            {/* Language sits immediately left of "Log in" on desktop; on mobile
+                it moves into the menu, where there is room for it. */}
+            <div className="hidden md:block">
+              <LanguageToggle />
+            </div>
             <a
               href={APP_URL}
-              aria-label="Log in to Orakis app"
+              aria-label={t.nav.loginAria}
               className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-white border border-gray-200 text-[13px] font-sans font-medium text-gray-700 whitespace-nowrap"
               style={BUTTON_SHADOW}
             >
-              Log in
+              {t.nav.login}
             </a>
             {/* On the pricing page the primary action is a conversation, not
                 another trip to the pricing page. The mobile menu is unaffected:
@@ -142,27 +152,27 @@ export function Header() {
             {onPricing ? (
               <a
                 href="/lets-talk"
-                aria-label="Request a demo"
+                aria-label={t.nav.demoAria}
                 className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-[#171717] border border-[#171717] text-[13px] font-sans font-medium text-white whitespace-nowrap shrink-0"
                 style={BUTTON_SHADOW}
               >
-                Let's Talk
+                {t.nav.letsTalk}
               </a>
             ) : (
               <a
                 href="/pricing"
-                aria-label="Sign up"
+                aria-label={t.nav.signUpAria}
                 className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-[6px] bg-[#171717] border border-[#171717] text-[13px] font-sans font-medium text-white whitespace-nowrap shrink-0"
                 style={BUTTON_SHADOW}
               >
-                Sign up
+                {t.nav.signUp}
               </a>
             )}
 
             <button
               className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-[6px] hover:bg-[#EBEBEB] transition-colors"
               onClick={() => setMenuOpen((v) => !v)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
               aria-expanded={menuOpen}
             >
               <span
@@ -191,7 +201,7 @@ export function Header() {
       {menuOpen && (
         <div className="md:hidden fixed inset-0 top-[60px] z-[59] bg-[#F7F7F7] flex flex-col">
           <nav className="flex-1 px-5 pt-4 flex flex-col overflow-y-auto">
-            {SECTIONS.map((s) => (
+            {sections.map((s) => (
               <a
                 key={s.id}
                 href={`/#${s.id}`}
@@ -209,24 +219,25 @@ export function Header() {
               onClick={() => setMenuOpen(false)}
               className="text-[17px] font-medium text-gray-800 py-4 border-b border-gray-100"
             >
-              Pricing
+              {t.nav.pricing}
             </a>
           </nav>
           <div className="px-5 pb-8 pt-4 flex flex-col gap-3">
+            <LanguageToggle size="lg" />
             <a
               href="/lets-talk"
               onClick={() => setMenuOpen(false)}
               className="flex items-center justify-center h-12 rounded-[8px] bg-white border border-gray-200 text-[15px] font-medium text-gray-700"
               style={BUTTON_SHADOW}
             >
-              Let's Talk
+              {t.nav.letsTalk}
             </a>
             <a
               href="/pricing"
               onClick={() => setMenuOpen(false)}
               className="flex items-center justify-center h-12 rounded-[8px] bg-[#171717] text-[15px] font-medium text-white"
             >
-              Sign up
+              {t.nav.signUp}
             </a>
           </div>
         </div>

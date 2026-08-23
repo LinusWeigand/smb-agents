@@ -5,12 +5,25 @@ import { ManageYourWork } from '../components/home/ManageYourWork';
 import { Overview } from '../components/home/Overview';
 import { CTASection } from '../components/home/CTASection';
 import { Faq } from '../components/home/Faq';
+import { useSeo } from '../lib/useSeo';
+import { siteUrl } from '../lib/site';
+import { useT } from '../lib/i18n';
 
 export default function Home() {
+  const t = useT();
+
+  /* index.html ships the English title and description. Without this the German
+     page would keep them, so the route sets its own from the dictionary. */
+  useSeo({
+    title: t.home.seoTitle,
+    description: t.home.seoDescription,
+    canonical: siteUrl('/'),
+  });
+
   return (
     <Container>
       <main id="main-content" className="w-full max-w-full overflow-x-clip">
-        <section id="hero" aria-label="Home">
+        <section id="hero" aria-label={t.nav.homeAria}>
           <Hero />
         </section>
 

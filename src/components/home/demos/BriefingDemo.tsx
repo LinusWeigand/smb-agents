@@ -1,5 +1,9 @@
 import { useId } from 'react';
 import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
+import { useDemoChrome } from './chrome';
+import { BriefingContent } from './briefing/BriefingContent';
+import { briefingText } from './briefing/data';
+import { useLang } from '../../../lib/i18n';
 
 /**
  * Daily Briefing panel: what is waiting on you, what Orakis prepared, and the rest of the day.
@@ -8,18 +12,10 @@ import { DEMO_HEIGHT, DEMO_WIDTH, useFitScale } from './useFitScale';
  * the ones the live site actually ships. Purely presentational: this is a mock
  * of the product UI, not the product UI.
  */
-/**
- * The live component formats the current date, so the mock briefing always
- * reads as "today". The prerendered HTML froze whatever date the build ran on,
- * which is why a snapshot of the page shows a stale weekday.
- */
-const TODAY_LABEL = new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-});
-
 export function BriefingDemo() {
+  const chrome = useDemoChrome();
+  const { lang } = useLang();
+  const briefing = briefingText(lang);
   const { ref: fitRef, scale: fitScale } = useFitScale();
   const maskId = `orakis-mark-solid-cut-${useId()}`;
   return (
@@ -103,14 +99,14 @@ export function BriefingDemo() {
                               <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                               <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Dashboard</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.dashboard}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-inbox h-4 w-4 shrink-0">
                               <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
                               <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Inbox</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.inbox}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers h-4 w-4 shrink-0">
@@ -118,7 +114,7 @@ export function BriefingDemo() {
                               <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
                               <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Goals & Tasks</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.goalsTasks}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users h-4 w-4 shrink-0">
@@ -127,13 +123,13 @@ export function BriefingDemo() {
                               <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Team</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.team}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-folder-open h-4 w-4 shrink-0">
                               <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Docs</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.docs}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar-range h-4 w-4 shrink-0">
@@ -146,7 +142,7 @@ export function BriefingDemo() {
                               <path d="M7 14h.01" />
                               <path d="M17 18h.01" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Calendar</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.calendar}</span>
                           </span>
                           <span className="flex h-8 cursor-pointer items-center gap-2 overflow-hidden rounded-[6px] px-2 text-[14px] font-normal text-white transition-colors hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-atom h-4 w-4 shrink-0">
@@ -154,7 +150,7 @@ export function BriefingDemo() {
                               <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
                               <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">Ora</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.ora}</span>
                           </span>
                         </nav>
                         <div className="mt-auto flex flex-col gap-[5px] p-2">
@@ -170,231 +166,8 @@ export function BriefingDemo() {
                       </div>
                     </div>
                     <div className="relative min-w-0 flex-1">
-                      <div className="h-full overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#333333_#1F1F1E] [&::-webkit-scrollbar]:h-2.5 [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-track]:bg-[#1F1F1E] [&::-webkit-scrollbar-thumb]:rounded-[5px] [&::-webkit-scrollbar-thumb]:bg-[#333333] [&::-webkit-scrollbar-thumb]:[border:2px_solid_#1F1F1E] [&::-webkit-scrollbar-thumb:hover]:bg-[#4d4d4d]" aria-label="Daily Briefing preview" style={{ maskImage: "linear-gradient(transparent 0px, transparent 38px, black 64px)", colorScheme: "dark" }}>
-                        <div className="pl-[10px] pr-[18px] pb-6 pt-[58px]">
-                          <div className="mx-auto max-w-3xl">
-                            <div className="mb-7 flex items-center justify-between gap-4">
-                              <p className="font-sans text-[22px] font-semibold text-[#FAFAFA]">{TODAY_LABEL}</p>
-                              <div className="flex shrink-0 items-center gap-3">
-                                <span className="flex items-center gap-1.5 text-[11px] text-[#8C8C8C]/40">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock h-3 w-3">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <polyline points="12 6 12 12 16 14" />
-                                  </svg>
-                                  5h 12m
-                                </span>
-                                <span className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-[#8C8C8C]/60 transition-colors hover:bg-[#2E2E2E] hover:text-[#FAFAFA]">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download h-3.5 w-3.5">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="7 10 12 15 17 10" />
-                                    <line x1="12" x2="12" y1="15" y2="3" />
-                                  </svg>
-                                </span>
-                                <span className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-[#8C8C8C]/60 transition-colors hover:bg-[#2E2E2E] hover:text-[#FAFAFA]">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-ccw h-3.5 w-3.5">
-                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                                    <path d="M3 3v5h5" />
-                                  </svg>
-                                </span>
-                                <span className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-[#8C8C8C]/60 transition-colors hover:bg-red-400/10 hover:text-red-400">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 h-3.5 w-3.5">
-                                    <path d="M3 6h18" />
-                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                    <line x1="10" x2="10" y1="11" y2="17" />
-                                    <line x1="14" x2="14" y1="11" y2="17" />
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
-                            <p className="text-[15px] leading-[1.8] text-[#FAFAFA]/80">
-                              Northwind is the only thing on this week's critical path. is due today, and nothing else on can move before those numbers are signed off. has had the master agreement waiting on your countersignature since yesterday.
-                              <span className="cursor-pointer text-[#6699ff] hover:underline">Finalize the Northwind pricing proposal</span>
-                              <span className="inline-flex max-w-full cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[6px] border border-[#3D3D3D]/50 bg-[#3D3D3D] px-2 py-[0.25em] align-middle text-[0.9em] font-medium leading-none text-[#FAFAFA] transition-colors hover:border-[#676765] hover:bg-[#2E2E2E]">
-                                <span className="h-1.5 w-1.5 shrink-0 rounded-[2px]" style={{ background: "rgb(96, 165, 250)" }} />
-                                <span className="truncate">Q3 revenue push</span>
-                              </span>
-                              <span className="inline">
-                                <span className="relative top-[-0.075em] mr-[0.35em] inline-flex h-[1.35em] w-[1.35em] shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] align-middle">
-                                  <span className="text-[0.47em] font-semibold leading-none text-[#121212]">SK</span>
-                                </span>
-                                <span className="cursor-pointer text-[#FAFAFA] hover:underline">Sarah Kim</span>
-                              </span>
-                            </p>
-                            <p className="mt-4 text-[15px] leading-[1.8] text-[#FAFAFA]/80">
-                              <span className="inline-flex max-w-full cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[6px] border border-[#3D3D3D]/50 bg-[#3D3D3D] px-2 py-[0.25em] align-middle text-[0.9em] font-medium leading-none text-[#FAFAFA] transition-colors hover:border-[#676765] hover:bg-[#2E2E2E]">
-                                <span className="h-1.5 w-1.5 shrink-0 rounded-[2px]" style={{ background: "rgb(96, 165, 250)" }} />
-                                <span className="truncate">EU market expansion</span>
-                              </span>
-                              <span className="cursor-pointer text-[#6699ff] hover:underline">Review the Munich office lease</span>
-                              hangs on one decision: is due in two days, the broker is on the phone about it this afternoon, and that call is hard to reverse once the lease is countersigned.
-                            </p>
-                            <p className="mt-4 text-[15px] leading-[1.8] text-[#FAFAFA]/80">
-                              You closed yesterday, and has taken the compliance paperwork off your plate. still has no tasks on it at all — it will not move on its own.
-                              <span className="cursor-pointer text-[#6699ff] hover:underline">Website relaunch brief</span>
-                              <span className="inline">
-                                <span className="relative top-[-0.075em] mr-[0.35em] inline-flex h-[1.35em] w-[1.35em] shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] align-middle">
-                                  <span className="text-[0.47em] font-semibold leading-none text-[#121212]">DR</span>
-                                </span>
-                                <span className="cursor-pointer text-[#FAFAFA] hover:underline">Daniel Ross</span>
-                              </span>
-                              <span className="inline-flex max-w-full cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[6px] border border-[#3D3D3D]/50 bg-[#3D3D3D] px-2 py-[0.25em] align-middle text-[0.9em] font-medium leading-none text-[#FAFAFA] transition-colors hover:border-[#676765] hover:bg-[#2E2E2E]">
-                                <span className="h-1.5 w-1.5 shrink-0 rounded-[2px]" style={{ background: "rgb(140, 140, 140)" }} />
-                                <span className="truncate">Hiring: senior engineers</span>
-                              </span>
-                            </p>
-                            <section className="mt-14">
-                              <h4 className="mb-4 font-sans text-[15px] font-semibold text-[#FAFAFA]">Waiting on you</h4>
-                              <div className="flex flex-col">
-                                <div className="flex items-center gap-3 py-2.5">
-                                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] text-[9px] font-semibold text-[#121212]">SK</span>
-                                  <div className="min-w-0 flex-1">
-                                    <p className="truncate text-[14px] text-[#FAFAFA]/85">Countersign the Northwind master agreement</p>
-                                    <p className="mt-0.5 text-[13px] text-[#8C8C8C]/60">Sarah Kim asked for your review</p>
-                                  </div>
-                                  <span className="flex w-[185px] shrink-0 items-baseline justify-end gap-1.5 text-[13px]">
-                                    <span className="text-[#8C8C8C]">task deadline</span>
-                                    <span className="font-medium text-red-400">1 day overdue</span>
-                                  </span>
-                                  <span className="inline-flex h-8 shrink-0 cursor-pointer items-center rounded-[6px] border border-[#3D3D3D] bg-[#1F1F1E] px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">Review</span>
-                                </div>
-                                <div className="flex items-center gap-3 py-2.5">
-                                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] text-[9px] font-semibold text-[#121212]">DR</span>
-                                  <div className="min-w-0 flex-1">
-                                    <p className="truncate text-[14px] text-[#FAFAFA]/85">Partnership deck — final draft</p>
-                                    <p className="mt-0.5 text-[13px] text-[#8C8C8C]/60">Daniel Ross asked for your review</p>
-                                  </div>
-                                  <span className="flex w-[185px] shrink-0 items-baseline justify-end gap-1.5 text-[13px]">
-                                    <span className="text-[#8C8C8C]">task deadline</span>
-                                    <span className="font-medium text-red-400">3 days overdue</span>
-                                  </span>
-                                  <span className="inline-flex h-8 shrink-0 cursor-pointer items-center rounded-[6px] border border-[#3D3D3D] bg-[#1F1F1E] px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">Review</span>
-                                </div>
-                                <div className="flex items-center gap-3 py-2.5">
-                                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] text-[9px] font-semibold text-[#121212]">EC</span>
-                                  <div className="min-w-0 flex-1">
-                                    <p className="truncate text-[14px] text-[#FAFAFA]/85">Sign-off: Q2 financial summary</p>
-                                    <p className="mt-0.5 text-[13px] text-[#8C8C8C]/60">Emma Clarke asked for your review</p>
-                                  </div>
-                                  <span className="flex w-[185px] shrink-0 items-baseline justify-end gap-1.5 text-[13px]" />
-                                  <span className="inline-flex h-8 shrink-0 cursor-pointer items-center rounded-[6px] border border-[#3D3D3D] bg-[#1F1F1E] px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">Review</span>
-                                </div>
-                              </div>
-                            </section>
-                            <section className="mt-14">
-                              <h4 className="mb-4 font-sans text-[15px] font-semibold text-[#FAFAFA]">Prepared for you</h4>
-                              <div className="flex flex-col gap-3">
-                                <div className="rounded-xl border border-[#3D3D3D] bg-[#2C2C2B] p-4">
-                                  <h5 className="mb-1 font-sans text-[14px] font-semibold text-[#FAFAFA]">Chase Northwind on the master agreement</h5>
-                                  <p className="text-[14px] leading-relaxed text-[#FAFAFA]/85">Three days ago you wanted to do this as soon as legal replied. Legal replied two days ago.</p>
-                                  <div className="mt-3.5 flex items-center gap-2">
-                                    <span className="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-[6px] border border-[#3D3D3D] bg-transparent px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check h-3.5 w-3.5">
-                                        <path d="M20 6 9 17l-5-5" />
-                                      </svg>
-                                      Done
-                                    </span>
-                                    <span className="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-[6px] border border-[#3D3D3D] bg-transparent px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-square h-3.5 w-3.5">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                      </svg>
-                                      Discuss
-                                    </span>
-                                    <span className="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-[6px] border border-[#3D3D3D] bg-transparent px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 h-3.5 w-3.5">
-                                        <path d="M3 6h18" />
-                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                        <line x1="10" x2="10" y1="11" y2="17" />
-                                        <line x1="14" x2="14" y1="11" y2="17" />
-                                      </svg>
-                                      Discard
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="rounded-xl border border-[#3D3D3D] bg-[#2C2C2B] p-4">
-                                  <h5 className="mb-1 font-sans text-[14px] font-semibold text-[#FAFAFA]">Office viewing on Maximilianstraße</h5>
-                                  <p className="text-[14px] leading-relaxed text-[#FAFAFA]/85">The viewing was yesterday at 15:00. Its description says you would check the square metres — nothing has landed on your board since.</p>
-                                  <div className="mt-3.5 flex items-center gap-2">
-                                    <span className="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-[6px] border border-[#3D3D3D] bg-transparent px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-square h-3.5 w-3.5">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                      </svg>
-                                      Discuss
-                                    </span>
-                                    <span className="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-[6px] border border-[#3D3D3D] bg-transparent px-3 text-[13px] font-medium text-[#FAFAFA] shadow-sm shadow-black/5 transition-colors hover:bg-[#FAFAFA]/10">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 h-3.5 w-3.5">
-                                        <path d="M3 6h18" />
-                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                        <line x1="10" x2="10" y1="11" y2="17" />
-                                        <line x1="14" x2="14" y1="11" y2="17" />
-                                      </svg>
-                                      Discard
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </section>
-                            <section className="mt-14">
-                              <h4 className="mb-4 font-sans text-[15px] font-semibold text-[#FAFAFA]">The rest of the day</h4>
-                              <div className="flex flex-col">
-                                <div style={{ marginTop: "0px" }}>
-                                  <button type="button" className="group flex w-full items-start gap-3 text-left">
-                                    <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">09:30 – 10:30</span>
-                                    <span className="mt-[3px] h-4 w-[3px] shrink-0 rounded-full bg-blue-500" />
-                                    <span className="min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors group-hover:text-[#FAFAFA]">Client meeting: Northwind</span>
-                                    <span className="w-4 shrink-0 pt-[3px]">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-4 w-4 text-[#8C8C8C]/50 transition-transform">
-                                        <path d="m6 9 6 6 6-6" />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </div>
-                                <div style={{ marginTop: "6px" }}>
-                                  <button type="button" className="group flex w-full items-start gap-3 text-left cursor-default">
-                                    <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">10:30 – 11:15</span>
-                                    <span className="mt-[3px] h-4 w-[3px] shrink-0 rounded-full bg-purple-500" />
-                                    <span className="min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors">Weekly partner sync</span>
-                                    <span className="w-4 shrink-0 pt-[3px]" />
-                                  </button>
-                                </div>
-                                <div style={{ marginTop: "50px" }}>
-                                  <button type="button" className="group flex w-full items-start gap-3 text-left">
-                                    <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">13:30</span>
-                                    <span className="mt-[3px] h-4 w-[3px] shrink-0 rounded-full bg-green-500" />
-                                    <span className="min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors group-hover:text-[#FAFAFA]">Call: broker on the Munich office</span>
-                                    <span className="w-4 shrink-0 pt-[3px]">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-4 w-4 text-[#8C8C8C]/50 transition-transform">
-                                        <path d="m6 9 6 6 6-6" />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </div>
-                                <div style={{ marginTop: "36px" }}>
-                                  <button type="button" className="group flex w-full items-start gap-3 text-left">
-                                    <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">15:00 – 16:30</span>
-                                    <span className="mt-[3px] h-4 w-[3px] shrink-0 rounded-full bg-orange-500" />
-                                    <span className="min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors group-hover:text-[#FAFAFA]">Contract call: Ardent</span>
-                                    <span className="w-4 shrink-0 pt-[3px]">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-4 w-4 text-[#8C8C8C]/50 transition-transform">
-                                        <path d="m6 9 6 6 6-6" />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </div>
-                                <div style={{ marginTop: "16px" }}>
-                                  <button type="button" className="group flex w-full items-start gap-3 text-left cursor-default">
-                                    <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">17:00 – 17:30</span>
-                                    <span className="mt-[3px] h-4 w-[3px] shrink-0 rounded-full bg-[#3D3D3D]" />
-                                    <span className="min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors">Onboarding: new account manager</span>
-                                    <span className="w-4 shrink-0 pt-[3px]" />
-                                  </button>
-                                </div>
-                              </div>
-                            </section>
-                          </div>
-                        </div>
+                      <div className="h-full overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#333333_#1F1F1E] [&::-webkit-scrollbar]:h-2.5 [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-track]:bg-[#1F1F1E] [&::-webkit-scrollbar-thumb]:rounded-[5px] [&::-webkit-scrollbar-thumb]:bg-[#333333] [&::-webkit-scrollbar-thumb]:[border:2px_solid_#1F1F1E] [&::-webkit-scrollbar-thumb:hover]:bg-[#4d4d4d]" aria-label={briefing.previewAria} style={{ maskImage: "linear-gradient(transparent 0px, transparent 38px, black 64px)", colorScheme: "dark" }}>
+                        <BriefingContent />
                       </div>
                       <div className="absolute inset-x-0 top-0 z-30 flex h-16 items-center gap-2 pl-1 pr-3">
                         <button type="button" className="mr-3 flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] text-[#FAFAFA]">
@@ -408,12 +181,12 @@ export function BriefingDemo() {
                           <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                         </svg>
                         <span className="flex min-w-0 items-center gap-2.5 text-[14px]">
-                          <span className="cursor-pointer text-[#8C8C8C] transition-colors hover:text-[#FAFAFA]">Dashboard</span>
+                          <span className="cursor-pointer text-[#8C8C8C] transition-colors hover:text-[#FAFAFA]">{chrome.dashboard}</span>
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right h-4 w-4 shrink-0 text-[#8C8C8C]">
                             <path d="m9 18 6-6-6-6" />
                           </svg>
                           <span className="flex min-w-0 items-center gap-1.5 text-[#FAFAFA]">
-                            <span className="truncate">Daily Briefing</span>
+                            <span className="truncate">{briefing.breadcrumb}</span>
                           </span>
                         </span>
                         <span className="ml-auto flex shrink-0 items-center gap-1">

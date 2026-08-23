@@ -6,6 +6,7 @@ import { useToast } from '../components/ui/toast';
 import { cn } from '../lib/utils';
 import { useSeo } from '../lib/useSeo';
 import { siteUrl } from '../lib/site';
+import { useT } from '../lib/i18n';
 import {
   FIELD_LIMITS, HONEYPOT_NAME, checkRateLimit, clampField, isHoneypotFilled, isValidEmail,
 } from '../lib/formGuards';
@@ -14,14 +15,6 @@ import {
  *  a relative path cannot be undefined, which is the failure mode that shipped
  *  "undefined/auth/signup" to production on the previous backend. */
 const DEMO_REQUEST_ENDPOINT = '/api/demo_request';
-
-const COMPANY_SIZES = [
-  { value: '1-20', label: '1–20 employees' },
-  { value: '21-100', label: '21–100 employees' },
-  { value: '101-500', label: '101–500 employees' },
-  { value: '501-1000', label: '501–1000 employees' },
-  { value: '1000+', label: '1000+ employees' },
-];
 
 type Fields = { email: string; name: string; company: string; painPoint: string; tools: string };
 const EMPTY: Fields = { email: '', name: '', company: '', painPoint: '', tools: '' };
@@ -37,12 +30,12 @@ const fieldClass = (invalid?: string) =>
   );
 
 export default function LetsTalk() {
+  const t = useT();
   const { toast } = useToast();
 
   useSeo({
-    title: "Let's Talk - Orakis",
-    description:
-      "Talk to the founder and see Orakis in action: goals, tasks, documents and knowledge in one place, with an AI that knows your team's context.",
+    title: t.letsTalk.seoTitle,
+    description: t.letsTalk.seoDescription,
     canonical: siteUrl('/lets-talk'),
   });
   const [values, setValues] = useState<Fields>(EMPTY);
@@ -59,10 +52,10 @@ export default function LetsTalk() {
 
   const validate = () => {
     const next: Partial<Record<keyof Fields, string>> = {};
-    if (!values.email.trim()) next.email = 'Email is required';
-    else if (!isValidEmail(values.email)) next.email = 'Please enter a valid email';
-    if (!values.name.trim()) next.name = 'Name is required';
-    if (!values.company.trim()) next.company = 'Please select a company size';
+    if (!values.email.trim()) next.email = t.letsTalk.emailRequired;
+    else if (!isValidEmail(values.email)) next.email = t.letsTalk.emailInvalid;
+    if (!values.name.trim()) next.name = t.letsTalk.nameRequired;
+    if (!values.company.trim()) next.company = t.letsTalk.companyRequired;
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -79,13 +72,17 @@ export default function LetsTalk() {
     }
 
     if (!validate()) {
-      toast({ title: 'Please fix the errors below', variant: 'destructive' });
+      toast({ title: t.letsTalk.fixErrors, variant: 'destructive' });
       return;
     }
 
     const limit = checkRateLimit('demo_request');
     if (!limit.ok) {
-      toast({ title: 'Please wait', description: limit.message, variant: 'destructive' });
+      toast({
+        title: t.letsTalk.pleaseWait,
+        description: limit.reason ? t.formGuards[limit.reason] : undefined,
+        variant: 'destructive',
+      });
       return;
     }
 
@@ -115,10 +112,10 @@ export default function LetsTalk() {
       setSubmitted(true);
     } catch (err) {
       toast({
-        title: 'Error submitting request',
+        title: t.letsTalk.errorHeading,
         description: err instanceof Error && err.message !== 'Failed to submit demo request'
           ? err.message
-          : 'Please try again later.',
+          : t.letsTalk.errorBody,
         variant: 'destructive',
       });
     } finally {
@@ -135,10 +132,10 @@ export default function LetsTalk() {
               className="font-display mb-2 text-[2.2rem] sm:text-4xl md:text-[64px]"
               style={{ color: '#171717', letterSpacing: '-0.02em', lineHeight: '1.1' }}
             >
-              Let's talk
+              {t.letsTalk.heading}
             </h1>
             <p className="font-sans text-base text-gray-500 max-w-sm mx-auto leading-relaxed">
-              Share a bit about your work and we'll figure out together how Orakis fits in.
+              {t.letsTalk.sub}
             </p>
           </div>
 
@@ -160,10 +157,10 @@ export default function LetsTalk() {
                   </svg>
                 </div>
                 <h2 className="font-display text-lg text-[#171717] mb-1" style={{ fontWeight: 550 }}>
-                  Your request was submitted!
+                  {t.letsTalk.doneHeading}
                 </h2>
                 <p className="font-sans text-sm text-gray-500">
-                  Thanks, we'll be in touch with you shortly.
+                  {t.letsTalk.doneBody}
                 </p>
               </div>
             ) : (
@@ -171,11 +168,11 @@ export default function LetsTalk() {
                 <HoneypotField inputRef={honeypotRef} />
 
                 <div className="space-y-1">
-                  <label htmlFor="demo-name" className={LABEL}>Your Name *</label>
+                  <label htmlFor="demo-name" className={LABEL}>{t.letsTalk.nameLabel}</label>
                   <input
                     id="demo-name"
                     type="text"
-                    placeholder="Full Name"
+                    placeholder={t.letsTalk.namePlaceholder}
                     className={fieldClass(errors.name)}
                     value={values.name}
                     onChange={(e) => set('name', e.target.value)}
@@ -184,11 +181,11 @@ export default function LetsTalk() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="demo-email" className={LABEL}>Work Email *</label>
+                  <label htmlFor="demo-email" className={LABEL}>{t.letsTalk.emailLabel}</label>
                   <input
                     id="demo-email"
                     type="email"
-                    placeholder="name@organization.com"
+                    placeholder={t.letsTalk.emailPlaceholder}
                     className={fieldClass(errors.email)}
                     value={values.email}
                     onChange={(e) => set('email', e.target.value)}
@@ -197,15 +194,15 @@ export default function LetsTalk() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="demo-company" className={LABEL}>Company Size *</label>
+                  <label htmlFor="demo-company" className={LABEL}>{t.letsTalk.companyLabel}</label>
                   <select
                     id="demo-company"
                     className={fieldClass(errors.company)}
                     value={values.company}
                     onChange={(e) => set('company', e.target.value)}
                   >
-                    <option value="">Select...</option>
-                    {COMPANY_SIZES.map((s) => (
+                    <option value="">{t.letsTalk.companyPlaceholder}</option>
+                    {t.letsTalk.companySizes.map((s) => (
                       <option key={s.value} value={s.value}>{s.label}</option>
                     ))}
                   </select>
@@ -213,11 +210,11 @@ export default function LetsTalk() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="demo-challenge" className={LABEL}>Biggest Challenge</label>
+                  <label htmlFor="demo-challenge" className={LABEL}>{t.letsTalk.challengeLabel}</label>
                   <textarea
                     id="demo-challenge"
                     rows={3}
-                    placeholder="What's the biggest challenge you're hoping Orakis could solve?"
+                    placeholder={t.letsTalk.challengePlaceholder}
                     className={cn(fieldClass(), 'h-auto py-3 resize-none')}
                     value={values.painPoint}
                     onChange={(e) => set('painPoint', e.target.value)}
@@ -225,11 +222,11 @@ export default function LetsTalk() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="demo-tools" className={LABEL}>Your Tools</label>
+                  <label htmlFor="demo-tools" className={LABEL}>{t.letsTalk.toolsLabel}</label>
                   <textarea
                     id="demo-tools"
                     rows={2}
-                    placeholder="e.g. Slack, Notion, HubSpot..."
+                    placeholder={t.letsTalk.toolsPlaceholder}
                     className={cn(fieldClass(), 'h-auto py-3 resize-none')}
                     value={values.tools}
                     onChange={(e) => set('tools', e.target.value)}
@@ -237,14 +234,14 @@ export default function LetsTalk() {
                 </div>
 
                 <p className="font-sans text-xs text-gray-400">
-                  By submitting, you agree to our{' '}
+                  {t.letsTalk.consentBefore}{' '}
                   <Link
                     to="/datenschutz"
                     className="text-gray-600 underline hover:text-gray-800 transition-colors"
                   >
-                    Datenschutzerklärung
+                    {t.letsTalk.consentLink}
                   </Link>
-                  .
+                  {t.letsTalk.consentAfter}
                 </p>
 
                 <button
@@ -252,7 +249,7 @@ export default function LetsTalk() {
                   disabled={submitting}
                   className="font-sans w-full h-10 rounded-[6px] bg-[#171717] text-white text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
                 >
-                  {submitting ? 'Submitting...' : 'Submit Request'}
+                  {submitting ? t.letsTalk.submitting : t.letsTalk.submit}
                 </button>
               </form>
             )}

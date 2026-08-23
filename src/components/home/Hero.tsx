@@ -1,31 +1,12 @@
 import { Marquee } from '../Marquee';
-import { TAGLINE } from '../../lib/constants';
-
-/** Three rows of ambient "what Orakis just handled" notifications. */
-const MARQUEE_ROWS: string[][] = [
-  [
-    'Jonas completed his 3 tasks today, ahead of schedule',
-    'Investor update ready, waiting for your approval',
-    'The team completed 94% of planned tasks today',
-    '2 strategic decisions need your input this week. Everything else is handled.',
-  ],
-  [
-    'Team shipped 3 new features this week, on time',
-    'Every team member has a clear priority for today',
-    'Revenue up 18% this week. Ora sent the report to the board',
-    'A risk in the Q4 roadmap was detected and reassigned before it escalated.',
-  ],
-  [
-    'Ora identified a market gap in your segment. Summary ready.',
-    'All open tasks have been assigned. No one is waiting.',
-    'Customer feedback analyzed: 4.8 satisfaction score this week',
-    "The weekly standup was summarized and sent to the team. You're all caught up.",
-  ],
-];
+import { useT } from '../../lib/i18n';
 
 const BUTTON_SHADOW = { boxShadow: '0 1px 3px rgba(23,23,23,0.08)' };
 
 export function Hero() {
+  const t = useT();
+  /** Three rows of ambient "what Orakis just handled" notifications. */
+  const marqueeRows = t.hero.marquee;
   return (
     <section className="relative bg-transparent pb-12 md:pb-[72px] overflow-hidden">
       <div className="relative pt-14 pb-4 md:pt-20 md:pb-6 w-full z-10">
@@ -40,12 +21,12 @@ export function Hero() {
                 fontWeight: 500,
               }}
             >
-              {TAGLINE}
+              {t.tagline}
             </h1>
             {/* h2 rather than p because the JSON-LD marks `.hero-description`
                 as speakable alongside the h1. */}
             <h2 className="hero-description max-w-2xl mx-auto mb-7 font-sans font-normal text-base text-gray-500 leading-relaxed">
-              Know what's happening, what to do, and when to do it.
+              {t.hero.subtitle}
             </h2>
             <div className="flex items-center justify-center gap-3">
               <a
@@ -53,21 +34,21 @@ export function Hero() {
                 className="inline-flex items-center justify-center h-11 px-6 rounded-[6px] bg-white border border-gray-200 text-[15px] font-sans font-medium text-gray-700 whitespace-nowrap"
                 style={BUTTON_SHADOW}
               >
-                Let's Talk
+                {t.nav.letsTalk}
               </a>
               <a
                 href="/pricing"
                 className="inline-flex items-center justify-center h-11 px-6 rounded-[6px] bg-[#171717] border border-[#171717] text-[15px] font-sans font-medium text-white whitespace-nowrap"
                 style={BUTTON_SHADOW}
               >
-                Sign up
+                {t.nav.signUp}
               </a>
             </div>
           </div>
 
           <div className="relative mt-8 w-full overflow-hidden">
             <div className="flex flex-col gap-2">
-              {MARQUEE_ROWS.map((row, i) => (
+              {marqueeRows.map((row, i) => (
                 <Marquee
                   key={i}
                   reverse={i % 2 === 1}
@@ -110,9 +91,7 @@ export function Hero() {
                 fill="white"
               />
             </svg>
-            <span className="font-normal">
-              The thesis behind Orakis, as described by Y Combinator
-            </span>
+            <span className="font-normal">{t.hero.ycLink}</span>
             <svg
               className="w-3.5 h-3.5"
               viewBox="0 0 24 24"

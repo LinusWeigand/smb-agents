@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Container } from '../components/Container';
 import { CTASection } from '../components/home/CTASection';
 import { Faq } from '../components/home/Faq';
@@ -7,20 +7,24 @@ import { PlanCards } from '../components/pricing/PlanCards';
 import { PriceControls } from '../components/pricing/PriceControls';
 import { WaitlistModal } from '../components/pricing/WaitlistModal';
 import { usePricing } from '../components/pricing/usePricing';
-import { PRICING_JSON_LD } from '../components/pricing/seo';
+import { pricingJsonLd } from '../components/pricing/seo';
 import { useSeo } from '../lib/useSeo';
 import { siteUrl } from '../lib/site';
+import { useLang, useT } from '../lib/i18n';
 
 export default function Pricing() {
+  const t = useT();
+  const { lang } = useLang();
   const { billing, setBilling, tier, setTier, users, setUsers, step } = usePricing();
   const [waitlistPlan, setWaitlistPlan] = useState<string | null>(null);
 
+  const jsonLd = useMemo(() => pricingJsonLd(t, lang), [t, lang]);
+
   useSeo({
-    title: 'Pricing - Orakis',
-    description:
-      'Try Orakis free for 7 days, no credit card required. Business from €24 per user/month billed yearly (€29 monthly), plus custom Enterprise plans.',
+    title: t.pricing.seoTitle,
+    description: t.pricing.seoDescription,
     canonical: siteUrl('/pricing'),
-    jsonLd: PRICING_JSON_LD,
+    jsonLd,
   });
 
   return (
@@ -31,10 +35,10 @@ export default function Pricing() {
             className="font-display text-[2.2rem] sm:text-4xl md:text-[64px]"
             style={{ color: '#171717', letterSpacing: '-0.02em', lineHeight: '1.1' }}
           >
-            Pricing
+            {t.pricing.heading}
           </h1>
           <p className="mt-3 text-base font-sans font-normal text-gray-500 max-w-md mx-auto leading-relaxed">
-            Try Orakis free for 7 days, no credit card required.
+            {t.pricing.sub}
           </p>
         </div>
 

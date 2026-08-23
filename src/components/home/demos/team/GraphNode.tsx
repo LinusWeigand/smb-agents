@@ -4,7 +4,9 @@ import {
   initials, isOverdue, nodeMeta,
   type GoalNode, type TaskNode,
 } from './data';
+import { teamUi } from './i18n';
 import type { Point } from './geometry';
+import { useLang } from '../../../../lib/i18n';
 
 /** Overlapping initial-avatars, capped at three. */
 export function AvatarStack({ names }: { names: string[] }) {
@@ -44,6 +46,8 @@ export function GraphNodeBox({
   active: boolean;
   selected?: boolean;
 }) {
+  const { lang } = useLang();
+  const ui = teamUi(lang);
   const goal = isGoal ? (node as GoalNode) : null;
   const progress = goal?.progress;
   const pct = progress && progress.total > 0
@@ -85,9 +89,9 @@ export function GraphNodeBox({
             }}
           >
             <span style={{ color: isGoal ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.28)' }}>
-              {isGoal ? 'Goal' : 'Task'}
+              {isGoal ? ui.kind.goal : ui.kind.task}
             </span>
-            {nodeMeta(node).map((m, i) => (
+            {nodeMeta(node, lang).map((m, i) => (
               <span key={i}>
                 <span style={{ color: 'rgba(255,255,255,0.18)' }}>{' · '}</span>
                 <span style={{ color: m.color }}>{m.text}</span>
