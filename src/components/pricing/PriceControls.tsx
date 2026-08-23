@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react';
-import NumberFlow from '@number-flow/react';
-import { MAX_PRICE, MAX_USERS, PRICE_FORMAT, STANDARD_PRICE, yearlySaving } from './plans';
+import { MAX_PRICE, MAX_USERS, STANDARD_PRICE, yearlySaving } from './plans';
+import { Money, formatMoney } from './Money';
 import type { Billing, Tier } from './usePricing';
-import { localeOf, useLang, useT } from '../../lib/i18n';
+import { useLang, useT } from '../../lib/i18n';
 
 /**
  * Sidebar calculator: seats, billing period, and the resulting monthly price.
@@ -24,7 +24,6 @@ export function PriceControls({
 }) {
   const t = useT();
   const { lang } = useLang();
-  const locale = localeOf(lang);
   const c = t.pricing.controls;
   const delayRef = useRef<number | null>(null);
   const repeatRef = useRef<number | null>(null);
@@ -124,14 +123,14 @@ export function PriceControls({
           </p>
           {billing === 'yearly' && (
             <span className="inline-flex items-center shrink-0 rounded-[6px] bg-green-500/15 px-2 py-0.5 text-xs font-medium font-sans tabular-nums text-green-700">
-              {c.save} €{saving.toLocaleString(locale)}
+              {c.save} {formatMoney(saving, lang)}
             </span>
           )}
         </div>
-        <span className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">
-          €
-          <NumberFlow value={price} format={PRICE_FORMAT} locales={locale} />
-        </span>
+        <Money
+          value={price}
+          className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]"
+        />
         <p className="mt-1 text-[13px] font-sans text-gray-400">
           {billing === 'yearly' ? c.perMonthBilledYearly : c.perMonthBilledMonthly}
         </p>

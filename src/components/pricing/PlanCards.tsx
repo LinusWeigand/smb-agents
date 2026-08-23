@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
-import NumberFlow from '@number-flow/react';
 import { CircleCheckBig, X } from 'lucide-react';
-import { MAX_PRICE, PRICE_FORMAT, STANDARD_PRICE, type Feature } from './plans';
+import { MAX_PRICE, STANDARD_PRICE, type Feature } from './plans';
+import { Money } from './Money';
 import type { Billing, Tier } from './usePricing';
 import { GradientCta } from './GradientCta';
 import { cn } from '../../lib/utils';
-import { localeOf, useLang, useT } from '../../lib/i18n';
+import { useT } from '../../lib/i18n';
 
 const CARD =
   'relative flex w-full max-w-[360px] flex-col overflow-hidden bg-white rounded-[6px] border border-gray-200 min-[1060px]:max-w-none min-[1060px]:flex-1';
@@ -72,13 +72,12 @@ function FeatureRow({ feature }: { feature: Feature }) {
 
 /** Licence option inside the Business card; selecting one drives the sidebar. */
 function LicenceOption({
-  label, price, note, unit, locale, selected, onSelect,
+  label, price, note, unit, selected, onSelect,
 }: {
   label: string;
   price: number;
   note?: string;
   unit: string;
-  locale: string;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -91,10 +90,10 @@ function LicenceOption({
       }`}
     >
       <div className="flex items-baseline justify-between gap-2">
-        <span className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]">
-          €
-          <NumberFlow value={price} format={PRICE_FORMAT} locales={locale} />
-        </span>
+        <Money
+          value={price}
+          className="inline-flex items-baseline font-sans text-2xl font-medium text-gray-900 tracking-[-0.02em]"
+        />
         <span className="shrink-0 text-[13px] font-sans text-gray-500">{label}</span>
       </div>
       {note && <p className="mt-1 text-[13px] font-sans text-gray-500">{note}</p>}
@@ -112,8 +111,6 @@ export function PlanCards({
   onStartTrial: (plan: string) => void;
 }) {
   const t = useT();
-  const { lang } = useLang();
-  const locale = localeOf(lang);
   const c = t.pricing.cards;
 
   const trialFeatures: Feature[] = [
@@ -195,7 +192,6 @@ export function PlanCards({
               label={c.standardLicence}
               price={STANDARD_PRICE[billing]}
               unit={c.perUserPerMonth}
-              locale={locale}
               selected={tier === 'standard'}
               onSelect={() => setTier('standard')}
             />
@@ -204,7 +200,6 @@ export function PlanCards({
               price={MAX_PRICE[billing]}
               note={c.proNote}
               unit={c.perUserPerMonth}
-              locale={locale}
               selected={tier === 'max'}
               onSelect={() => setTier('max')}
             />

@@ -437,8 +437,11 @@ export const localizeEntries = (entries: Entry[], lang: Lang): Entry[] =>
 
 const UI = {
   en: {
-    search: 'Search knowledge...',
+    search: 'Search knowledge…',
     allTypes: 'All types',
+    viewGrid: 'Grid',
+    newEntry: 'New Entry',
+    breadcrumb: 'Knowledge',
     subpages: 'subpages',
     subpage: 'subpage',
     backlinks: 'Backlinks',
@@ -447,6 +450,9 @@ const UI = {
   de: {
     search: 'Wissen durchsuchen …',
     allTypes: 'Alle Typen',
+    viewGrid: 'Raster',
+    newEntry: 'Neuer Eintrag',
+    breadcrumb: 'Wissen',
     subpages: 'Unterseiten',
     subpage: 'Unterseite',
     backlinks: 'Rückverweise',

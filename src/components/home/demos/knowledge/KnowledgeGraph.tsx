@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY,
   type Simulation, type SimulationLinkDatum, type SimulationNodeDatum,
 } from 'd3-force';
 import {
-  GRAPH, clusterCenter, nodeRadius, typeInfo,
+  ENTRIES, GRAPH, clusterCenter, nodeRadius, typeInfo,
   type GraphLink, type GraphNode,
 } from './data';
+import { localizeEntries } from './i18n';
+import { useLang } from '../../../../lib/i18n';
 
 /**
  * d3 mutates the nodes it is given (writing x/y/vx/vy), so the simulation gets
@@ -61,6 +63,14 @@ const LAYOUT = (() => {
 })();
 
 export function KnowledgeGraph() {
+  const { lang } = useLang();
+  /* Only the labels change with the language — translating titles and their
+     [[links]] together leaves the derived edge set identical, so the layout
+     computed from the English graph stays valid. */
+  const titleById = useMemo(
+    () => new Map(localizeEntries(ENTRIES, lang).map((e) => [e.id, e.title])),
+    [lang],
+  );
   const hostRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const simRef = useRef<Simulation<SimNode, SimLink> | null>(null);
@@ -173,7 +183,7 @@ export function KnowledgeGraph() {
             fill={typeInfo(n.type).color}
             className="cursor-grab active:cursor-grabbing"
             onPointerDown={startDrag(n.id)}
-            onPointerMove={showTooltip(n.title)}
+            onPointerMove={showTooltip(titleById.get(n.id) ?? n.title)}
             onPointerLeave={() => setTooltip(null)}
           />
         ))}

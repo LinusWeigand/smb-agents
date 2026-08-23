@@ -17,6 +17,8 @@ export type Entry = {
   type: EntryType;
   content: string;
   parent?: string;
+  /** Sticks the entry to the front of the card grid. */
+  pinned?: boolean;
 };
 
 export type GraphNode = {
