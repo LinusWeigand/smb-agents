@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import LetsTalk from './pages/LetsTalk';
 import YC from './pages/YC';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import TermsOfService from './pages/legal/TermsOfService';
+import LegalNotice from './pages/legal/LegalNotice';
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -30,10 +33,15 @@ export default function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/lets-talk" element={<LetsTalk />} />
         <Route path="/yc" element={<YC />} />
-        <Route path="/privacy-policy" element={<Placeholder title="Privacy Policy" />} />
-        <Route path="/terms-of-service" element={<Placeholder title="Terms of Service" />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/dpa" element={<Placeholder title="DPA" />} />
-        <Route path="/legal-notice" element={<Placeholder title="Legal Notice" />} />
+        <Route path="/legal-notice" element={<LegalNotice />} />
+        {/* German aliases: the previous site shipped these documents at their
+            German paths, so inbound links and bookmarks still land on them. */}
+        <Route path="/datenschutz" element={<PrivacyPolicy />} />
+        <Route path="/agb" element={<TermsOfService />} />
+        <Route path="/impressum" element={<LegalNotice />} />
         <Route path="*" element={<Placeholder title="Page not found" />} />
       </Routes>
         <Footer />
