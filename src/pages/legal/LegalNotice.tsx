@@ -7,7 +7,7 @@ export default function LegalNotice() {
   useSeo({
     title: 'Impressum - Orakis',
     description: 'Impressum und Anbieterkennzeichnung gemäß § 5 TMG.',
-    canonical: siteUrl('/legal-notice'),
+    canonical: siteUrl('/impressum'),
   });
 
   return (

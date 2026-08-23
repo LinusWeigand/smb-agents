@@ -33,15 +33,15 @@ export default function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/lets-talk" element={<LetsTalk />} />
         <Route path="/yc" element={<YC />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/dpa" element={<Placeholder title="DPA" />} />
-        <Route path="/legal-notice" element={<LegalNotice />} />
-        {/* German aliases: the previous site shipped these documents at their
-            German paths, so inbound links and bookmarks still land on them. */}
+        {/* German law is strict about what these documents are called, so the
+            German name is the canonical path and the heading on each page. */}
+        <Route path="/impressum" element={<LegalNotice />} />
         <Route path="/datenschutz" element={<PrivacyPolicy />} />
         <Route path="/agb" element={<TermsOfService />} />
-        <Route path="/impressum" element={<LegalNotice />} />
+        {/* English aliases, kept only so older inbound links do not 404. */}
+        <Route path="/legal-notice" element={<LegalNotice />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="*" element={<Placeholder title="Page not found" />} />
       </Routes>
         <Footer />

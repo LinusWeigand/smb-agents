@@ -2,8 +2,7 @@ import type { ReactNode } from 'react';
 import { Container } from '../Container';
 
 /**
- * Shared chrome for the legal routes (/legal-notice, /privacy-policy,
- * /terms-of-service).
+ * Shared chrome for the legal routes (/impressum, /datenschutz, /agb).
  *
  * The body copy on these pages is German on purpose: it is the operator's
  * binding legal text, carried over verbatim from couchtec.com, and translating

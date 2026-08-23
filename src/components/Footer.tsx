@@ -107,24 +107,22 @@ export function Footer() {
             <div>
               <p className={COL_HEADING}>Legal</p>
               <ul className={COL_LIST} style={{ letterSpacing: '-0.1px' }}>
+                {/* German names on purpose: these documents have legally
+                    prescribed titles, so they are not translated for the rest
+                    of the English site. */}
                 <li>
-                  <Link to="/privacy-policy" onClick={toTop} className={LINK}>
-                    Privacy Policy
+                  <Link to="/impressum" onClick={toTop} className={LINK}>
+                    Impressum
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms-of-service" onClick={toTop} className={LINK}>
-                    Terms of Service
+                  <Link to="/datenschutz" onClick={toTop} className={LINK}>
+                    Datenschutzerklärung
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dpa" onClick={toTop} className={LINK}>
-                    DPA
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/legal-notice" onClick={toTop} className={LINK}>
-                    Legal Notice
+                  <Link to="/agb" onClick={toTop} className={LINK}>
+                    AGB
                   </Link>
                 </li>
               </ul>

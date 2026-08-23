@@ -8,7 +8,7 @@ export default function TermsOfService() {
     title: 'AGB - Orakis',
     description:
       'Allgemeine Geschäftsbedingungen: Geltungsbereich, Leistungen, Nutzerkonto, Pflichten, Haftung und Schlussbestimmungen.',
-    canonical: siteUrl('/terms-of-service'),
+    canonical: siteUrl('/agb'),
   });
 
   return (

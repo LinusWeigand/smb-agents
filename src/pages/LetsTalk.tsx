@@ -239,10 +239,10 @@ export default function LetsTalk() {
                 <p className="font-sans text-xs text-gray-400">
                   By submitting, you agree to our{' '}
                   <Link
-                    to="/privacy-policy"
+                    to="/datenschutz"
                     className="text-gray-600 underline hover:text-gray-800 transition-colors"
                   >
-                    Privacy Policy
+                    Datenschutzerklärung
                   </Link>
                   .
                 </p>

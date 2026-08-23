@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
     title: 'Datenschutzerklärung - Orakis',
     description:
       'Datenschutzerklärung: welche personenbezogenen Daten wir erheben, auf welcher Rechtsgrundlage und welche Rechte Sie als Betroffener haben.',
-    canonical: siteUrl('/privacy-policy'),
+    canonical: siteUrl('/datenschutz'),
   });
 
   return (
