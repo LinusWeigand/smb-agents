@@ -138,7 +138,7 @@ export function PlanCards({
       <PlanCard
         index={0}
         /* Opens the beta waitlist rather than navigating: sign-up is gated
-           while Orakis is in closed beta. */
+           while Neuroneus is in closed beta. */
         cta={
           <div className="block cursor-pointer" onClick={() => onStartTrial('Free Trial')}>
             <button className={CTA}>{c.startFreeTrial}</button>

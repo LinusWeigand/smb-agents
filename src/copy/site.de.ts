@@ -18,9 +18,9 @@ export const siteDe = {
     login: 'Anmelden',
     signUp: 'Registrieren',
     letsTalk: 'Gespräch vereinbaren',
-    logoAria: 'Orakis – zur Startseite',
+    logoAria: 'Neuroneus – zur Startseite',
     sectionsAria: 'Seitenabschnitte',
-    loginAria: 'In der Orakis-App anmelden',
+    loginAria: 'In der Neuroneus-App anmelden',
     signUpAria: 'Registrieren',
     demoAria: 'Demo anfragen',
     openMenu: 'Menü öffnen',
@@ -33,14 +33,14 @@ export const siteDe = {
   },
 
   home: {
-    seoTitle: 'Orakis – Das Firmengehirn für Aufgaben und Wissen',
+    seoTitle: 'Neuroneus – Das Firmengehirn für Aufgaben und Wissen',
     seoDescription:
-      'Projekte planen, Aufgaben steuern und Antworten aus Ihren Daten erhalten. Orakis ist das Firmengehirn, das Ihr Team auf das Wesentliche ausrichtet.',
+      'Projekte planen, Aufgaben steuern und Antworten aus Ihren Daten erhalten. Neuroneus ist das Firmengehirn, das Ihr Team auf das Wesentliche ausrichtet.',
   },
 
   hero: {
     subtitle: 'Wissen, was läuft, was zu tun ist und wann es dran ist.',
-    ycLink: 'Die These hinter Orakis, beschrieben von Y Combinator',
+    ycLink: 'Die These hinter Neuroneus, beschrieben von Y Combinator',
     marquee: [
       [
         'Jonas hat seine 3 Aufgaben heute vorzeitig abgeschlossen',
@@ -51,11 +51,11 @@ export const siteDe = {
       [
         'Das Team hat diese Woche 3 neue Features pünktlich ausgeliefert',
         'Jedes Teammitglied hat heute eine klare Priorität',
-        'Umsatz diese Woche 18 % höher. Ora hat den Report an den Beirat geschickt',
+        'Umsatz diese Woche 18 % höher. Neuron hat den Report an den Beirat geschickt',
         'Ein Risiko in der Q4-Roadmap wurde erkannt und neu zugewiesen, bevor es eskalierte.',
       ],
       [
-        'Ora hat eine Marktlücke in Ihrem Segment gefunden. Zusammenfassung liegt bereit.',
+        'Neuron hat eine Marktlücke in Ihrem Segment gefunden. Zusammenfassung liegt bereit.',
         'Alle offenen Aufgaben sind zugewiesen. Niemand wartet.',
         'Kundenfeedback ausgewertet: Zufriedenheit diese Woche bei 4,8',
         'Das Weekly wurde zusammengefasst und ans Team geschickt. Sie sind auf dem Stand.',
@@ -66,16 +66,16 @@ export const siteDe = {
   features: {
     briefing: {
       heading: 'Starten Sie den Tag mit einem Briefing',
-      body: 'Sie wissen, worauf es ankommt, wer auf Sie wartet und was genau zu tun ist. Orakis organisiert die Arbeit um Sie herum: Es räumt den Kalender neu, arbeitet Ihren Posteingang ab und hält Zeit für das frei, was wirklich zählt.',
+      body: 'Sie wissen, worauf es ankommt, wer auf Sie wartet und was genau zu tun ist. Neuroneus organisiert die Arbeit um Sie herum: Es räumt den Kalender neu, arbeitet Ihren Posteingang ab und hält Zeit für das frei, was wirklich zählt.',
     },
     autopilot: {
       heading: 'Ihr Unternehmen auf Autopilot',
       badge: 'Auch mit Freigabe durch Menschen möglich',
-      body: 'Orakis koordiniert jede Aufgabe in Ihrem Team und hält alles effizient in Bewegung. Ihre Projekte laufen von selbst, ohne dass Sie jedem Schritt hinterherlaufen müssen.',
+      body: 'Neuroneus koordiniert jede Aufgabe in Ihrem Team und hält alles effizient in Bewegung. Ihre Projekte laufen von selbst, ohne dass Sie jedem Schritt hinterherlaufen müssen.',
     },
     risk: {
       heading: 'Erkennen Sie das Risiko, bevor es zur Krise wird.',
-      body: 'Orakis wertet Ihre Daten längst aus und weiß früher als Sie, was gerade passiert.',
+      body: 'Neuroneus wertet Ihre Daten längst aus und weiß früher als Sie, was gerade passiert.',
     },
     asset: {
       heading: 'Sie bauen einen Wert auf.',
@@ -91,24 +91,24 @@ export const siteDe = {
     heading: 'Überblick',
     data: {
       title: 'Die Daten haben Sie längst. Lassen Sie sie arbeiten.',
-      body: 'Ihre Aufgaben, Dokumente und Gespräche enthalten bereits den Kontext, den Orakis braucht, um Ihnen zu helfen.',
+      body: 'Ihre Aufgaben, Dokumente und Gespräche enthalten bereits den Kontext, den Neuroneus braucht, um Ihnen zu helfen.',
     },
     dots: {
-      title: 'Orakis verbindet die Punkte, damit Sie es nicht tun müssen.',
+      title: 'Neuroneus verbindet die Punkte, damit Sie es nicht tun müssen.',
       body: 'Ihre Daten werden automatisch sauber und strukturiert abgelegt: bereit für Ihre KI-Agenten und immer da, wenn Sie sie brauchen.',
     },
     tools: {
       title: 'Bestehende Tools einbinden',
-      body: 'Orakis integriert sich in die Tools, die Ihr Team ohnehin nutzt.',
+      body: 'Neuroneus integriert sich in die Tools, die Ihr Team ohnehin nutzt.',
     },
     harbor: {
-      title: 'Ihr LLM legt im Orakis-Hafen an',
+      title: 'Ihr LLM legt im Neuroneus-Hafen an',
       body: 'Welches Schiff Sie auch fahren: Es legt an und wird Container für Container mit Kontext aus Ihrem Company Brain beladen.',
     },
   },
 
   cta: {
-    heading: 'Testen Sie Orakis jetzt.',
+    heading: 'Testen Sie Neuroneus jetzt.',
     body: 'Geben Sie Ihrem Team das Gehirn, mit dem es schneller vorankommt.',
   },
 
@@ -116,33 +116,33 @@ export const siteDe = {
     heading: 'Häufige Fragen',
     items: [
       {
-        question: 'Was ist Orakis?',
+        question: 'Was ist Neuroneus?',
         answer:
-          'Orakis ist das Firmengehirn für Aufgaben- und Wissensmanagement. Es merkt sich, was Sie und Ihr Team wissen, und behält im Blick, was erledigt wird: Projekte, Aufgaben, Entscheidungen, Kontext. Sie steuern Ihre Projekte und bauen dabei Ihr Wissen auf. Die KI sagt Ihnen, wo eine Entscheidung ansteht, und übernimmt Aufgaben für Sie. Menschen kommen und gehen. Orakis bleibt.',
+          'Neuroneus ist das Firmengehirn für Aufgaben- und Wissensmanagement. Es merkt sich, was Sie und Ihr Team wissen, und behält im Blick, was erledigt wird: Projekte, Aufgaben, Entscheidungen, Kontext. Sie steuern Ihre Projekte und bauen dabei Ihr Wissen auf. Die KI sagt Ihnen, wo eine Entscheidung ansteht, und übernimmt Aufgaben für Sie. Menschen kommen und gehen. Neuroneus bleibt.',
       },
       {
-        question: 'Welches Problem löst Orakis?',
+        question: 'Welches Problem löst Neuroneus?',
         answer:
-          'Die meisten Organisationen verlieren erhebliche Zeit durch Abstimmungsaufwand: Warten auf Updates, unklare Prioritäten, verstreute Informationen. Orakis beseitigt diese Engpässe, indem es den Datenaustausch automatisiert, Erkenntnisse in Echtzeit sichtbar macht und alle im Team auf das Wesentliche ausrichtet.',
+          'Die meisten Organisationen verlieren erhebliche Zeit durch Abstimmungsaufwand: Warten auf Updates, unklare Prioritäten, verstreute Informationen. Neuroneus beseitigt diese Engpässe, indem es den Datenaustausch automatisiert, Erkenntnisse in Echtzeit sichtbar macht und alle im Team auf das Wesentliche ausrichtet.',
       },
       {
-        question: 'Wie hilft Orakis konkret?',
+        question: 'Wie hilft Neuroneus konkret?',
         answer:
-          'Führungskräfte sehen jederzeit, was über Teams, Projekte und Personen hinweg passiert, während Teammitglieder immer genau wissen, woran sie arbeiten sollen, ohne nachfragen zu müssen. Das bedeutet schnellere und sicherere Entscheidungen auf Basis aktueller Kennzahlen und automatischer Berichte statt manueller Statusmeldungen. Orakis schafft Klarheit darüber, was zu tun ist, wann es dran ist und warum es zählt. Weil der Informationsfluss automatisiert läuft, entfällt das Rätselraten, und alle können sich auf wirkungsvolle Arbeit konzentrieren, statt Updates hinterherzujagen oder in Abstimmungsmeetings zu sitzen.',
+          'Führungskräfte sehen jederzeit, was über Teams, Projekte und Personen hinweg passiert, während Teammitglieder immer genau wissen, woran sie arbeiten sollen, ohne nachfragen zu müssen. Das bedeutet schnellere und sicherere Entscheidungen auf Basis aktueller Kennzahlen und automatischer Berichte statt manueller Statusmeldungen. Neuroneus schafft Klarheit darüber, was zu tun ist, wann es dran ist und warum es zählt. Weil der Informationsfluss automatisiert läuft, entfällt das Rätselraten, und alle können sich auf wirkungsvolle Arbeit konzentrieren, statt Updates hinterherzujagen oder in Abstimmungsmeetings zu sitzen.',
       },
       {
-        question: 'Kann ich Orakis kostenlos testen?',
+        question: 'Kann ich Neuroneus kostenlos testen?',
         answer:
-          'Ja. Sie können Orakis 7 Tage kostenlos testen, ohne Kreditkarte. Während der Testphase sind alle Funktionen freigeschaltet.',
+          'Ja. Sie können Neuroneus 7 Tage kostenlos testen, ohne Kreditkarte. Während der Testphase sind alle Funktionen freigeschaltet.',
       },
       {
         question: 'Wie lange dauert die Einrichtung?',
         answer: 'Weniger als 5 Minuten.',
       },
       {
-        question: 'Mit welchen Tools lässt sich Orakis verbinden?',
+        question: 'Mit welchen Tools lässt sich Neuroneus verbinden?',
         answer:
-          'Orakis verbindet sich mit den Tools, die Sie schon nutzen, etwa Outlook, Gmail und Google Kalender. Weitere Integrationen sind in Arbeit. Über MCP können Sie außerdem Ihr eigenes LLM mitbringen, ob Claude, ChatGPT oder ein anderes System mit MCP-Unterstützung, und ihm direkten Zugriff auf Orakis geben.',
+          'Neuroneus verbindet sich mit den Tools, die Sie schon nutzen, etwa Outlook, Gmail und Google Kalender. Weitere Integrationen sind in Arbeit. Über MCP können Sie außerdem Ihr eigenes LLM mitbringen, ob Claude, ChatGPT oder ein anderes System mit MCP-Unterstützung, und ihm direkten Zugriff auf Neuroneus geben.',
       },
       {
         question: 'Sind meine Daten sicher?',
@@ -157,7 +157,7 @@ export const siteDe = {
       {
         question: 'Wer sind wir?',
         answer:
-          'Orakis ist ein Startup mit Sitz in Stuttgart. Wir bauen das Firmengehirn für Aufgaben- und Wissensmanagement.',
+          'Neuroneus ist ein Startup mit Sitz in Stuttgart. Wir bauen das Firmengehirn für Aufgaben- und Wissensmanagement.',
       },
     ],
   },
@@ -168,16 +168,16 @@ export const siteDe = {
     legalHeading: 'Rechtliches',
     contact: 'Kontakt',
     linkedIn: 'LinkedIn',
-    rights: '© 2026 Orakis, alle Rechte vorbehalten',
+    rights: '© 2026 Neuroneus, alle Rechte vorbehalten',
     builtIn: 'Made in Germany',
   },
 
   pricing: {
-    seoTitle: 'Preise – Orakis',
+    seoTitle: 'Preise – Neuroneus',
     seoDescription:
-      'Testen Sie Orakis 7 Tage kostenlos, ohne Kreditkarte. Business ab 24 € pro Nutzer/Monat bei jährlicher Zahlung (29 € monatlich), dazu individuelle Enterprise-Tarife.',
+      'Testen Sie Neuroneus 7 Tage kostenlos, ohne Kreditkarte. Business ab 24 € pro Nutzer/Monat bei jährlicher Zahlung (29 € monatlich), dazu individuelle Enterprise-Tarife.',
     heading: 'Preise',
-    sub: 'Testen Sie Orakis 7 Tage kostenlos, ohne Kreditkarte.',
+    sub: 'Testen Sie Neuroneus 7 Tage kostenlos, ohne Kreditkarte.',
     controls: {
       users: 'Nutzer',
       decreaseUsers: 'Nutzerzahl verringern',
@@ -205,7 +205,7 @@ export const siteDe = {
       perUserPerMonth: 'pro Nutzer / Monat (zzgl. MwSt.)',
       enterprise: 'Enterprise',
       individual: 'Individuell',
-      enterpriseNote: 'Orakis in Ihrer gesamten Organisation ausrollen.',
+      enterpriseNote: 'Neuroneus in Ihrer gesamten Organisation ausrollen.',
       letsTalk: 'Sprechen wir',
     },
     trialFeatures: {
@@ -230,7 +230,7 @@ export const siteDe = {
       heading: 'Alles in Business enthalten',
       items: [
         'Ziele & Aufgaben',
-        'Ora Agent',
+        'Neuron Agent',
         'Geteilte Workspaces & Dokumente',
         'Dokumente',
         'Tägliche Briefings',
@@ -247,7 +247,7 @@ export const siteDe = {
       dialogAria: 'Auf die Beta-Warteliste setzen',
       close: 'Dialog schließen',
       heading: 'Wir sind in der Beta',
-      body: 'Orakis befindet sich derzeit in einer geschlossenen Beta. Hinterlassen Sie Ihre E-Mail-Adresse, und wir melden uns, sobald ein Platz frei wird.',
+      body: 'Neuroneus befindet sich derzeit in einer geschlossenen Beta. Hinterlassen Sie Ihre E-Mail-Adresse, und wir melden uns, sobald ein Platz frei wird.',
       emailPlaceholder: 'ihre@mail.de',
       submit: 'Benachrichtigt werden',
       sending: 'Wird gesendet …',
@@ -259,11 +259,11 @@ export const siteDe = {
   },
 
   letsTalk: {
-    seoTitle: 'Gespräch vereinbaren – Orakis',
+    seoTitle: 'Gespräch vereinbaren – Neuroneus',
     seoDescription:
-      'Sprechen Sie mit dem Gründer und sehen Sie Orakis in Aktion: Ziele, Aufgaben, Dokumente und Wissen an einem Ort, mit einer KI, die den Kontext Ihres Teams kennt.',
+      'Sprechen Sie mit dem Gründer und sehen Sie Neuroneus in Aktion: Ziele, Aufgaben, Dokumente und Wissen an einem Ort, mit einer KI, die den Kontext Ihres Teams kennt.',
     heading: 'Sprechen wir',
-    sub: 'Erzählen Sie uns kurz von Ihrer Arbeit, dann finden wir gemeinsam heraus, wo Orakis passt.',
+    sub: 'Erzählen Sie uns kurz von Ihrer Arbeit, dann finden wir gemeinsam heraus, wo Neuroneus passt.',
     nameLabel: 'Ihr Name *',
     namePlaceholder: 'Vor- und Nachname',
     nameRequired: 'Bitte geben Sie Ihren Namen an',
@@ -282,7 +282,7 @@ export const siteDe = {
       { value: '1000+', label: 'Über 1000 Mitarbeitende' },
     ],
     challengeLabel: 'Größte Herausforderung',
-    challengePlaceholder: 'Was ist die größte Herausforderung, bei der Orakis helfen soll?',
+    challengePlaceholder: 'Was ist die größte Herausforderung, bei der Neuroneus helfen soll?',
     toolsLabel: 'Ihre Tools',
     toolsPlaceholder: 'z. B. Slack, Notion, HubSpot …',
     consentBefore: 'Mit dem Absenden stimmen Sie unserer',
@@ -299,8 +299,8 @@ export const siteDe = {
   },
 
   yc: {
-    seoTitle: 'YC-Videos – Die These hinter Orakis',
-    seoDescription: 'Die Überlegungen, die alles geprägt haben, was wir bei Orakis bauen.',
+    seoTitle: 'YC-Videos – Die These hinter Neuroneus',
+    seoDescription: 'Die Überlegungen, die alles geprägt haben, was wir bei Neuroneus bauen.',
     headingBefore: 'Die These hinter',
     by: 'von',
     combinator: 'Combinator',
@@ -309,7 +309,7 @@ export const siteDe = {
       aiFirst: 'How To Build An AI-First Company',
       newWay: 'The New Way To Build A Startup',
     },
-    videoDescription: 'ein Video von Y Combinator, das die These hinter Orakis geprägt hat.',
+    videoDescription: 'ein Video von Y Combinator, das die These hinter Neuroneus geprägt hat.',
   },
 
   notFound: {

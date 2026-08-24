@@ -39,12 +39,12 @@ export function Footer() {
             <a href="/" className="w-fit flex items-center gap-2">
               {/* `is-flat` freezes the shimmer: on the dark footer the animated
                   metal gradient reads as noise, so it renders as a solid mark. */}
-              <div className="ora-icon-shimmer is-flat w-12 h-12" aria-hidden="true" />
+              <div className="neuroneus-icon-shimmer is-flat w-12 h-12" aria-hidden="true" />
               <span
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
                 className="font-bold text-4xl tracking-widest uppercase text-[#F7F7F7]"
               >
-                Orakis
+                Neuroneus
               </span>
             </a>
             <p className="font-serif text-2xl font-medium leading-snug text-[#F7F7F7]">
@@ -88,13 +88,13 @@ export function Footer() {
               <p className={COL_HEADING}>{t.footer.companyHeading}</p>
               <ul className={COL_LIST} style={{ letterSpacing: '-0.1px' }}>
                 <li>
-                  <a href="mailto:info@orakis.com" className={LINK}>
+                  <a href="mailto:info@neuron.eus" className={LINK}>
                     {t.footer.contact}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.linkedin.com/company/orakis"
+                    href="https://www.linkedin.com/company/neuroneus"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={LINK}
@@ -164,7 +164,7 @@ export function Footer() {
           style={{ fontFamily: "'Orbitron', sans-serif" }}
           className="block select-none text-center font-bold uppercase leading-none tracking-[0.06em] text-white/[0.045] text-[17vw] -mb-[0.14em]"
         >
-          Orakis
+          Neuroneus
         </span>
       </div>
     </footer>

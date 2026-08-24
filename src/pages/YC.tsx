@@ -61,7 +61,7 @@ export default function YC() {
               style={{ fontFamily: "'Orbitron', sans-serif" }}
               className="font-bold tracking-widest uppercase"
             >
-              Orakis
+              Neuroneus
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="font-serif font-normal text-gray-900">{t.yc.by}</span>

@@ -12,7 +12,7 @@
  */
 export async function notify(subject: string, lines: string[]): Promise<void> {
   const key = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_NOTIFY_TO ?? 'info@orakis.com';
+  const to = process.env.LEAD_NOTIFY_TO ?? 'info@neuron.eus';
   const from = process.env.LEAD_NOTIFY_FROM;
   if (!key || !from) return;
 

@@ -17,9 +17,9 @@ export const siteEn = {
     login: 'Log in',
     signUp: 'Sign up',
     letsTalk: "Let's Talk",
-    logoAria: 'Orakis - Go to homepage',
+    logoAria: 'Neuroneus - Go to homepage',
     sectionsAria: 'Page sections',
-    loginAria: 'Log in to Orakis app',
+    loginAria: 'Log in to Neuroneus app',
     signUpAria: 'Sign up',
     demoAria: 'Request a demo',
     openMenu: 'Open menu',
@@ -32,14 +32,14 @@ export const siteEn = {
   },
 
   home: {
-    seoTitle: 'Orakis - Company Brain for Task and Knowledge Management',
+    seoTitle: 'Neuroneus - Company Brain for Task and Knowledge Management',
     seoDescription:
-      'Plan projects, manage tasks, and get answers from your data. Orakis is the company brain that keeps your team aligned on what matters.',
+      'Plan projects, manage tasks, and get answers from your data. Neuroneus is the company brain that keeps your team aligned on what matters.',
   },
 
   hero: {
     subtitle: "Know what's happening, what to do, and when to do it.",
-    ycLink: 'The thesis behind Orakis, as described by Y Combinator',
+    ycLink: 'The thesis behind Neuroneus, as described by Y Combinator',
     marquee: [
       [
         'Jonas completed his 3 tasks today, ahead of schedule',
@@ -50,11 +50,11 @@ export const siteEn = {
       [
         'Team shipped 3 new features this week, on time',
         'Every team member has a clear priority for today',
-        'Revenue up 18% this week. Ora sent the report to the board',
+        'Revenue up 18% this week. Neuron sent the report to the board',
         'A risk in the Q4 roadmap was detected and reassigned before it escalated.',
       ],
       [
-        'Ora identified a market gap in your segment. Summary ready.',
+        'Neuron identified a market gap in your segment. Summary ready.',
         'All open tasks have been assigned. No one is waiting.',
         'Customer feedback analyzed: 4.8 satisfaction score this week',
         "The weekly standup was summarized and sent to the team. You're all caught up.",
@@ -65,16 +65,16 @@ export const siteEn = {
   features: {
     briefing: {
       heading: 'Start your day with a Briefing',
-      body: "Know what matters, see who's waiting on you, and know exactly what you need to do. Orakis manages the work around you, reorganizing your calendar, working through your inbox, and protecting time for what matters most.",
+      body: "Know what matters, see who's waiting on you, and know exactly what you need to do. Neuroneus manages the work around you, reorganizing your calendar, working through your inbox, and protecting time for what matters most.",
     },
     autopilot: {
       heading: 'Your company, on autopilot',
       badge: 'Human in the loop also possible',
-      body: 'Orakis orchestrates every task in your team and keeps everything moving efficiently, so your projects run themselves without you having to manually chase it every time.',
+      body: 'Neuroneus orchestrates every task in your team and keeps everything moving efficiently, so your projects run themselves without you having to manually chase it every time.',
     },
     risk: {
       heading: "See the risk before it's a crisis.",
-      body: "Orakis already analyzes your data and knows what's going on before you do.",
+      body: "Neuroneus already analyzes your data and knows what's going on before you do.",
     },
     asset: {
       heading: "You're building an asset.",
@@ -90,24 +90,24 @@ export const siteEn = {
     heading: 'Overview',
     data: {
       title: 'You already have the data. Let it work for you.',
-      body: 'Your tasks, documents, and conversations already hold the context Orakis needs to help you.',
+      body: 'Your tasks, documents, and conversations already hold the context Neuroneus needs to help you.',
     },
     dots: {
-      title: "Orakis connects the dots so you don't have to.",
+      title: "Neuroneus connects the dots so you don't have to.",
       body: 'Your data gets stored clean and structured, automatically, ready for your AI agents, and always there when you need it.',
     },
     tools: {
       title: 'Integrate your existing tools',
-      body: 'Orakis integrates with the tools your team already uses.',
+      body: 'Neuroneus integrates with the tools your team already uses.',
     },
     harbor: {
-      title: 'Your LLM docks at the Orakis harbor',
+      title: 'Your LLM docks at the Neuroneus harbor',
       body: 'Whichever ship you sail, it docks and gets loaded with context from your Company Brain, container by container.',
     },
   },
 
   cta: {
-    heading: 'Try Orakis Now.',
+    heading: 'Try Neuroneus Now.',
     body: 'Give your team the brain it needs to move faster.',
   },
 
@@ -115,33 +115,33 @@ export const siteEn = {
     heading: 'FAQs',
     items: [
       {
-        question: 'What is Orakis?',
+        question: 'What is Neuroneus?',
         answer:
-          "Orakis is the company brain for task and knowledge management. It remembers what you and your team know, and keeps track of what's getting done: projects, tasks, decisions, context. You manage your projects and build up your knowledge as you go. And the AI tells you what needs a decision, and manages tasks for you. People come and go. Orakis stays.",
+          "Neuroneus is the company brain for task and knowledge management. It remembers what you and your team know, and keeps track of what's getting done: projects, tasks, decisions, context. You manage your projects and build up your knowledge as you go. And the AI tells you what needs a decision, and manages tasks for you. People come and go. Neuroneus stays.",
       },
       {
-        question: 'What problem does Orakis solve?',
+        question: 'What problem does Neuroneus solve?',
         answer:
-          'Most organizations lose significant time to coordination overhead. Waiting for updates, misaligned priorities, and scattered information. Orakis eliminates these bottlenecks by automating data exchange, surfacing real-time insights, and keeping every team member aligned on what matters most.',
+          'Most organizations lose significant time to coordination overhead. Waiting for updates, misaligned priorities, and scattered information. Neuroneus eliminates these bottlenecks by automating data exchange, surfacing real-time insights, and keeping every team member aligned on what matters most.',
       },
       {
-        question: 'How does Orakis help?',
+        question: 'How does Neuroneus help?',
         answer:
-          'Leaders always understand what is happening across teams, projects, and people, while team members always know exactly what to work on without having to ask. This means faster and more confident decisions backed by live metrics and automated reporting instead of manual status updates. Orakis provides clarity on what to do, when to do it, and why it matters. By automating the flow of information, it removes the guesswork and lets everyone focus on high-impact work instead of chasing updates or sitting in alignment meetings.',
+          'Leaders always understand what is happening across teams, projects, and people, while team members always know exactly what to work on without having to ask. This means faster and more confident decisions backed by live metrics and automated reporting instead of manual status updates. Neuroneus provides clarity on what to do, when to do it, and why it matters. By automating the flow of information, it removes the guesswork and lets everyone focus on high-impact work instead of chasing updates or sitting in alignment meetings.',
       },
       {
-        question: 'Can I try Orakis for free?',
+        question: 'Can I try Neuroneus for free?',
         answer:
-          'Yes. You can try Orakis free for 7 days, no credit card required. Every feature is unlocked during the trial.',
+          'Yes. You can try Neuroneus free for 7 days, no credit card required. Every feature is unlocked during the trial.',
       },
       {
         question: 'How long does it take to set up?',
         answer: 'Less than 5 minutes.',
       },
       {
-        question: 'What tools does Orakis integrate with?',
+        question: 'What tools does Neuroneus integrate with?',
         answer:
-          'Orakis connects to the tools you already use, like Outlook, Gmail, and Google Calendar, with more integrations on the way. And through MCP, you can bring your own LLM: Claude, ChatGPT, or anything else that supports MCP, and give it direct access to Orakis.',
+          'Neuroneus connects to the tools you already use, like Outlook, Gmail, and Google Calendar, with more integrations on the way. And through MCP, you can bring your own LLM: Claude, ChatGPT, or anything else that supports MCP, and give it direct access to Neuroneus.',
       },
       {
         question: 'Is my data safe?',
@@ -155,7 +155,7 @@ export const siteEn = {
       {
         question: 'Who are we?',
         answer:
-          "Orakis is a startup currently based in Stuttgart, Germany. We're building the company brain for task and knowledge management.",
+          "Neuroneus is a startup currently based in Stuttgart, Germany. We're building the company brain for task and knowledge management.",
       },
     ],
   },
@@ -166,16 +166,16 @@ export const siteEn = {
     legalHeading: 'Legal',
     contact: 'Contact',
     linkedIn: 'LinkedIn',
-    rights: '© 2026 Orakis, all rights reserved',
+    rights: '© 2026 Neuroneus, all rights reserved',
     builtIn: 'Built in Germany',
   },
 
   pricing: {
-    seoTitle: 'Pricing - Orakis',
+    seoTitle: 'Pricing - Neuroneus',
     seoDescription:
-      'Try Orakis free for 7 days, no credit card required. Business from €24 per user/month billed yearly (€29 monthly), plus custom Enterprise plans.',
+      'Try Neuroneus free for 7 days, no credit card required. Business from €24 per user/month billed yearly (€29 monthly), plus custom Enterprise plans.',
     heading: 'Pricing',
-    sub: 'Try Orakis free for 7 days, no credit card required.',
+    sub: 'Try Neuroneus free for 7 days, no credit card required.',
     controls: {
       users: 'Users',
       decreaseUsers: 'Decrease users',
@@ -203,7 +203,7 @@ export const siteEn = {
       perUserPerMonth: 'per user / month (excl. VAT)',
       enterprise: 'Enterprise',
       individual: 'Individual',
-      enterpriseNote: 'Roll out Orakis across your organization.',
+      enterpriseNote: 'Roll out Neuroneus across your organization.',
       letsTalk: "Let's talk",
     },
     trialFeatures: {
@@ -228,7 +228,7 @@ export const siteEn = {
       heading: 'Everything in Business',
       items: [
         'Goals & tasks',
-        'Ora Agent',
+        'Neuron Agent',
         'Shared workspaces & documents',
         'Documents',
         'Daily briefings',
@@ -245,7 +245,7 @@ export const siteEn = {
       dialogAria: 'Join the beta waitlist',
       close: 'Close modal',
       heading: "We're in beta",
-      body: "Orakis is currently in closed beta. Leave your email and we'll notify you as soon as your spot opens up.",
+      body: "Neuroneus is currently in closed beta. Leave your email and we'll notify you as soon as your spot opens up.",
       emailPlaceholder: 'your@email.com',
       submit: 'Notify me',
       sending: 'Sending...',
@@ -257,11 +257,11 @@ export const siteEn = {
   },
 
   letsTalk: {
-    seoTitle: "Let's Talk - Orakis",
+    seoTitle: "Let's Talk - Neuroneus",
     seoDescription:
-      "Talk to the founder and see Orakis in action: goals, tasks, documents and knowledge in one place, with an AI that knows your team's context.",
+      "Talk to the founder and see Neuroneus in action: goals, tasks, documents and knowledge in one place, with an AI that knows your team's context.",
     heading: "Let's talk",
-    sub: "Share a bit about your work and we'll figure out together how Orakis fits in.",
+    sub: "Share a bit about your work and we'll figure out together how Neuroneus fits in.",
     nameLabel: 'Your Name *',
     namePlaceholder: 'Full Name',
     nameRequired: 'Name is required',
@@ -280,7 +280,7 @@ export const siteEn = {
       { value: '1000+', label: '1000+ employees' },
     ],
     challengeLabel: 'Biggest Challenge',
-    challengePlaceholder: "What's the biggest challenge you're hoping Orakis could solve?",
+    challengePlaceholder: "What's the biggest challenge you're hoping Neuroneus could solve?",
     toolsLabel: 'Your Tools',
     toolsPlaceholder: 'e.g. Slack, Notion, HubSpot...',
     consentBefore: 'By submitting, you agree to our',
@@ -297,8 +297,8 @@ export const siteEn = {
   },
 
   yc: {
-    seoTitle: 'YC Videos – The Thesis Behind Orakis',
-    seoDescription: "The thinking that shaped everything we're building at Orakis.",
+    seoTitle: 'YC Videos – The Thesis Behind Neuroneus',
+    seoDescription: "The thinking that shaped everything we're building at Neuroneus.",
     headingBefore: 'The thesis behind',
     by: 'by',
     combinator: 'Combinator',
@@ -307,7 +307,7 @@ export const siteEn = {
       aiFirst: 'How To Build An AI-First Company',
       newWay: 'The New Way To Build A Startup',
     },
-    videoDescription: 'a Y Combinator video that shaped the thesis behind Orakis.',
+    videoDescription: 'a Y Combinator video that shaped the thesis behind Neuroneus.',
   },
 
   notFound: {

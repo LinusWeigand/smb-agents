@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 import type { Lang } from '../../../lib/i18n';
 
 /**
- * Script for the Ora chat demo.
+ * Script for the Neuron chat demo.
  *
  * The whole sequence is time-driven: one clock starts when the user "sends" the
  * question, and every step, thought and character of the answer is keyed off
@@ -106,7 +106,7 @@ const TEXT = {
       writing: 'writing the answer...',
       /** {n} is the number of seconds. */
       thoughtFor: 'Thought for {n}s',
-      composerPlaceholder: 'Ask Orakis',
+      composerPlaceholder: 'Ask Neuroneus',
       think: 'Think',
       addAttachment: 'Add attachment',
     },
@@ -149,7 +149,7 @@ const TEXT = {
       thinking: 'denkt nach …',
       writing: 'schreibt die Antwort …',
       thoughtFor: '{n} s nachgedacht',
-      composerPlaceholder: 'Orakis fragen',
+      composerPlaceholder: 'Neuroneus fragen',
       think: 'Denken',
       addAttachment: 'Anhang hinzufügen',
     },

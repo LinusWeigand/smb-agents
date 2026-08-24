@@ -16,7 +16,7 @@ const CHROME = {
     team: 'Team',
     docs: 'Docs',
     calendar: 'Calendar',
-    ora: 'Ora',
+    neuron: 'Neuron',
   },
   de: {
     dashboard: 'Dashboard',
@@ -25,7 +25,7 @@ const CHROME = {
     team: 'Team',
     docs: 'Dokumente',
     calendar: 'Kalender',
-    ora: 'Ora',
+    neuron: 'Neuron',
   },
 } as const;
 

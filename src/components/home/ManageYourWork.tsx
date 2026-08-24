@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { OraChatDemo } from './chat/OraChatDemo';
+import { NeuronChatDemo } from './chat/NeuronChatDemo';
 import { useT } from '../../lib/i18n';
 
 /**
@@ -66,7 +66,7 @@ export function ManageYourWork() {
         style={animated ? { transform: 'translateX(calc(50vw + 50%))' } : undefined}
       >
         <div className="w-full max-w-2xl">
-          <OraChatDemo canStart={canStart} />
+          <NeuronChatDemo canStart={canStart} />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
 
 /**
- * Pixel-art harbour scene: AI container ships dock at the Orakis quay and get
+ * Pixel-art harbour scene: AI container ships dock at the Neuroneus quay and get
  * loaded with context containers.
  *
  * This is a hand-written software renderer, not a picture. Everything is blitted
@@ -611,7 +611,7 @@ export function HarborCanvas() {
           height: 170,
           role: "img",
           "aria-label":
-            "Pixel-art harbor scene: AI container ships dock at the Orakis quay and get loaded with context containers",
+            "Pixel-art harbor scene: AI container ships dock at the Neuroneus quay and get loaded with context containers",
           className: "block w-full h-auto",
           style: { imageRendering: "pixelated" },
         }),
@@ -733,7 +733,7 @@ export function HarborCanvas() {
                   color: "#FFFFFF",
                   letterSpacing: "0.28em",
                 },
-                children: "ORAKIS",
+                children: "NEURONEUS",
               }),
             }),
             jsxs("div", {
@@ -758,7 +758,7 @@ export function HarborCanvas() {
                     letterSpacing: "0.22em",
                     marginLeft: 2.5,
                   },
-                  children: "ORAKIS",
+                  children: "NEURONEUS",
                 }),
               ],
             }),

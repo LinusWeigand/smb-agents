@@ -3,7 +3,7 @@ import { COPY, type Copy, type Lang } from '../copy';
 
 export type { Lang };
 
-const STORAGE_KEY = 'orakis:lang';
+const STORAGE_KEY = 'neuroneus:lang';
 
 /** English is the default: a first-time visitor with no stored choice gets EN. */
 const DEFAULT_LANG: Lang = 'en';

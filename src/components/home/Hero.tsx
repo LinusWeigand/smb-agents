@@ -5,7 +5,7 @@ const BUTTON_SHADOW = { boxShadow: '0 1px 3px rgba(23,23,23,0.08)' };
 
 export function Hero() {
   const t = useT();
-  /** Three rows of ambient "what Orakis just handled" notifications. */
+  /** Three rows of ambient "what Neuroneus just handled" notifications. */
   const marqueeRows = t.hero.marquee;
   return (
     <section className="relative bg-transparent pb-12 md:pb-[72px] overflow-hidden">

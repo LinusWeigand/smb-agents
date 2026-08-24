@@ -5,12 +5,12 @@ import { useCardMediaScale } from './overview/useCardMediaScale';
 import { useT } from '../../lib/i18n';
 
 /** The chip's centre logo is painted by masking a white block through the
- *  Orakis mark, so it inherits the mark's negative space exactly. */
-const ORAKIS_MARK_MASK = "url('/orakis-mark-white.svg')";
+ *  Neuroneus mark, so it inherits the mark's negative space exactly. */
+const NEURONEUS_MARK_MASK = "url('/neuroneus-mark-white.svg')";
 
 /**
  * Overview: the four explainer blocks (your data, connecting the dots, tool
- * integrations, and the "LLM docks at the Orakis harbor" diagram).
+ * integrations, and the "LLM docks at the Neuroneus harbor" diagram).
  *
  * Recovered from the deployed prerender. The three animated pieces -- the
  * circuit-board card, the force-directed graph and the pixel-art harbour --
@@ -179,7 +179,7 @@ export function Overview() {
                           </linearGradient>
                         </defs>
                       </svg>
-                      <div className="absolute pointer-events-none" style={{ left: "50%", top: "50%", width: "7%", aspectRatio: "1 / 1", transform: "translate(-50%, -50%)", WebkitMaskImage: ORAKIS_MARK_MASK, maskImage: ORAKIS_MARK_MASK, WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskSize: "100% 100%", maskSize: "100% 100%" }}>
+                      <div className="absolute pointer-events-none" style={{ left: "50%", top: "50%", width: "7%", aspectRatio: "1 / 1", transform: "translate(-50%, -50%)", WebkitMaskImage: NEURONEUS_MARK_MASK, maskImage: NEURONEUS_MARK_MASK, WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskSize: "100% 100%", maskSize: "100% 100%" }}>
                         <div style={{ width: "100%", height: "100%", display: "block", backgroundColor: "rgb(255, 255, 255)" }} />
                       </div>
                     </div>
@@ -207,7 +207,7 @@ export function Overview() {
                     <div className="flex items-center justify-center">
                       <div className="relative grid items-center w-[468px] grid-cols-[88px_1fr_180px]" style={{ height: "200px" }}>
                         <div className="flex flex-col items-center justify-center w-[88px] h-[88px] bg-[#171717] rounded-2xl z-10 row-span-1" style={{ boxShadow: "rgba(23, 23, 23, 0.18) 0px 4px 16px" }}>
-                          <span className="text-white font-bold uppercase tracking-widest" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "9px", letterSpacing: "0.18em" }}>Orakis</span>
+                          <span className="text-white font-bold uppercase tracking-widest" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "9px", letterSpacing: "0.18em" }}>Neuroneus</span>
                         </div>
                         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M 0 50 C 40 50, 60 13.5, 100 13.5" stroke="#9ca3af" strokeWidth="1.25" strokeDasharray="3 2" strokeLinecap="round" vectorEffect="non-scaling-stroke" />

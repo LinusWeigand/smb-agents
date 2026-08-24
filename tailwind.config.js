@@ -90,7 +90,7 @@ export default {
           '0%': { offsetDistance: '0%' },
           '100%': { offsetDistance: '100%' },
         },
-        'ora-drift': {
+        'neuroneus-drift': {
           '0%': { backgroundPosition: '0% 0%' },
           '25%': { backgroundPosition: '100% 30%' },
           '50%': { backgroundPosition: '60% 100%' },
@@ -106,7 +106,7 @@ export default {
         sendPress: 'sendPress 300ms both',
         caretBlink: 'caretBlink 1s step-end infinite',
         countTick: 'countTick 150ms ease-out',
-        'ora-drift': 'ora-drift 12s ease-in-out infinite',
+        'neuroneus-drift': 'neuroneus-drift 12s ease-in-out infinite',
       },
     },
   },

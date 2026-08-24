@@ -1,5 +1,5 @@
 /**
- * The "Orakis connects the dots" graph.
+ * The "Neuroneus connects the dots" graph.
  *
  * Nothing here is authored data — the whole graph is generated from a seeded
  * PRNG, so the same 56 nodes and 85 links come out on every run and on every

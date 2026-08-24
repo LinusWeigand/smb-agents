@@ -1,7 +1,7 @@
 {
-  "name": "Orakis – Company Brain for Task Management",
-  "short_name": "Orakis",
-  "description": "Orakis is a company brain for task and project management. Goals, tasks, documents and knowledge in one place, with an AI that knows your context and tells your team what matters.",
+  "name": "Neuroneus – Company Brain for Task Management",
+  "short_name": "Neuroneus",
+  "description": "Neuroneus is a company brain for task and project management. Goals, tasks, documents and knowledge in one place, with an AI that knows your context and tells your team what matters.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F7F7F7",

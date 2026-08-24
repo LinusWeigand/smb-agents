@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { OrakisMark } from './OrakisMark';
+import { NeuroneusMark } from './NeuroneusMark';
 import { LanguageToggle } from './LanguageToggle';
 import { cn } from '../lib/utils';
 import { APP_URL } from '../lib/site';
@@ -95,12 +95,12 @@ export function Header() {
                 }
               }}
             >
-              <OrakisMark size={32} className="relative flex-shrink-0" />
+              <NeuroneusMark size={32} className="relative flex-shrink-0" />
               <span
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
                 className="font-bold whitespace-nowrap text-xl sm:text-2xl tracking-widest uppercase text-[#171717]"
               >
-                Orakis
+                Neuroneus
               </span>
             </a>
 

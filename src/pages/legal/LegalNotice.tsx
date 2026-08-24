@@ -5,7 +5,7 @@ import { siteUrl } from '../../lib/site';
 /** Impressum — § 5 TMG disclosure. Text carried over verbatim; do not reword. */
 export default function LegalNotice() {
   useSeo({
-    title: 'Impressum - Orakis',
+    title: 'Impressum - Neuroneus',
     description: 'Impressum und Anbieterkennzeichnung gemäß § 5 TMG.',
     canonical: siteUrl('/impressum'),
   });

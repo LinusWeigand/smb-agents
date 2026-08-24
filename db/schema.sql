@@ -1,4 +1,4 @@
--- Orakis marketing-site schema (Neon Postgres).
+-- Neuroneus marketing-site schema (Neon Postgres).
 --
 -- Run once against your Neon database:
 --   psql "$DATABASE_URL" -f db/schema.sql

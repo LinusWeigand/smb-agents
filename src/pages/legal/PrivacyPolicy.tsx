@@ -5,7 +5,7 @@ import { siteUrl } from '../../lib/site';
 /** Datenschutzerklärung. Text carried over verbatim; do not reword. */
 export default function PrivacyPolicy() {
   useSeo({
-    title: 'Datenschutzerklärung - Orakis',
+    title: 'Datenschutzerklärung - Neuroneus',
     description:
       'Datenschutzerklärung: welche personenbezogenen Daten wir erheben, auf welcher Rechtsgrundlage und welche Rechte Sie als Betroffener haben.',
     canonical: siteUrl('/datenschutz'),

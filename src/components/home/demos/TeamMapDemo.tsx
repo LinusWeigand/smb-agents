@@ -27,7 +27,7 @@ export function TeamMapDemo() {
   const { lang } = useLang();
   const ui = teamUi(lang);
   const { ref: fitRef, scale: fitScale } = useFitScale();
-  const maskId = `orakis-mark-solid-cut-${useId()}`;
+  const maskId = `neuroneus-mark-solid-cut-${useId()}`;
   const [view, setView] = useState<'map' | 'list'>('map');
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
   const selectedRow = useMemo(
@@ -56,7 +56,7 @@ export function TeamMapDemo() {
                 <path d="M538.269 32.0852H544.426C545.277 32.0852 545.696 31.6663 545.696 30.7395V25.9851C545.696 25.1472 545.353 24.7219 544.642 24.6521V23.0842C544.642 20.6721 543.036 19.5105 541.348 19.5105C539.659 19.5105 538.053 20.6721 538.053 23.0842V24.6711C537.393 24.7727 537 25.1917 537 25.9851V30.7395C537 31.6663 537.418 32.0852 538.269 32.0852ZM539.272 22.97C539.272 21.491 540.211 20.6785 541.348 20.6785C542.478 20.6785 543.423 21.491 543.423 22.97V24.6394L539.272 24.6458V22.97Z" fill="#A3A3A3" />
               </g>
               <g className="mix-blend-luminosity">
-                <text x="552" y="30" fill="#A3A3A3" fontSize="12" fontFamily="Arial, sans-serif">app.orakis.com</text>
+                <text x="552" y="30" fill="#A3A3A3" fontSize="12" fontFamily="Arial, sans-serif">app.neuron.eus</text>
               </g>
               <g className="mix-blend-luminosity" transform="translate(20, 0)">
                 <path d="M265.5 33.8984C265.641 33.8984 265.852 33.8516 266.047 33.7422C270.547 31.2969 272.109 30.1641 272.109 27.3203V21.4219C272.109 20.4844 271.742 20.1484 270.961 19.8125C270.094 19.4453 267.18 18.4297 266.328 18.1406C266.07 18.0547 265.766 18 265.5 18C265.234 18 264.93 18.0703 264.672 18.1406C263.82 18.3828 260.906 19.4531 260.039 19.8125C259.258 20.1406 258.891 20.4844 258.891 21.4219V27.3203C258.891 30.1641 260.461 31.2812 264.945 33.7422C265.148 33.8516 265.359 33.8984 265.5 33.8984ZM265.922 19.5781C266.945 19.9766 269.172 20.7656 270.344 21.1875C270.562 21.2656 270.617 21.3828 270.617 21.6641V27.0234C270.617 29.3125 269.469 29.9375 265.945 32.0625C265.727 32.1875 265.617 32.2344 265.508 32.2344V19.4844C265.617 19.4844 265.734 19.5156 265.922 19.5781Z" fill="#A3A3A3" />
@@ -104,7 +104,7 @@ export function TeamMapDemo() {
                             </svg>
                             <div className="absolute inset-y-0 left-2 right-2 flex items-center gap-2 transition-opacity duration-200 ease-out opacity-100 delay-100">
                               <div className="min-w-0 flex-1">
-                                <span className="block whitespace-nowrap font-orbitron text-base font-extrabold uppercase leading-tight tracking-widest text-[#FAFAFA]">Orakis</span>
+                                <span className="block whitespace-nowrap font-orbitron text-base font-extrabold uppercase leading-tight tracking-widest text-[#FAFAFA]">Neuroneus</span>
                                 <span className="block truncate text-[11px] leading-tight text-[#FAFAFA]/60">Meridian</span>
                               </div>
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevrons-up-down h-3.5 w-3.5 shrink-0 text-[#8C8C8C]/40">
@@ -172,7 +172,7 @@ export function TeamMapDemo() {
                               <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
                               <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
                             </svg>
-                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.ora}</span>
+                            <span className="whitespace-nowrap transition-opacity ease-out opacity-100 delay-100 duration-200">{chrome.neuron}</span>
                           </span>
                         </nav>
                         <div className="mt-auto flex flex-col gap-[5px] p-2">

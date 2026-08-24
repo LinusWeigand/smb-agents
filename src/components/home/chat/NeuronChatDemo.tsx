@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowUp, Check, ChevronRight, Plus } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { useInView } from '../../../lib/useInView';
-import { OrakisMark } from '../../OrakisMark';
+import { NeuroneusMark } from '../../NeuroneusMark';
 import {
   ANSWER_START, CLEAR_MS, DONE_HOLD, GOAL_DUE_DAYS, MS_PER_ANSWER_CHAR,
   PAUSE_BEFORE_SEND, PRIORITY_CLASS, TICK_MS, TYPE_INTERVAL, chatScript, formatDueDate,
@@ -43,7 +43,7 @@ const Avatar = ({ initials }: { initials: string }) => (
   </span>
 );
 
-/** The goal Ora creates, with the three tasks hung off it. */
+/** The goal Neuron creates, with the three tasks hung off it. */
 function GoalCard({ script, lang }: { script: Script; lang: Lang }) {
   return (
     <div className="overflow-hidden rounded-[10px] border border-gray-200">
@@ -115,7 +115,7 @@ function GoalCard({ script, lang }: { script: Script; lang: Lang }) {
 type Phase = 'idle' | 'typing' | 'running' | 'done' | 'clearing';
 
 /**
- * Ora answering a question, on a loop.
+ * Neuron answering a question, on a loop.
  *
  * Phases: idle -> typing (question types into the composer) -> running (one
  * clock drives every step, thought and character of the answer) -> done (held
@@ -124,7 +124,7 @@ type Phase = 'idle' | 'typing' | 'running' | 'done' | 'clearing';
  * `canStart` lets the parent hold the demo until its entrance animation has
  * finished, so the sequence is never half over before it is in view.
  */
-export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
+export function NeuronChatDemo({ canStart = true }: { canStart?: boolean }) {
   const { lang } = useLang();
   const script = useMemo(() => chatScript(lang), [lang]);
   const [phase, setPhase] = useState<Phase>('idle');
@@ -230,7 +230,7 @@ export function OraChatDemo({ canStart = true }: { canStart?: boolean }) {
                 className="flex shrink-0"
                 style={running && !answerComplete ? { animation: 'spinMark 0.8s linear infinite' } : undefined}
               >
-                <OrakisMark size={14} className="text-gray-900" />
+                <NeuroneusMark size={14} className="text-gray-900" />
               </div>
               <div className="relative h-5 min-w-0 flex-1">
                 <div

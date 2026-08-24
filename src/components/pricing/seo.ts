@@ -60,7 +60,7 @@ export const pricingJsonLd = (t: Copy, lang: Lang) => {
       {
         '@type': 'SoftwareApplication',
         '@id': `${SITE_URL}/#software`,
-        name: 'Orakis',
+        name: 'Neuroneus',
         description: o.application,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',

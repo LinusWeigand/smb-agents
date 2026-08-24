@@ -113,25 +113,25 @@
 }
 
 /* ---------------------------------------------------------------------------
-   The Orakis mark rendered as brushed metal: the SVG is used as a mask and a
-   large gradient is animated underneath it. --ora-angle has to be registered
+   The Neuroneus mark rendered as brushed metal: the SVG is used as a mask and a
+   large gradient is animated underneath it. --neuroneus-angle has to be registered
    with @property, otherwise it is just an unparsed string and the browser has
    no way to interpolate between the two angles.
    --------------------------------------------------------------------------- */
-@property --ora-angle {
+@property --neuroneus-angle {
   syntax: '<angle>';
   initial-value: 135deg;
   inherits: false;
 }
 
-@keyframes ora-rotate {
-  0% { --ora-angle: 135deg; }
-  100% { --ora-angle: 495deg; }
+@keyframes neuroneus-rotate {
+  0% { --neuroneus-angle: 135deg; }
+  100% { --neuroneus-angle: 495deg; }
 }
 
-.ora-icon-shimmer {
-  -webkit-mask-image: url('/orakis-mark-white.svg');
-  mask-image: url('/orakis-mark-white.svg');
+.neuroneus-icon-shimmer {
+  -webkit-mask-image: url('/neuroneus-mark-white.svg');
+  mask-image: url('/neuroneus-mark-white.svg');
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-repeat: no-repeat;
@@ -139,16 +139,16 @@
   -webkit-mask-position: center;
   mask-position: center;
   background: linear-gradient(
-    var(--ora-angle),
+    var(--neuroneus-angle),
     #2a2a2a 0%, #5a5a5a 15%, #acacac 28%, #f5f5f5 36%, #ffffff 40%,
     #f0f0f0 44%, #b0b0b0 55%, #4a4a4a 70%, #888888 82%, #e8e8e8 90%, #2a2a2a 100%
   );
   background-size: 350% 350%;
   /* Two long, mutually prime periods so the highlight never repeats visibly. */
-  animation: ora-rotate 90s linear infinite, ora-drift 67s ease-in-out infinite;
+  animation: neuroneus-rotate 90s linear infinite, neuroneus-drift 67s ease-in-out infinite;
 }
 
-.ora-icon-shimmer.is-flat {
+.neuroneus-icon-shimmer.is-flat {
   background: #f7f7f7;
   animation: none;
 }
@@ -198,7 +198,7 @@
   100% { offset-distance: 100%; }
 }
 
-@keyframes ora-drift {
+@keyframes neuroneus-drift {
   0% { background-position: 0% 0%; }
   25% { background-position: 100% 30%; }
   50% { background-position: 60% 100%; }
@@ -206,7 +206,7 @@
   100% { background-position: 0% 0%; }
 }
 
-/* The Ora chat demo drives these from inline `style={{ animation: ... }}`
+/* The Neuron chat demo drives these from inline `style={{ animation: ... }}`
    rather than an `animate-*` utility, so — like animation-path above — the JIT
    has no reason to emit them and they must live here. */
 @keyframes shimmer {

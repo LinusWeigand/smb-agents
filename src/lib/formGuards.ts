@@ -29,7 +29,7 @@ const MIN_GAP_MS = 3_000;
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 10 * 60_000;
 
-const storageKey = (form: string) => `orakis:submits:${form}`;
+const storageKey = (form: string) => `neuroneus:submits:${form}`;
 
 /** Recent attempt timestamps, with anything outside the window dropped. */
 function readAttempts(form: string): number[] {

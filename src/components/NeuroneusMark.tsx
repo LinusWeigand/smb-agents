@@ -1,7 +1,7 @@
 import { useId } from 'react';
 
 /**
- * The Orakis octagon. The glyph is a filled octagon with a mask punching out
+ * The Neuroneus octagon. The glyph is a filled octagon with a mask punching out
  * the inner octagon plus two opposing "cuts", which is what gives the mark its
  * rotated-S negative space.
  *
@@ -9,7 +9,7 @@ import { useId } from 'react';
  * per page (header, footer, the mock app chrome inside each demo). useId is
  * what produces the `:r0:`-style ids the deployed build ships.
  */
-export function OrakisMark({
+export function NeuroneusMark({
   size = 32,
   fill = '#171717',
   className,
@@ -18,7 +18,7 @@ export function OrakisMark({
   fill?: string;
   className?: string;
 }) {
-  const maskId = `orakis-mark-${useId()}`;
+  const maskId = `neuroneus-mark-${useId()}`;
   const outer = '32.4,7.76 67.6,7.76 92.24,32.4 92.24,67.6 67.6,92.24 32.4,92.24 7.76,67.6 7.76,32.4';
 
   return (

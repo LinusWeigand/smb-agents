@@ -1,5 +1,8 @@
-import { Check, Clock, Download, MessageSquare, RotateCcw, Trash2 } from 'lucide-react';
-import { briefingText, todayLabel, type Token } from './data';
+import { useState } from 'react';
+import {
+  Check, ChevronDown, Clock, Download, MessageSquare, RotateCcw, Trash2,
+} from 'lucide-react';
+import { briefingText, todayLabel, type Slot, type Token } from './data';
 import { useLang } from '../../../../lib/i18n';
 
 const ICON_BTN =
@@ -41,6 +44,75 @@ function Piece({ token }: { token: Token }) {
         </span>
       );
   }
+}
+
+/**
+ * One row of the day's schedule. Rows with something behind them expand in
+ * place; the rest are inert and say so by offering no chevron.
+ */
+function ScheduleRow({ slot }: { slot: Slot }) {
+  const [open, setOpen] = useState(false);
+  const expandable = !!(slot.description || slot.goal || slot.task);
+
+  return (
+    <div style={{ marginTop: `${slot.gap}px` }}>
+      <button
+        type="button"
+        onClick={expandable ? () => setOpen((v) => !v) : undefined}
+        className={`group flex w-full items-start gap-3 text-left${
+          expandable ? '' : ' cursor-default'
+        }`}
+      >
+        <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">
+          {slot.time}
+        </span>
+        <span
+          className={`mt-[3px] h-4 w-[3px] shrink-0 rounded-full ${slot.color ?? 'bg-[#3D3D3D]'}`}
+        />
+        <span
+          className={`min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors${
+            expandable ? ' group-hover:text-[#FAFAFA]' : ''
+          }`}
+        >
+          {slot.title}
+        </span>
+        {/* Reserved whether or not a chevron is drawn, so titles line up. */}
+        <span className="w-4 shrink-0 pt-[3px]">
+          {expandable && (
+            <ChevronDown
+              className={`h-4 w-4 text-[#8C8C8C]/50 transition-transform${
+                open ? ' rotate-180' : ''
+              }`}
+            />
+          )}
+        </span>
+      </button>
+
+      {open && (
+        <div className="ml-[131px] mt-2 flex flex-col items-start gap-2">
+          {slot.description && (
+            <p className="text-[14px] leading-relaxed text-[#8C8C8C]">{slot.description}</p>
+          )}
+          {(slot.goal || slot.task) && (
+            <div className="flex max-w-full flex-col items-start gap-1.5 text-[14px]">
+              {slot.goal && (
+                <span className={CHIP}>
+                  <span
+                    className="h-1.5 w-1.5 shrink-0 rounded-[2px]"
+                    style={{ background: slot.goal.color }}
+                  />
+                  <span className="truncate">{slot.goal.label}</span>
+                </span>
+              )}
+              {slot.task && (
+                <span className="cursor-pointer text-[#6699ff] hover:underline">{slot.task}</span>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 /** The scrolling body of the Daily Briefing window. */
@@ -145,20 +217,7 @@ export function BriefingContent() {
           <h4 className={SECTION_H}>{x.scheduleHeading}</h4>
           <div className="flex flex-col">
             {x.schedule.map((slot) => (
-              <div key={slot.title} style={{ marginTop: `${slot.gap}px` }}>
-                <button type="button" className="group flex w-full items-start gap-3 text-left">
-                  <span className="w-[104px] shrink-0 text-[13px] font-medium leading-[22px] tabular-nums text-[#8C8C8C]">
-                    {slot.time}
-                  </span>
-                  <span
-                    className={`min-w-0 flex-1 truncate text-[14px] leading-[22px] text-[#FAFAFA]/85 transition-colors${
-                      slot.dim ? '' : ' group-hover:text-[#FAFAFA]'
-                    }`}
-                  >
-                    {slot.title}
-                  </span>
-                </button>
-              </div>
+              <ScheduleRow key={slot.title} slot={slot} />
             ))}
           </div>
         </section>

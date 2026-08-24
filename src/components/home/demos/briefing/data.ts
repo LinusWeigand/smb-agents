@@ -19,6 +19,19 @@ export type Token =
 const BLUE = 'rgb(96, 165, 250)';
 const GREY = 'rgb(140, 140, 140)';
 
+/** One row of the day's schedule. Detail is optional; a row without any is
+ *  not expandable and renders no chevron. */
+export type Slot = {
+  time: string;
+  title: string;
+  /** Pixels of space above the row — the day's idle time, made visible. */
+  gap: number;
+  color?: string;
+  description?: string;
+  goal?: { label: string; color: string };
+  task?: string;
+};
+
 const t = (text: string): Token => ({ kind: 'text', text });
 const task = (label: string): Token => ({ kind: 'task', label });
 const goal = (label: string, color = BLUE): Token => ({ kind: 'goal', label, color });
@@ -95,12 +108,34 @@ const EN = {
   ],
   scheduleHeading: 'The rest of the day',
   schedule: [
-    { time: '09:30 – 10:30', title: 'Client meeting: Northwind', gap: 0, dim: false },
-    { time: '10:30 – 11:15', title: 'Weekly partner sync', gap: 6, dim: true },
-    { time: '13:30', title: 'Call: broker on the Munich office', gap: 50, dim: false },
-    { time: '15:00 – 16:30', title: 'Contract call: Ardent', gap: 36, dim: false },
-    { time: '17:00 – 17:30', title: 'Onboarding: new account manager', gap: 16, dim: true },
-  ],
+    {
+      time: '09:30 – 10:30',
+      title: 'Client meeting: Northwind',
+      gap: 0,
+      color: 'bg-blue-500',
+      description: 'Walk through the revised pricing tiers and close the open questions.',
+      task: 'Finalize the Northwind pricing proposal',
+    },
+    { time: '10:30 – 11:15', title: 'Weekly partner sync', gap: 6, color: 'bg-purple-500' },
+    {
+      time: '13:30',
+      title: 'Call: broker on the Munich office',
+      gap: 50,
+      color: 'bg-green-500',
+      description:
+        'Square metres and the rent ladder — she wants an answer in the next couple of days.',
+      goal: { label: 'EU market expansion', color: BLUE },
+      task: 'Review the Munich office lease',
+    },
+    {
+      time: '15:00 – 16:30',
+      title: 'Contract call: Ardent',
+      gap: 36,
+      color: 'bg-orange-500',
+      goal: { label: 'Q3 revenue push', color: BLUE },
+    },
+    { time: '17:00 – 17:30', title: 'Onboarding: new account manager', gap: 16 },
+  ] as Slot[],
 };
 
 const DE: typeof EN = {
@@ -173,12 +208,34 @@ const DE: typeof EN = {
   ],
   scheduleHeading: 'Der Rest des Tages',
   schedule: [
-    { time: '09:30 – 10:30', title: 'Kundentermin: Northwind', gap: 0, dim: false },
-    { time: '10:30 – 11:15', title: 'Wöchentliches Partner-Sync', gap: 6, dim: true },
-    { time: '13:30', title: 'Anruf: Makler zum Münchner Büro', gap: 50, dim: false },
-    { time: '15:00 – 16:30', title: 'Vertragsgespräch: Ardent', gap: 36, dim: false },
-    { time: '17:00 – 17:30', title: 'Onboarding: neue Kundenbetreuung', gap: 16, dim: true },
-  ],
+    {
+      time: '09:30 – 10:30',
+      title: 'Kundentermin: Northwind',
+      gap: 0,
+      color: 'bg-blue-500',
+      description: 'Die überarbeiteten Preisstufen durchgehen und die offenen Fragen klären.',
+      task: 'Preisangebot für Northwind finalisieren',
+    },
+    { time: '10:30 – 11:15', title: 'Wöchentliches Partner-Sync', gap: 6, color: 'bg-purple-500' },
+    {
+      time: '13:30',
+      title: 'Anruf: Makler zum Münchner Büro',
+      gap: 50,
+      color: 'bg-green-500',
+      description:
+        'Quadratmeter und Mietstaffel — sie möchte in den nächsten Tagen eine Antwort.',
+      goal: { label: 'Expansion in der EU', color: BLUE },
+      task: 'Mietvertrag für das Münchner Büro prüfen',
+    },
+    {
+      time: '15:00 – 16:30',
+      title: 'Vertragsgespräch: Ardent',
+      gap: 36,
+      color: 'bg-orange-500',
+      goal: { label: 'Umsatzschub Q3', color: BLUE },
+    },
+    { time: '17:00 – 17:30', title: 'Onboarding: neue Kundenbetreuung', gap: 16 },
+  ] as Slot[],
 };
 
 export const briefingText = (lang: Lang) => (lang === 'de' ? DE : EN);

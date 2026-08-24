@@ -31,7 +31,7 @@ export function clientHash(req: VercelRequest): string {
   const fwd = req.headers['x-forwarded-for'];
   const raw = Array.isArray(fwd) ? fwd[0] : fwd;
   const ip = (raw ?? '').split(',')[0]?.trim() || 'unknown';
-  const salt = process.env.THROTTLE_SALT ?? 'orakis-default-salt-set-THROTTLE_SALT';
+  const salt = process.env.THROTTLE_SALT ?? 'neuroneus-default-salt-set-THROTTLE_SALT';
   return createHash('sha256').update(`${salt}:${ip}`).digest('hex');
 }
 

@@ -5,7 +5,7 @@ import { siteUrl } from '../../lib/site';
 /** AGB. Text carried over verbatim; do not reword. */
 export default function TermsOfService() {
   useSeo({
-    title: 'AGB - Orakis',
+    title: 'AGB - Neuroneus',
     description:
       'Allgemeine Geschäftsbedingungen: Geltungsbereich, Leistungen, Nutzerkonto, Pflichten, Haftung und Schlussbestimmungen.',
     canonical: siteUrl('/agb'),
