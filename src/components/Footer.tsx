@@ -33,16 +33,16 @@ export function Footer() {
 
   return (
     <footer className="bg-[#0a0a0a]">
-      <div className="max-w-[1190px] mx-auto px-4 sm:px-6 min-[1240px]:px-0 pt-12 pb-10 lg:pt-16 lg:pb-12">
+      <div className="max-w-[1190px] mx-auto px-4 sm:px-6 min-[1240px]:px-0 pt-10 pb-8 lg:pt-14 lg:pb-10">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 lg:gap-24 items-start">
           <div className="max-w-xs flex flex-col gap-6">
             <a href="/" className="w-fit flex items-center gap-2">
               {/* `is-flat` freezes the shimmer: on the dark footer the animated
                   metal gradient reads as noise, so it renders as a solid mark. */}
-              <div className="neuroneus-icon-shimmer is-flat w-12 h-12" aria-hidden="true" />
+              <div className="neuroneus-icon-shimmer is-flat w-10 h-10 shrink-0" aria-hidden="true" />
               <span
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
-                className="font-bold text-4xl tracking-widest uppercase text-[#F7F7F7]"
+                className="font-bold text-3xl tracking-widest uppercase text-[#F7F7F7] whitespace-nowrap"
               >
                 Neuroneus
               </span>

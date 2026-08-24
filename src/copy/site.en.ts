@@ -155,7 +155,7 @@ export const siteEn = {
       {
         question: 'Who are we?',
         answer:
-          "Neuroneus is a startup currently based in Stuttgart, Germany. We're building the company brain for task and knowledge management.",
+          "Neuroneus is a startup currently based in Munich, Germany. We're building the company brain for task and knowledge management.",
       },
     ],
   },

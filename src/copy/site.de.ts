@@ -157,7 +157,7 @@ export const siteDe = {
       {
         question: 'Wer sind wir?',
         answer:
-          'Neuroneus ist ein Startup mit Sitz in Stuttgart. Wir bauen das Firmengehirn für Aufgaben- und Wissensmanagement.',
+          'Neuroneus ist ein Startup mit Sitz in München. Wir bauen das Firmengehirn für Aufgaben- und Wissensmanagement.',
       },
     ],
   },
@@ -206,7 +206,7 @@ export const siteDe = {
       enterprise: 'Enterprise',
       individual: 'Individuell',
       enterpriseNote: 'Neuroneus in Ihrer gesamten Organisation ausrollen.',
-      letsTalk: 'Sprechen wir',
+      letsTalk: 'Lass uns sprechen',
     },
     trialFeatures: {
       header: 'Ideal für den Einstieg.',
@@ -262,7 +262,7 @@ export const siteDe = {
     seoTitle: 'Gespräch vereinbaren – Neuroneus',
     seoDescription:
       'Sprechen Sie mit dem Gründer und sehen Sie Neuroneus in Aktion: Ziele, Aufgaben, Dokumente und Wissen an einem Ort, mit einer KI, die den Kontext Ihres Teams kennt.',
-    heading: 'Sprechen wir',
+    heading: 'Lass uns sprechen',
     sub: 'Erzählen Sie uns kurz von Ihrer Arbeit, dann finden wir gemeinsam heraus, wo Neuroneus passt.',
     nameLabel: 'Ihr Name *',
     namePlaceholder: 'Vor- und Nachname',
